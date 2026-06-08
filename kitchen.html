@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Harbin Kitchen · 后厨出单</title>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/kitchen.css">
+  <link rel="icon" href="icons/icon-192.png">
+</head>
+<body>
+  <!-- Login Overlay -->
+  <div class="kit-login-overlay" id="kit-login-overlay">
+    <div class="kit-login-box">
+      <div class="kit-login-box__icon">🍳</div>
+      <div class="kit-login-box__title">后厨出单系统</div>
+      <div class="kit-login-box__subtitle">Harbin Kitchen · Køkken</div>
+      <input class="kit-login-box__input" id="kit-password-input" type="password"
+             placeholder="输入密码 / Indtast kode" maxlength="20"
+             onkeydown="if(event.key==='Enter')kitchenLogin()">
+      <button class="kit-login-box__btn" onclick="kitchenLogin()">进入 / Gå ind</button>
+      <div class="kit-login-box__error" id="kit-login-error"></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="kit-header">
+    <div class="kit-header__left">
+      <span class="kit-header__icon">🍳</span>
+      <span class="kit-header__title">后厨出单</span>
+      <span class="kit-header__subtitle">Køkken Ordrer</span>
+    </div>
+    <div class="kit-header__center">
+      <div class="kit-header__clock" id="kit-clock"></div>
+      <div class="kit-header__date" id="kit-date"></div>
+    </div>
+    <div class="kit-header__right">
+      <div class="kit-header__status" id="kit-conn-status">
+        <span class="kit-header__dot kit-header__dot--online" id="kit-conn-dot"></span>
+        <span id="kit-conn-text">在线</span>
+      </div>
+      <button class="kit-header__logout" onclick="kitchenLogout()">退出</button>
+    </div>
+  </header>
+
+  <!-- Stats Bar -->
+  <div class="kit-stats">
+    <div class="kit-stat" class="kit-stat--new">
+      <div class="kit-stat__num" id="kit-stat-new">0</div>
+      <div class="kit-stat__label">新订单<br><span class="kit-stat__da">Nye</span></div>
+    </div>
+    <div class="kit-stat kit-stat--cooking">
+      <div class="kit-stat__num" id="kit-stat-cooking">0</div>
+      <div class="kit-stat__label">制作中<br><span class="kit-stat__da">Tilberedes</span></div>
+    </div>
+    <div class="kit-stat kit-stat--ready">
+      <div class="kit-stat__num" id="kit-stat-ready">0</div>
+      <div class="kit-stat__label">待取餐<br><span class="kit-stat__da">Klar</span></div>
+    </div>
+    <div class="kit-stat kit-stat--empty">
+      <div class="kit-stat__num" id="kit-stat-empty">0</div>
+      <div class="kit-stat__label">待确认<br><span class="kit-stat__da">Venter</span></div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="kit-filters">
+    <button class="kit-filter kit-filter--active" data-filter="all" onclick="kitchenFilter('all', this)">
+      全部 / Alle <span id="kit-filter-all">0</span>
+    </button>
+    <button class="kit-filter" data-filter="new" onclick="kitchenFilter('new', this)">
+      新订单 / Nye <span id="kit-filter-new">0</span>
+    </button>
+    <button class="kit-filter" data-filter="preparing" onclick="kitchenFilter('preparing', this)">
+      制作中 / Tilberedes <span id="kit-filter-preparing">0</span>
+    </button>
+    <button class="kit-filter" data-filter="ready" onclick="kitchenFilter('ready', this)">
+      待取餐 / Klar <span id="kit-filter-ready">0</span>
+    </button>
+  </div>
+
+  <!-- Orders Grid -->
+  <div class="kit-grid" id="kit-grid">
+    <div class="kit-empty" id="kit-empty">
+      <div class="kit-empty__icon">🍽️</div>
+      <div class="kit-empty__text">暂无订单</div>
+      <div class="kit-empty__subtext">Ingen ordrer endnu</div>
+    </div>
+  </div>
+
+  <!-- Order Detail Modal -->
+  <div class="kit-modal-overlay" id="kit-modal-overlay" onclick="closeKitModalOutside(event)">
+    <div class="kit-modal" onclick="event.stopPropagation()">
+      <div class="kit-modal__header" id="kit-modal-header">
+        <div>
+          <div class="kit-modal__order-num" id="kit-modal-order-num"></div>
+          <div class="kit-modal__meta" id="kit-modal-meta"></div>
+        </div>
+        <button class="kit-modal__close" onclick="closeKitModal()">✕</button>
+      </div>
+      <div class="kit-modal__body" id="kit-modal-body"></div>
+      <div class="kit-modal__actions" id="kit-modal-actions"></div>
+    </div>
+  </div>
+
+  <!-- Audio for notification -->
+  <audio id="kit-sound-new" preload="auto">
+    <source src="https://cdn.jsdelivr.net/gh/GoogleChrome/samples@gh-pages/webaudio/audio/hey.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/kitchen.js"></script>
+</body>
+</html>
