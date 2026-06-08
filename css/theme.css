@@ -1,0 +1,68 @@
+/* ============================================================
+   Harbin Kitchen PWA — Theme: Nordic Minimal (Hygge)
+   Change ONLY this file to switch the entire app's look.
+   ============================================================ */
+
+:root {
+  /* ── Brand colours ── */
+  --color-primary:       #2D2A26;
+  --color-primary-light: #4A4540;
+  --color-primary-rgb:   45, 42, 38;
+
+  /* ── Backgrounds ── */
+  --color-bg:            #FAFAF7;
+  --color-bg-warm:       #F5F2ED;
+  --color-bg-card:       #FFFFFF;
+  --color-bg-hover:      #F0EDE8;
+
+  /* ── Accent / Discount ── */
+  --color-accent:        #6B8E23;
+  --color-accent-light:  #F0F4E4;
+  --color-accent-rgb:    107, 142, 35;
+
+  /* ── Text ── */
+  --color-text:          #2D2A26;
+  --color-text-secondary:#8A8580;
+  --color-text-inverse:  #FAFAF7;
+
+  /* ── Borders / Dividers ── */
+  --color-border:        #E8E4DF;
+  --color-divider:       #F0EDE8;
+
+  /* ── Functional ── */
+  --color-success:       #6B8E23;
+  --color-warning:       #D4A574;
+  --color-danger:        #C41E3A;
+
+  /* ── Typography ── */
+  --font-primary:        'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-chinese:        'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-size-xs:        0.75rem;
+  --font-size-sm:        0.8125rem;
+  --font-size-base:      0.9375rem;
+  --font-size-md:        1.0625rem;
+  --font-size-lg:        1.25rem;
+  --font-size-xl:        1.5rem;
+  --font-size-2xl:       1.875rem;
+
+  /* ── Spacing / Radius ── */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm:   0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:   0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg:   0 8px 30px rgba(0,0,0,0.10);
+
+  /* ── Transitions ── */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+
+  /* ── Layout ── */
+  --header-height: 60px;
+  --cart-bar-height: 64px;
+  --max-width: 480px;
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#2D2A26">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Bestil fra Harbin Kitchen – autentisk kinesisk mad">
+
+  <title>Harbin Kitchen – Bestil</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ═══ Welcome / Order Type Page ═══ -->
+  <div class="page active" id="page-welcome">
+    <div class="welcome-page">
+      <div class="welcome-page__logo">Harbin Kitchen <span>哈尔滨厨房</span></div>
+      <div class="welcome-page__sub" id="welcome-sub">Hvordan vil du spise?</div>
+      <div class="welcome-page__cards">
+        <!-- Dine-in -->
+        <div class="welcome-card" onclick="selectOrderType('dinein')">
+          <div class="welcome-card__icon">🍽️</div>
+          <div class="welcome-card__title" id="welcome-dinein-title">Spis her <span>堂食</span></div>
+          <div class="welcome-card__desc" id="welcome-dinein-desc">Sid i restauranten og bestil fra din telefon eller iPad</div>
+        </div>
+        <!-- Takeaway -->
+        <div class="welcome-card" onclick="selectOrderType('takeaway')">
+          <div class="welcome-card__icon">🥡</div>
+          <div class="welcome-card__title" id="welcome-takeaway-title">Afhentning <span>外卖</span></div>
+          <div class="welcome-card__desc" id="welcome-takeaway-desc">Bestil til afhentning – betal i butikken</div>
+          <div class="welcome-card__badge" id="welcome-takeaway-badge">🌱 10% rabat på alle retter (undtagen drikkevarer & saucer)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Header ═══ -->
+  <header class="header" id="main-header" style="display:none">
+    <div class="header__logo" id="header-title">Harbin Kitchen <span>哈尔滨厨房</span></div>
+    <span class="header__order-type" id="header-order-type" onclick="goToWelcome()" style="cursor:pointer" title="Skift spisemåde / 切换用餐方式"></span>
+    <div class="header__spacer"></div>
+    <div class="lang-toggle">
+      <button class="lang-toggle__btn active" data-lang="da" onclick="toggleLang('da')">DA</button>
+      <button class="lang-toggle__btn" data-lang="zh" onclick="toggleLang('zh')">中文</button>
+    </div>
+  </header>
+
+  <!-- ═══ Table Number Row (dine-in only) ═══ -->
+  <div class="table-input-row" id="table-row" style="display:none">
+    <span class="table-input-row__label" id="table-label">Bord nr.</span>
+    <input class="table-input-row__input" type="text" id="table-number" placeholder="12" inputmode="numeric">
+  </div>
+
+  <!-- ═══ Category Nav ═══ -->
+  <nav class="category-nav" id="category-nav" style="display:none"></nav>
+
+  <!-- ═══ Menu Page ═══ -->
+  <div class="page" id="page-menu">
+    <main id="menu-container"></main>
+  </div>
+
+  <!-- ═══ Cart Page ═══ -->
+  <div class="page" id="page-cart">
+    <div class="cart-page">
+      <button class="back-btn" onclick="goBack()">← <span id="back-cart-label">Tilbage</span></button>
+      <h1 class="cart-page__title" id="cart-title">Din kurv</h1>
+      <div id="cart-items"></div>
+      <div id="cart-summary"></div>
+      <button class="submit-btn" id="cart-checkout-btn" onclick="showPage('checkout')">
+        Bestil nu →
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ Checkout Page ═══ -->
+  <div class="page" id="page-checkout">
+    <div class="cart-page">
+      <button class="back-btn" onclick="goBack()">← <span id="back-checkout-label">Tilbage til kurv</span></button>
+      <h1 class="cart-page__title" id="checkout-title">Bestilling</h1>
+
+      <div id="checkout-summary-inline"></div>
+
+      <form class="order-form" id="checkout-form" onsubmit="submitOrder(event)">
+        <div class="order-form__group">
+          <label class="order-form__label" for="cust-name">Navn *</label>
+          <input class="order-form__input" type="text" id="cust-name" required placeholder="Dit navn">
+        </div>
+        <div class="order-form__group" id="phone-group">
+          <label class="order-form__label" for="cust-phone">Telefon *</label>
+          <input class="order-form__input" type="tel" id="cust-phone" placeholder="+45 12 34 56 78">
+        </div>
+        <div class="order-form__group" id="pickup-time-group">
+          <label class="order-form__label" for="pickup-time">Afhentningstid</label>
+          <input class="order-form__input" type="time" id="pickup-time">
+        </div>
+        <div class="order-form__group">
+          <label class="order-form__label" for="cust-notes">Bemærkninger</label>
+          <textarea class="order-form__input order-form__textarea" id="cust-notes" placeholder="Allergier, særlige ønsker…"></textarea>
+        </div>
+        <div id="checkout-error" style="color:var(--color-danger);font-size:var(--font-size-sm);margin-bottom:8px;"></div>
+        <button class="submit-btn" type="submit">Bekræft bestilling ✓</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══ Confirmation Page ═══ -->
+  <div class="page" id="page-confirm">
+    <div class="order-confirm">
+      <div class="order-confirm__icon">✅</div>
+      <div class="order-confirm__title">Bestilling modtaget!</div>
+      <div class="order-confirm__number">HK-XXXX</div>
+      <div class="order-confirm__desc">Tak! Din bestilling er modtaget.</div>
+      <button class="order-confirm__btn" onclick="showPage('menu')">Tilbage til menu</button>
+    </div>
+  </div>
+
+  <!-- ═══ Cart Bar ═══ -->
+  <div class="cart-bar hidden" id="cart-bar" onclick="openCart()">
+    <div class="cart-bar__icon">
+      🛒
+      <span class="cart-bar__count" id="cart-count">0</span>
+    </div>
+    <div class="cart-bar__text" id="cart-bar-text">Se kurv</div>
+    <div class="cart-bar__total" id="cart-total">0 kr.</div>
+    <div class="cart-bar__arrow">›</div>
+  </div>
+
+  <!-- ═══ Preorder Confirm Modal ═══ -->
+  <div class="modal-overlay" id="preorder-modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-box__icon">⏰</div>
+      <div class="modal-box__title" id="modal-title">Forud bestilling</div>
+      <div class="modal-box__text" id="modal-text">Denne ret skal bestilles i forvejen.</div>
+      <div class="modal-box__actions">
+        <button class="modal-box__btn modal-box__btn--cancel" id="modal-cancel" onclick="cancelPreorder()">Annuller</button>
+        <button class="modal-box__btn modal-box__btn--confirm" id="modal-confirm" onclick="confirmPreorder()">Forstået</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Scripts (order matters) -->
+<script src="js/menu-data.js"></script>
+<script src="js/discount.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
