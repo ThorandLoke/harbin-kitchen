@@ -849,57 +849,21 @@ const MENU_DATA = [
     "items": [
       {
         "id": "preorder_1",
-        "name_da": "Sprødstegt hel fisk i sur-sød sauce",
-        "name_zh": "松鼠全鱼",
-        "description_da": "Hel fisk friteret og serveret med klassisk sur-sød sauce. Skal bestilles 1 dag i forvejen.",
-        "description_zh": "整条炸鱼配经典酸甜酱汁。需提前1天预约。",
+        "name_da": "Hongshao hel fisk (braiseret fisk)",
+        "name_zh": "红烧全鱼",
+        "description_da": "Hel fisk braiseret i sojasauce og krydderier. Skal bestilles 1 dag i forvejen.",
+        "description_zh": "整条鱼红烧做法，酱香浓郁。需提前1天预约。",
         "price": 368,
         "lead_days": 1
       },
       {
         "id": "preorder_2",
-        "name_da": "Braiseret hel fisk Sichuan-stil",
-        "name_zh": "水煮全鱼",
-        "description_da": "Hel fisk i Sichuan-peber chili bouillon. Skal bestilles 1 dag i forvejen.",
-        "description_zh": "整条鱼配川味麻辣汤底。需提前1天预约。",
-        "price": 368,
-        "lead_days": 1
-      },
-      {
-        "id": "preorder_3",
-        "name_da": "Peking-and (hel)",
-        "name_zh": "北京烤鸭（整只）",
-        "description_da": "Klassisk Peking-and med tynde pandekager, forårsløg og hoisin-sauce. Skal bestilles 1 dag i forvejen.",
-        "description_zh": "经典北京烤鸭配薄饼、葱丝和甜面酱。需提前1天预约。",
-        "price": 498,
-        "lead_days": 1
-      },
-      {
-        "id": "preorder_4",
         "name_da": "Kinesisk lu-mødt kød plade",
         "name_zh": "卤味拼盘",
         "description_da": "Assorteret kinesisk braiseret kød: okse, svineører, kyllingefødder m.m. Skal bestilles 3 dage i forvejen.",
         "description_zh": "中式卤味拼盘：卤牛肉、猪耳、鸡爪等。需提前3天预约。",
         "price": 298,
         "lead_days": 3
-      },
-      {
-        "id": "preorder_5",
-        "name_da": "Svinesteg hel knæk",
-        "name_zh": "脆皮烧肉（整块）",
-        "description_da": "Sprød svinebryst med saftigt kød. Skal bestilles 2 dage i forvejen.",
-        "description_zh": "皮脆肉嫩的烧肉。需提前2天预约。",
-        "price": 398,
-        "lead_days": 2
-      },
-      {
-        "id": "preorder_6",
-        "name_da": "Hel lammebov braiseret",
-        "name_zh": "红焖羊排（整份）",
-        "description_da": "Mør braiseret lammeskulder med rodfrugter. Skal bestilles 2 dage i forvejen.",
-        "description_zh": "焖羊排配根茎蔬菜。需提前2天预约。",
-        "price": 458,
-        "lead_days": 2
       }
     ]
   }

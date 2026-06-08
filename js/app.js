@@ -13,12 +13,29 @@ let pendingPreorderItem = null; // { itemId, categoryId }
 // ── Init ──
 document.addEventListener('DOMContentLoaded', async () => {
   await loadMenuData();
-  // Restore previous order type if exists
-  const savedType = getOrderType();
-  if (savedType) {
-    selectOrderType(savedType, true);
+
+  // Check URL params for QR code scan (e.g. ?type=dinein&table=5)
+  const params = new URLSearchParams(window.location.search);
+  const urlType = params.get('type');
+  const urlTable = params.get('table');
+
+  if (urlType === 'dinein' && urlTable) {
+    // QR scan: auto enter dine-in with table number
+    document.getElementById('table-number').value = urlTable;
+    selectOrderType('dinein', true);
+    // Clean URL without reloading
+    window.history.replaceState({}, '', window.location.pathname);
+  } else if (urlType === 'takeaway') {
+    selectOrderType('takeaway', true);
+    window.history.replaceState({}, '', window.location.pathname);
   } else {
-    updateWelcomeText();
+    // Normal flow: restore or show welcome
+    const savedType = getOrderType();
+    if (savedType) {
+      selectOrderType(savedType, true);
+    } else {
+      updateWelcomeText();
+    }
   }
   registerSW();
 });
@@ -57,7 +74,7 @@ function updateWelcomeText() {
   document.getElementById('welcome-takeaway-badge').textContent = da ? '🌱 10% rabat på alle retter (undtagen drikkevarer & saucer)' : '🌱 全场菜品10%折扣（酒水和酱料除外）';
   document.getElementById('welcome-preorder-title').innerHTML = da ? 'Forud bestilling <span>需预约</span>' : '需预约 <span>Forud bestilling</span>';
   document.getElementById('welcome-preorder-desc').textContent = da ? 'Retter der skal bestilles 1–3 dage i forvejen' : '需要提前1-3天预约的菜品';
-  document.getElementById('welcome-preorder-badge').textContent = da ? '🐟 Hel fisk · 🦆 Peking-and · 🍖 Lu-mødt' : '🐟 全鱼 · 🦆 烤鸭 · 🍖 卤味';
+  document.getElementById('welcome-preorder-badge').textContent = da ? '🐟 Hongshao fisk · 🍖 Lu-mødt' : '🐟 红烧全鱼 · 🍖 卤味拼盘';
 }
 
 function selectOrderType(type, silent) {
