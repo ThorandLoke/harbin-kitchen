@@ -88,13 +88,9 @@ function selectOrderType(type, silent) {
 }
 
 function updateOrderTypeIndicator() {
-  const el = document.getElementById('header-order-type');
-  const type = getOrderType();
-  if (type === 'dinein') {
-    el.innerHTML = currentLang === 'zh' ? '🍽️ 堂食' : '🍽️ Spis her';
-  } else if (type === 'takeaway') {
-    el.innerHTML = currentLang === 'zh' ? '🥡 外卖 -10%' : '🥡 Afhentning -10%';
-  }
+  const homeBtn = document.getElementById('header-order-type');
+  homeBtn.innerHTML = '🏠';
+  homeBtn.title = currentLang === 'zh' ? '返回主页' : 'Tilbage til start';
 }
 
 function updateCheckoutForm() {
