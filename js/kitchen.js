@@ -3,7 +3,7 @@
 // ============================================
 
 // ── Config ──
-const KITCHEN_PASSWORD = 'harbin2024';  // 与 admin 同密码，可单独修改
+const KITCHEN_PASSWORD = 'harbin2026';  // 与 admin 同密码，可单独修改
 const KITCHEN_ALERT_SOUND = true;
 
 // ── State ──

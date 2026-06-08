@@ -9,7 +9,7 @@ let currentFilter = 'all';
 let soundEnabled = true;
 let passwordVerified = false;
 
-const ADMIN_PASSWORD = 'harbin2024'; // 管理密码，可在 supabase-config.js 旁修改
+const ADMIN_PASSWORD = 'harbin2026'; // 管理密码，可在 supabase-config.js 旁修改
 // ── Password Check ──
 function checkPassword() {
   const input = document.getElementById('admin-password').value;

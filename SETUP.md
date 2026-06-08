@@ -115,10 +115,10 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp...';
 找到第 1 行附近的：
 
 ```javascript
-const ADMIN_PASSWORD = 'harbin2024'; // 改成你自己的密码
+const ADMIN_PASSWORD = 'harbin2026'; // 改成你自己的密码
 ```
 
-把 `harbin2024` 改成只有你和员工知道的密码，保存并推送。
+把 `harbin2026` 改成只有你和员工知道的密码，保存并推送。
 
 ---
 
