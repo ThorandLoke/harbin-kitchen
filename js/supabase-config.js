@@ -14,8 +14,8 @@
  * ===================================================
  */
 
-const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+const SUPABASE_URL = 'https://glfmoqfevyeeuqbihjht.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdsZm1vcWZldnllZXVxYmloamh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5MTI4NDMsImV4cCI6MjA5NjQ4ODg0M30.p8WzztmQAPQQNfzOxVqBBcKSg2ONhk8_4ptsMxrPnmk';
 
 // ── SQL Schema (run this in Supabase SQL Editor) ──
 //
