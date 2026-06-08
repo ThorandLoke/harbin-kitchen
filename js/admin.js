@@ -7,9 +7,9 @@ let supabaseClient = null;
 let allOrders = [];
 let currentFilter = 'all';
 let soundEnabled = true;
-let passwordVerified = false;
+let passwordVerified = true; // 密码已移除，后期再加
 
-const ADMIN_PASSWORD = 'harbin2026'; // 管理密码，可在 supabase-config.js 旁修改
+const ADMIN_PASSWORD = 'harbin2026'; // 保留常量，后期加密用
 // ── Password Check ──
 function checkPassword() {
   const input = document.getElementById('admin-password').value;
@@ -24,14 +24,9 @@ function checkPassword() {
   }
 }
 
-// Allow Enter key to submit password
+// ── Auto-init (password removed, will re-add later) ──
 document.addEventListener('DOMContentLoaded', () => {
-  const pwdInput = document.getElementById('admin-password');
-  if (pwdInput) {
-    pwdInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') checkPassword();
-    });
-  }
+  initSupabase();
 });
 
 // ── Supabase Init ──

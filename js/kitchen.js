@@ -427,13 +427,10 @@ function toggleKitchenSound() {
   btn.classList.toggle('muted', !soundEnabled);
 }
 
-// ── Auto-init on load ──
+// ── Auto-init on load (password removed, will re-add later) ──
 (function() {
-  // Check if already logged in
-  if (localStorage.getItem('kitchen_auth') === '1') {
-    document.getElementById('kit-login-overlay').style.display = 'none';
-    initKitchen();
-  }
+  // No login required — direct init
+  initKitchen();
   // Add sound toggle button
   let btn = document.createElement('button');
   btn.id = 'kit-sound-toggle';
