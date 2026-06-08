@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#2D2A26">
+  <title>东北小炒 · 订单管理</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ═══ Password Screen ═══ -->
+<div id="password-screen" class="pwd-screen">
+  <div class="pwd-box">
+    <div class="pwd-box__icon">🔒</div>
+    <h1 class="pwd-box__title">东北小炒 · 订单管理</h1>
+    <p class="pwd-box__sub">Harbin Kitchen — Order Management</p>
+    <input class="pwd-box__input" type="password" id="admin-password" placeholder="请输入管理密码" autofocus>
+    <button class="pwd-box__btn" onclick="checkPassword()">进入管理</button>
+    <div class="pwd-box__error" id="pwd-error"></div>
+  </div>
+</div>
+
+<!-- ═══ Main Admin UI ═══ -->
+<div id="admin-main" class="admin-main" style="display:none">
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="admin-header__left">
+      <h1 class="admin-header__title">🍜 东北小炒 · 订单管理</h1>
+      <span class="admin-header__live" id="live-dot">● 实时连接中</span>
+    </div>
+    <div class="admin-header__right">
+      <button class="sound-btn" id="sound-btn" onclick="toggleSound()">🔔 声音 ON</button>
+    </div>
+  </header>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-card stat--new">
+      <div class="stat-card__count" id="stat-new">0</div>
+      <div class="stat-card__label">🆕 新订单</div>
+    </div>
+    <div class="stat-card stat--preparing">
+      <div class="stat-card__count" id="stat-preparing">0</div>
+      <div class="stat-card__label">🍳 制作中</div>
+    </div>
+    <div class="stat-card stat--ready">
+      <div class="stat-card__count" id="stat-ready">0</div>
+      <div class="stat-card__label">✅ 待取餐</div>
+    </div>
+    <div class="stat-card stat--completed">
+      <div class="stat-card__count" id="stat-completed">0</div>
+      <div class="stat-card__label">✔ 已完成</div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">全部</button>
+    <button class="filter-btn" data-filter="new" onclick="setFilter('new')">🆕 新订单</button>
+    <button class="filter-btn" data-filter="preparing" onclick="setFilter('preparing')">🍳 制作中</button>
+    <button class="filter-btn" data-filter="ready" onclick="setFilter('ready')">✅ 待取餐</button>
+    <button class="filter-btn" data-filter="completed" onclick="setFilter('completed')">✔ 已完成</button>
+  </div>
+
+  <!-- Orders List -->
+  <div class="orders-list" id="orders-list">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-state__icon">📋</div>
+      <div class="empty-state__text">暂无订单</div>
+      <div class="empty-state__sub">新订单将实时出现在这里</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

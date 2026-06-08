@@ -112,6 +112,10 @@
           <label class="order-form__label" for="cust-phone">Telefon *</label>
           <input class="order-form__input" type="tel" id="cust-phone" placeholder="+45 12 34 56 78">
         </div>
+        <div class="order-form__group" id="guest-count-group" style="display:none">
+          <label class="order-form__label" for="guest-count" id="guest-count-label">Antal gæster / 人数</label>
+          <input class="order-form__input" type="number" id="guest-count" min="1" max="20" placeholder="2">
+        </div>
         <div class="order-form__group" id="pickup-time-group">
           <label class="order-form__label" for="pickup-time">Afhentningstid</label>
           <input class="order-form__input" type="time" id="pickup-time">
@@ -164,6 +168,8 @@
 </div>
 
 <!-- Scripts (order matters) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
 <script src="js/menu-data.js"></script>
 <script src="js/discount.js"></script>
 <script src="js/cart.js"></script>

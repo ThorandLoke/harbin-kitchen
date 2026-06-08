@@ -167,18 +167,21 @@ function updateCheckoutForm() {
   const type = getOrderType();
   const phoneGroup = document.getElementById('phone-group');
   const pickupGroup = document.getElementById('pickup-time-group');
+  const guestCountGroup = document.getElementById('guest-count-group');
 
   if (type === 'dinein') {
-    // Dine-in: phone optional, no pickup time
+    // Dine-in: phone optional, no pickup time, show guest count
     phoneGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '电话（可选）' : 'Telefon';
     document.getElementById('cust-phone').removeAttribute('required');
     pickupGroup.style.display = 'none';
+    guestCountGroup.style.display = '';
   } else {
-    // Takeaway: phone required, pickup time shown
+    // Takeaway: phone required, pickup time shown, hide guest count
     phoneGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '电话 *' : 'Telefon *';
     document.getElementById('cust-phone').setAttribute('required', '');
     pickupGroup.style.display = '';
     pickupGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '取餐时间' : 'Afhentningstid';
+    guestCountGroup.style.display = 'none';
   }
 }
 
@@ -488,6 +491,7 @@ function submitOrder(e) {
   const pickupTime = document.getElementById('pickup-time').value;
   const notes = document.getElementById('cust-notes').value.trim();
   const tableNum = document.getElementById('table-number').value.trim();
+  const guestCount = document.getElementById('guest-count').value.trim();
   const type = getOrderType();
 
   if (!name) {
@@ -509,6 +513,7 @@ function submitOrder(e) {
     orderNumber,
     orderType: type,
     table: type === 'dinein' ? tableNum : null,
+    guestCount: type === 'dinein' && guestCount ? parseInt(guestCount) : null,
     customer: { name, phone, pickupTime, notes },
     items: enriched.map((c) => ({
       id: c.itemId,
@@ -520,12 +525,19 @@ function submitOrder(e) {
       lead_days: c.item.lead_days || 0
     })),
     totals,
+    status: 'new',
     createdAt: new Date().toISOString()
   };
 
+  // Save to localStorage (customer history)
   const orders = JSON.parse(localStorage.getItem('harbin_orders') || '[]');
   orders.push(order);
   localStorage.setItem('harbin_orders', JSON.stringify(orders));
+
+  // Submit to Supabase (if configured)
+  submitOrderToSupabase(order).catch(() => {
+    // Silently fail — localStorage fallback already saved
+  });
 
   clearCart();
   showOrderConfirmation(order);
@@ -542,6 +554,9 @@ function showOrderConfirmation(order) {
   let details = '';
   if (type === 'dinein' && order.table) {
     details += (da ? `Bord: ${order.table}` : `桌号：${order.table}`) + '<br>';
+  }
+  if (type === 'dinein' && order.guestCount) {
+    details += (da ? `Antal gæster: ${order.guestCount}` : `人数：${order.guestCount}`) + '<br>';
   }
   if (type === 'takeaway') {
     const pickupVal = order.customer.pickupTime || (da ? 'Så hurtigt som muligt' : '尽快');
@@ -586,6 +601,38 @@ function showOrderConfirmation(order) {
 function backToMenu() {
   showPage('menu');
   renderApp();
+}
+
+// ═══════════════════════════════════════
+// Supabase Order Submission
+// ═══════════════════════════════════════
+
+async function submitOrderToSupabase(order) {
+  if (typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL || SUPABASE_URL.includes('YOUR_')) {
+    return; // Supabase not configured, skip
+  }
+
+  const { createClient } = supabase;
+  const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const payload = {
+    order_number: order.orderNumber,
+    order_type: order.orderType,
+    table_number: order.table,
+    guest_count: order.guestCount,
+    customer_name: order.customer.name,
+    customer_phone: order.customer.phone || null,
+    pickup_time: order.customer.pickupTime || null,
+    notes: order.customer.notes || null,
+    items: order.items,
+    subtotal: order.totals.subtotal,
+    discount: order.totals.totalDiscount,
+    total: order.totals.total,
+    status: 'new'
+  };
+
+  const { error } = await client.from('orders').insert(payload);
+  if (error) throw error;
 }
 
 function updateHeader() {

@@ -1,0 +1,400 @@
+/* ============================================================
+   Admin Dashboard Styles — Harbin Kitchen
+   Style B: Nordic Minimal
+   ============================================================ */
+
+/* ── Password Screen ── */
+.pwd-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding: 24px;
+}
+
+.pwd-box {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 48px 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.pwd-box__icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.pwd-box__title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+
+.pwd-box__sub {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 24px;
+}
+
+.pwd-box__input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-md);
+  font-family: var(--font-sans);
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.pwd-box__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.pwd-box__btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.pwd-box__btn:hover { opacity: 0.85; }
+
+.pwd-box__error {
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+  margin-top: 12px;
+  min-height: 20px;
+}
+
+/* ── Admin Main ── */
+.admin-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  padding-bottom: 80px;
+}
+
+/* ── Header ── */
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1.5px solid var(--color-border);
+}
+
+.admin-header__title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.admin-header__live {
+  font-size: var(--font-size-xs);
+  color: var(--color-success);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.sound-btn {
+  padding: 6px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sound-btn:hover { background: var(--color-bg); }
+.sound-btn.muted { opacity: 0.5; }
+
+/* ── Stats Bar ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+}
+
+.stat-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border-top: 3px solid transparent;
+}
+
+.stat--new { border-top-color: #E74C3C; }
+.stat--preparing { border-top-color: #F39C12; }
+.stat--ready { border-top-color: var(--color-success); }
+.stat--completed { border-top-color: var(--color-text-secondary); }
+
+.stat-card__count {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.stat-card__label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Filter Bar ── */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-surface);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--color-text-secondary);
+}
+
+.filter-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.filter-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+/* ── Orders List ── */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Order Card ── */
+.order-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.order-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.order-card__id {
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  font-family: 'Courier New', monospace;
+}
+
+.order-card__status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.order-card__status--new {
+  background: #FDECEA;
+  color: #E74C3C;
+}
+
+.order-card__status--preparing {
+  background: #FEF5E7;
+  color: #F39C12;
+}
+
+.order-card__status--ready {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.order-card__status--completed {
+  background: #F0F0F0;
+  color: #999;
+}
+
+.order-card__meta {
+  display: flex;
+  gap: 16px;
+  padding: 12px 18px;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-card__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.order-card__customer {
+  padding: 12px 18px;
+  font-size: var(--font-size-sm);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-card__customer-name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.order-card__customer-phone {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.order-card__customer-phone:hover { text-decoration: underline; }
+
+.order-card__items {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-card__item {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  padding: 3px 0;
+  color: var(--color-text);
+}
+
+.order-card__item-qty {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.order-card__total {
+  padding: 10px 18px;
+  text-align: right;
+  font-weight: 700;
+  font-size: var(--font-size-md);
+  color: var(--color-primary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.order-card__time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.order-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.order-card__action-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.order-card__action-btn:hover { opacity: 0.85; }
+
+.order-card__action-btn--next {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.order-card__action-btn--cancel {
+  background: transparent;
+  color: var(--color-danger);
+  border: 1.5px solid var(--color-danger);
+}
+
+/* ── Empty State ── */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-state__icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.empty-state__text {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.empty-state__sub {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Table number badge ── */
+.order-card__table-badge {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
