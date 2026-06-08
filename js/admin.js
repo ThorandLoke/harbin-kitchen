@@ -10,7 +10,6 @@ let soundEnabled = true;
 let passwordVerified = false;
 
 const ADMIN_PASSWORD = 'harbin2024'; // 管理密码，可在 supabase-config.js 旁修改
-
 // ── Password Check ──
 function checkPassword() {
   const input = document.getElementById('admin-password').value;
@@ -116,6 +115,8 @@ function subscribeToOrders() {
           updateStats();
           renderOrders();
           if (soundEnabled) playNotificationSound();
+          // Auto-print receipt + kitchen ticket
+          autoPrintOrder(formatOrderForPrinter(newOrder));
         }
       }
     )
@@ -217,6 +218,10 @@ function renderOrderCard(order) {
     actionsHTML += `<button class="order-card__action-btn order-card__action-btn--next" onclick="updateStatus('${order.order_number}', 'completed')">已取餐 · 完成</button>`;
   }
 
+  // Print buttons (always available)
+  actionsHTML += `<button class="order-card__action-btn order-card__action-btn--print" onclick="reprintReceipt('${order.order_number}')" title="打印水单">🖨️ 水单</button>`;
+  actionsHTML += `<button class="order-card__action-btn order-card__action-btn--print" onclick="reprintKitchen('${order.order_number}')" title="打印后厨单">🍳 后厨单</button>`;
+
   // Notes
   const notesHTML = order.notes
     ? `<div style="padding:6px 18px;font-size:var(--font-size-xs);color:var(--color-text-secondary);border-bottom:1px solid var(--color-border);">📝 ${escapeHTML(order.notes)}</div>`
@@ -317,4 +322,108 @@ function escapeHTML(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
+}
+
+// ═══════════════════════════════════════════════════════
+// PRINTER INTEGRATION
+// ═══════════════════════════════════════════════════════
+
+async function connectPrinter() {
+  const btn = document.getElementById('printer-btn');
+  btn.textContent = '⏳ 连接中...';
+  btn.disabled = true;
+
+  try {
+    await Printer.connect();
+    btn.style.display = 'none';
+    document.getElementById('printer-bar').style.display = '';
+    // Auto-print is on by default
+    Printer.setAutoPrint(true);
+  } catch (err) {
+    btn.textContent = '🖨️ 连接打印机';
+    btn.disabled = false;
+    alert('打印机连接失败：' + err.message);
+  }
+}
+
+async function disconnectPrinter() {
+  await Printer.disconnect();
+  document.getElementById('printer-bar').style.display = 'none';
+  document.getElementById('printer-btn').style.display = '';
+  document.getElementById('printer-btn').textContent = '🖨️ 连接打印机';
+  document.getElementById('printer-btn').disabled = false;
+}
+
+// Auto-print when new order arrives
+function autoPrintOrder(order) {
+  if (!Printer.getIsConnected() || !Printer.getAutoPrint()) return;
+  Printer.printBoth(order).catch(err => {
+    console.error('Auto-print failed:', err);
+  });
+}
+
+// Manual print buttons
+async function reprintReceipt(orderNumber) {
+  const order = allOrders.find(o => o.order_number === orderNumber);
+  if (!order) return;
+  const formattedOrder = formatOrderForPrinter(order);
+
+  if (Printer.getIsConnected()) {
+    try {
+      await Printer.printReceipt(formattedOrder);
+    } catch (err) {
+      alert('打印失败：' + err.message);
+    }
+  } else {
+    Printer.browserPrintReceipt(formattedOrder);
+  }
+}
+
+async function reprintKitchen(orderNumber) {
+  const order = allOrders.find(o => o.order_number === orderNumber);
+  if (!order) return;
+  const formattedOrder = formatOrderForPrinter(order);
+
+  if (Printer.getIsConnected()) {
+    try {
+      await Printer.printKitchenTicket(formattedOrder);
+    } catch (err) {
+      alert('打印失败：' + err.message);
+    }
+  } else {
+    Printer.browserPrintKitchenTicket(formattedOrder);
+  }
+}
+
+// Convert Supabase order format → printer module format
+function formatOrderForPrinter(order) {
+  const items = typeof order.items === 'string' ? JSON.parse(order.items) : (order.items || []);
+  return {
+    orderNumber: order.order_number || order.orderNumber,
+    orderType: order.order_type || order.orderType || 'takeaway',
+    table: order.table_number || order.table,
+    guestCount: order.guest_count || order.guestCount,
+    customer: {
+      name: order.customer_name || '',
+      phone: order.customer_phone || '',
+      pickupTime: order.pickup_time || '',
+      notes: order.notes || ''
+    },
+    items: items.map(i => ({
+      qty: i.qty || 1,
+      name_zh: i.name_zh || '',
+      name_da: i.name_da || '',
+      name: i.name_zh || i.name_da || '',
+      unitPrice: i.unitPrice || 0,
+      lineTotal: i.lineTotal || 0,
+      notes: i.notes || '',
+      lead_days: i.lead_days || 0
+    })),
+    totals: {
+      subtotal: order.subtotal || 0,
+      totalDiscount: order.discount || 0,
+      total: order.total || 0
+    },
+    createdAt: order.created_at || order.createdAt || new Date().toISOString()
+  };
 }

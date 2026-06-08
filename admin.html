@@ -33,9 +33,23 @@
       <span class="admin-header__live" id="live-dot">● 实时连接中</span>
     </div>
     <div class="admin-header__right">
+      <button class="printer-btn" id="printer-btn" onclick="connectPrinter()">🖨️ 连接打印机</button>
       <button class="sound-btn" id="sound-btn" onclick="toggleSound()">🔔 声音 ON</button>
     </div>
   </header>
+
+  <!-- Printer Status Bar -->
+  <div class="printer-bar" id="printer-bar" style="display:none">
+    <span class="printer-bar__status" id="printer-status">
+      <span class="printer-bar__dot printer-bar__dot--on"></span> 打印机已连接
+    </span>
+    <label class="printer-bar__auto">
+      <input type="checkbox" id="auto-print-check" checked onchange="Printer.setAutoPrint(this.checked)">
+      自动打印新订单
+    </label>
+    <button class="printer-bar__test" onclick="Printer.testPrint()">测试打印</button>
+    <button class="printer-bar__disconnect" onclick="disconnectPrinter()">断开</button>
+  </div>
 
   <!-- Stats Bar -->
   <div class="stats-bar">
@@ -78,6 +92,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
+<script src="js/printer.js"></script>
 <script src="js/admin.js"></script>
 </body>
 </html>
