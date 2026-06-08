@@ -10,8 +10,7 @@ const MENU_DATA = [
         "name_da": "Snackkurv (til 2 personer)",
         "name_zh": "前餐拼盘",
         "description_da": "2人份，包含4个迷你春卷、4个天妇罗虾、4个鸡肉炸饺、虾片",
-        "price": 128,
-        "image": "images/forretter_1.jpg"
+        "price": 128
       },
       {
         "id": "forretter_2",
@@ -19,7 +18,7 @@ const MENU_DATA = [
         "name_zh": "小春卷",
         "description_da": "素食",
         "price": 48,
-        "image": "images/forretter_2.jpg"
+        "image": "images/forretter_1.jpg"
       },
       {
         "id": "forretter_3",
@@ -27,7 +26,7 @@ const MENU_DATA = [
         "name_zh": "牛肉春卷",
         "description_da": "馅料为碎牛肉和圆白菜",
         "price": 58,
-        "image": "images/forretter_3.png"
+        "image": "images/forretter_2.jpg"
       },
       {
         "id": "forretter_4",
@@ -35,7 +34,7 @@ const MENU_DATA = [
         "name_zh": "鸭春卷",
         "description_da": "馅料为碎鸭肉和圆白菜",
         "price": 58,
-        "image": "images/forretter_4.webp"
+        "image": "images/forretter_3.png"
       },
       {
         "id": "forretter_5",
@@ -43,7 +42,7 @@ const MENU_DATA = [
         "name_zh": "日本炸虾",
         "description_da": "",
         "price": 58,
-        "image": "images/forretter_5.jpg"
+        "image": "images/forretter_4.webp"
       },
       {
         "id": "forretter_6",
@@ -51,7 +50,7 @@ const MENU_DATA = [
         "name_zh": "炸鸡块",
         "description_da": "",
         "price": 58,
-        "image": "images/forretter_6.png"
+        "image": "images/forretter_5.jpg"
       },
       {
         "id": "forretter_7",
@@ -59,7 +58,7 @@ const MENU_DATA = [
         "name_zh": "炸鸡肉饺子",
         "description_da": "",
         "price": 58,
-        "image": "images/forretter_7.jpg"
+        "image": "images/forretter_6.png"
       },
       {
         "id": "forretter_8",
@@ -67,7 +66,7 @@ const MENU_DATA = [
         "name_zh": "红油水饺",
         "description_da": "馅料为碎猪肉和韭菜，辣味",
         "price": 58,
-        "image": "images/forretter_8.jpg"
+        "image": "images/forretter_7.jpg"
       },
       {
         "id": "forretter_9",
@@ -75,7 +74,7 @@ const MENU_DATA = [
         "name_zh": "东北水饺",
         "description_da": "馅料为碎猪肉和韭菜",
         "price": 128,
-        "image": "images/forretter_9.jpg"
+        "image": "images/forretter_8.jpg"
       },
       {
         "id": "forretter_10",
