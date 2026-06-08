@@ -81,7 +81,8 @@ const MENU_DATA = [
         "name_da": "Rejer Chips",
         "name_zh": "虾片",
         "description_da": "",
-        "price": 18
+        "price": 18,
+        "image": "images/forretter_10.jpg"
       }
     ]
   },
