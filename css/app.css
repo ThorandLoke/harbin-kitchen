@@ -762,6 +762,11 @@ body {
   border-radius: var(--radius-full);
 }
 
+.welcome-card--preorder .welcome-card__badge {
+  background: #FFF3E0;
+  color: #E65100;
+}
+
 /* ── Table Number Input (inline) ── */
 .table-input-row {
   display: flex;

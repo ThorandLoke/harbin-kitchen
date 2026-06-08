@@ -55,9 +55,27 @@ function updateWelcomeText() {
   document.getElementById('welcome-takeaway-title').innerHTML = da ? 'Afhentning <span>外卖</span>' : '外卖 <span>Afhentning</span>';
   document.getElementById('welcome-takeaway-desc').textContent = da ? 'Bestil til afhentning – betal i butikken' : '点外卖到店取餐付款';
   document.getElementById('welcome-takeaway-badge').textContent = da ? '🌱 10% rabat på alle retter (undtagen drikkevarer & saucer)' : '🌱 全场菜品10%折扣（酒水和酱料除外）';
+  document.getElementById('welcome-preorder-title').innerHTML = da ? 'Forud bestilling <span>需预约</span>' : '需预约 <span>Forud bestilling</span>';
+  document.getElementById('welcome-preorder-desc').textContent = da ? 'Retter der skal bestilles 1–3 dage i forvejen' : '需要提前1-3天预约的菜品';
+  document.getElementById('welcome-preorder-badge').textContent = da ? '🐟 Hel fisk · 🦆 Peking-and · 🍖 Lu-mødt' : '🐟 全鱼 · 🦆 烤鸭 · 🍖 卤味';
 }
 
 function selectOrderType(type, silent) {
+  // 'preorder' → ask dine-in or takeaway first, then go to preorder category
+  if (type === 'preorder') {
+    const da = currentLang === 'da';
+    const choice = prompt(
+      da ? 'Spis her eller afhentning?\n\nTast 1 = Spis her (堂食)\nTast 2 = Afhentning -10% (外卖)' : '堂食还是外卖？\n\n输入 1 = 堂食 (Spis her)\n输入 2 = 外卖 -10% (Afhentning)',
+      da ? '1' : '1'
+    );
+    if (choice === '2') {
+      selectOrderTypeAndJump('takeaway', 'forud_bestilling', silent);
+    } else if (choice === '1' || choice !== null) {
+      selectOrderTypeAndJump('dinein', 'forud_bestilling', silent);
+    }
+    return;
+  }
+
   setOrderType(type);
   currentPage = 'menu';
 
@@ -75,16 +93,43 @@ function selectOrderType(type, silent) {
     tableRow.style.display = 'none';
   }
 
-  // Update header order type indicator
   updateOrderTypeIndicator();
   updateCheckoutForm();
   renderApp();
 
   if (!silent) {
-    // Clear cart when switching order type
     clearCart();
     updateCartBar();
   }
+}
+
+function selectOrderTypeAndJump(type, categoryId, silent) {
+  setOrderType(type);
+  currentPage = 'menu';
+  currentCategory = categoryId;
+
+  document.getElementById('page-welcome').classList.remove('active');
+  document.getElementById('main-header').style.display = '';
+  document.getElementById('category-nav').style.display = '';
+  document.getElementById('page-menu').classList.add('active');
+
+  const tableRow = document.getElementById('table-row');
+  tableRow.style.display = type === 'dinein' ? '' : 'none';
+
+  updateOrderTypeIndicator();
+  updateCheckoutForm();
+  renderApp();
+
+  if (!silent) {
+    clearCart();
+    updateCartBar();
+  }
+
+  // Scroll to preorder section
+  setTimeout(() => {
+    const el = document.getElementById('cat-forud_bestilling');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 300);
 }
 
 function updateOrderTypeIndicator() {
