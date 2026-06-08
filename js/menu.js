@@ -59,8 +59,14 @@ function renderMenuItem(item, cat, lang) {
 
   const btnClass = discounted ? 'add-btn' : 'add-btn add-btn--outline';
 
+  // Image thumbnail
+  const imageHtml = item.image
+    ? `<div class="menu-item__img-wrap"><img class="menu-item__img" src="${item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
+    : '';
+
   return `
-    <div class="menu-item" data-item-id="${item.id}" data-category-id="${cat.id}">
+    <div class="menu-item${item.image ? ' menu-item--has-img' : ''}" data-item-id="${item.id}" data-category-id="${cat.id}">
+      ${imageHtml}
       <div class="menu-item__info">
         ${preorderBadge}
         <div class="menu-item__name">${name}</div>

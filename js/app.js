@@ -438,9 +438,13 @@ function renderCartPage() {
     const nameAlt = currentLang === 'zh' ? c.item.name_da : c.item.name_zh;
     const lineTotal = finalPrice * c.qty;
     const preorderTag = c.item.lead_days ? `<span class="menu-item__preorder-badge">⏰ ${c.item.lead_days}d</span> ` : '';
+    const cartImg = c.item.image
+      ? `<div class="cart-item__img-wrap"><img class="cart-item__img" src="${c.item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
+      : '';
 
     return `
       <div class="cart-item">
+        ${cartImg}
         <div class="cart-item__info">
           <div class="cart-item__name">${preorderTag}${name}</div>
           <div class="cart-item__name-zh">${nameAlt}</div>
