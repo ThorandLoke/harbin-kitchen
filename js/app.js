@@ -165,18 +165,26 @@ function updateOrderTypeIndicator() {
 
 function updateCheckoutForm() {
   const type = getOrderType();
+  const nameGroup = document.getElementById('name-group');
   const phoneGroup = document.getElementById('phone-group');
   const pickupGroup = document.getElementById('pickup-time-group');
   const guestCountGroup = document.getElementById('guest-count-group');
 
   if (type === 'dinein') {
-    // Dine-in: phone optional, no pickup time, show guest count
-    phoneGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '电话（可选）' : 'Telefon';
+    // Dine-in: no name/phone, no pickup time, show guest count
+    nameGroup.style.display = 'none';
+    document.getElementById('cust-name').removeAttribute('required');
+    document.getElementById('cust-name').value = '';
+    phoneGroup.style.display = 'none';
     document.getElementById('cust-phone').removeAttribute('required');
+    document.getElementById('cust-phone').value = '';
     pickupGroup.style.display = 'none';
     guestCountGroup.style.display = '';
   } else {
-    // Takeaway: phone required, pickup time shown, hide guest count
+    // Takeaway: name & phone required, pickup time shown, hide guest count
+    nameGroup.style.display = '';
+    document.getElementById('cust-name').setAttribute('required', '');
+    phoneGroup.style.display = '';
     phoneGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '电话 *' : 'Telefon *';
     document.getElementById('cust-phone').setAttribute('required', '');
     pickupGroup.style.display = '';
@@ -494,7 +502,7 @@ function submitOrder(e) {
   const guestCount = document.getElementById('guest-count').value.trim();
   const type = getOrderType();
 
-  if (!name) {
+  if (type === 'takeaway' && !name) {
     document.getElementById('checkout-error').textContent =
       currentLang === 'zh' ? '请填写姓名' : 'Udfyld venligst navn';
     return;
@@ -578,7 +586,7 @@ function showOrderConfirmation(order) {
       <div class="order-confirm__title">${da ? 'Bestilling modtaget!' : '订单已提交！'}</div>
       <div class="order-confirm__number">${order.orderNumber}</div>
       <div class="order-confirm__desc">
-        ${da ? `Tak, ${order.customer.name}!` : `感谢您，${order.customer.name}！`}<br>
+        ${order.customer.name ? (da ? `Tak, ${order.customer.name}!` : `感谢您，${order.customer.name}！`) : (da ? 'Tak for din bestilling!' : '感谢您的点餐！')}<br>
         ${da ? `Type: ${typeLabel}` : `用餐方式：${typeLabel}`}<br>
         ${details}<br>
         ${type === 'dinein'
@@ -620,7 +628,7 @@ async function submitOrderToSupabase(order) {
     order_type: order.orderType,
     table_number: order.table,
     guest_count: order.guestCount,
-    customer_name: order.customer.name,
+    customer_name: order.customer.name || ('Bord ' + (order.table || '')),
     customer_phone: order.customer.phone || null,
     pickup_time: order.customer.pickupTime || null,
     notes: order.customer.notes || null,
