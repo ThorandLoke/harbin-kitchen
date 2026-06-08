@@ -795,8 +795,8 @@ body {
   border-color: var(--color-primary);
 }
 
-/* ── Order Type Indicator (in header) ── */
-.header__order-type {
+/* ── Home Button (in header) ── */
+.header__home-btn {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -809,14 +809,22 @@ body {
   transition: background var(--transition-fast);
 }
 
-.header__order-type:active {
+.header__home-btn:active {
   background: rgba(255,255,255,0.3);
 }
 
-.header__order-type::after {
-  content: ' ↩';
-  font-size: 10px;
-  opacity: 0.6;
+/* ── Mode Tag (read-only label in header) ── */
+.header__mode-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: #6B8E23;
+  background: rgba(107, 142, 35, 0.12);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
 }
 
 /* ── Preorder Badge ── */

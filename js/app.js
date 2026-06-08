@@ -88,9 +88,17 @@ function selectOrderType(type, silent) {
 }
 
 function updateOrderTypeIndicator() {
-  const homeBtn = document.getElementById('header-order-type');
+  const homeBtn = document.getElementById('header-home-btn');
   homeBtn.innerHTML = '🏠';
   homeBtn.title = currentLang === 'zh' ? '返回主页' : 'Tilbage til start';
+
+  const modeTag = document.getElementById('header-mode-tag');
+  const type = getOrderType();
+  if (type === 'dinein') {
+    modeTag.textContent = currentLang === 'zh' ? '🍽️ 堂食' : '🍽️ Spis her';
+  } else if (type === 'takeaway') {
+    modeTag.textContent = currentLang === 'zh' ? '🥡 外卖 -10%' : '🥡 Afhentning -10%';
+  }
 }
 
 function updateCheckoutForm() {
@@ -522,7 +530,7 @@ function updateHeader() {
   const titleEl = document.getElementById('header-title');
   if (titleEl) {
     titleEl.innerHTML = currentLang === 'zh'
-      ? '哈尔滨厨房 <span>Harbin Kitchen</span>'
-      : 'Harbin Kitchen <span>哈尔滨厨房</span>';
+      ? '东北小炒 <span>Harbin Kitchen</span>'
+      : 'Harbin Kitchen <span>东北小炒</span>';
   }
 }
