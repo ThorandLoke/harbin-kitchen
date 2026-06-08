@@ -79,18 +79,10 @@ function updateWelcomeText() {
 }
 
 function selectOrderType(type, silent) {
-  // 'preorder' → ask dine-in or takeaway first, then go to preorder category
+  // 'preorder' → directly enter preorder mode (no dine-in/takeaway choice needed)
   if (type === 'preorder') {
-    const da = currentLang === 'da';
-    const choice = prompt(
-      da ? 'Spis her eller afhentning?\n\nTast 1 = Spis her (堂食)\nTast 2 = Afhentning -10% (外卖)' : '堂食还是外卖？\n\n输入 1 = 堂食 (Spis her)\n输入 2 = 外卖 -10% (Afhentning)',
-      da ? '1' : '1'
-    );
-    if (choice === '2') {
-      selectOrderTypeAndJump('takeaway', 'forud_bestilling', silent);
-    } else if (choice === '1' || choice !== null) {
-      selectOrderTypeAndJump('dinein', 'forud_bestilling', silent);
-    }
+    setOrderType('preorder');
+    selectOrderTypeAndJump('preorder', 'forud_bestilling', silent);
     return;
   }
 
@@ -169,6 +161,8 @@ function updateOrderTypeIndicator() {
     modeTag.textContent = currentLang === 'zh' ? '🍽️ 堂食' : '🍽️ Spis her';
   } else if (type === 'takeaway') {
     modeTag.textContent = currentLang === 'zh' ? '🥡 外卖 -10%' : '🥡 Afhentning -10%';
+  } else if (type === 'preorder') {
+    modeTag.textContent = currentLang === 'zh' ? '⏰ 预约' : '⏰ Forud bestilling';
   }
 }
 
@@ -189,6 +183,17 @@ function updateCheckoutForm() {
     document.getElementById('cust-phone').value = '';
     pickupGroup.style.display = 'none';
     guestCountGroup.style.display = '';
+  } else if (type === 'preorder') {
+    // Preorder: name & phone required, show pickup date/time, no guest count, no discount
+    nameGroup.style.display = '';
+    document.getElementById('cust-name').setAttribute('required', '');
+    phoneGroup.style.display = '';
+    phoneGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '电话 *' : 'Telefon *';
+    document.getElementById('cust-phone').setAttribute('required', '');
+    pickupGroup.style.display = '';
+    pickupGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '预约日期' : 'Dato for afhentning';
+    document.getElementById('pickup-time').type = 'date';
+    guestCountGroup.style.display = 'none';
   } else {
     // Takeaway: name & phone required, pickup time shown, hide guest count
     nameGroup.style.display = '';
@@ -198,6 +203,7 @@ function updateCheckoutForm() {
     document.getElementById('cust-phone').setAttribute('required', '');
     pickupGroup.style.display = '';
     pickupGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '取餐时间' : 'Afhentningstid';
+    document.getElementById('pickup-time').type = 'time';
     guestCountGroup.style.display = 'none';
   }
 }
@@ -370,7 +376,9 @@ function goToWelcome() {
   const type = getOrderType();
   const typeLabel = type === 'dinein'
     ? (da ? 'Spis her' : '堂食')
-    : (da ? 'Afhentning' : '外卖');
+    : type === 'preorder'
+      ? (da ? 'Forud bestilling' : '预约')
+      : (da ? 'Afhentning' : '外卖');
 
   const count = getCartCount();
   if (count > 0) {
@@ -570,7 +578,9 @@ function showOrderConfirmation(order) {
   const type = order.orderType;
   const typeLabel = type === 'dinein'
     ? (da ? 'Spis her' : '堂食')
-    : (da ? 'Afhentning' : '外卖');
+    : type === 'preorder'
+      ? (da ? 'Forud bestilling' : '预约')
+      : (da ? 'Afhentning' : '外卖');
 
   let details = '';
   if (type === 'dinein' && order.table) {
@@ -582,6 +592,9 @@ function showOrderConfirmation(order) {
   if (type === 'takeaway') {
     const pickupVal = order.customer.pickupTime || (da ? 'Så hurtigt som muligt' : '尽快');
     details += (da ? `Afhentningstid: ${pickupVal}` : `取餐时间：${pickupVal}`) + '<br>';
+  }
+  if (type === 'preorder' && order.customer.pickupTime) {
+    details += (da ? `Afhentningsdato: ${order.customer.pickupTime}` : `预约日期：${order.customer.pickupTime}`) + '<br>';
   }
 
   // Check for preorder items
