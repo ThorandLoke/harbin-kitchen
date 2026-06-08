@@ -42,13 +42,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadMenuData() {
   if (typeof MENU_DATA !== 'undefined') {
-    menuData = MENU_DATA;
+    // Filter out preorder category from normal menu — only shown via welcome page
+    menuData = MENU_DATA.filter(c => !c.preorder);
     return;
   }
   try {
     const resp = await fetch('data/menu.json');
     const data = await resp.json();
-    menuData = data.categories;
+    menuData = data.categories.filter(c => !c.preorder);
   } catch (err) {
     console.error('Failed to load menu:', err);
   }
@@ -124,6 +125,14 @@ function selectOrderTypeAndJump(type, categoryId, silent) {
   setOrderType(type);
   currentPage = 'menu';
   currentCategory = categoryId;
+
+  // Temporarily add preorder category if jumping to it
+  if (categoryId === 'forud_bestilling' && typeof MENU_DATA !== 'undefined') {
+    const preorderCat = MENU_DATA.find(c => c.preorder);
+    if (preorderCat && !menuData.find(c => c.id === preorderCat.id)) {
+      menuData.push(preorderCat);
+    }
+  }
 
   document.getElementById('page-welcome').classList.remove('active');
   document.getElementById('main-header').style.display = '';
@@ -378,6 +387,10 @@ function goToWelcome() {
 
   // Show welcome page
   currentPage = 'welcome';
+
+  // Remove preorder category from menuData when going back to welcome
+  menuData = menuData.filter(c => !c.preorder);
+
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-welcome').classList.add('active');
   document.getElementById('main-header').style.display = 'none';
