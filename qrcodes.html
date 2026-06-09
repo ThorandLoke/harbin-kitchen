@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR-koder – Bordkort | Harbin Kitchen</title>
+  <title>QR-koder | Harbin Kitchen</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Noto+Sans+SC:wght@400;700&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,6 +30,26 @@
       gap: 24px;
       max-width: 900px;
       margin: 0 auto;
+    }
+    .grid-single {
+      display: grid;
+      grid-template-columns: repeat(2, 200px);
+      gap: 24px;
+      justify-content: center;
+      margin: 0 auto 40px;
+    }
+    .section-title {
+      text-align: center;
+      color: #2D2A26;
+      font-size: 22px;
+      font-weight: 700;
+      margin: 48px 0 8px;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #8A8578;
+      font-size: 13px;
+      margin-bottom: 20px;
     }
     .card {
       background: #fff;
@@ -86,10 +106,20 @@
 </head>
 <body>
 
-<h1>🍽️ Harbin Kitchen — Bord QR-koder</h1>
+<h1>🍽️ Harbin Kitchen — QR-koder</h1>
 <div class="subtitle">Print denne side, klip hvert kort ud og læg på bordet. Gæster scanner og bestiller direkte!</div>
 
+<div class="section-title">🪑 堂食 Dine-in</div>
+<div class="section-subtitle">Desktop kode — scan ved bordet</div>
 <div class="grid" id="qr-grid"></div>
+
+<div class="section-title">🚗 外卖 Takeaway</div>
+<div class="section-subtitle">Del dette link eller print koden — gæster kan bestille hjemmefra!<br>分享此码给客人，在家也能点餐！</div>
+<div class="grid-single" id="qr-takeaway"></div>
+
+<div class="section-title">📅 预约 Preorder</div>
+<div class="section-subtitle">Del dette link eller print koden — gæster kan bestille på forhånd!<br>分享此码给客人，提前预约点餐！</div>
+<div class="grid-single" id="qr-preorder"></div>
 
 <div class="footer">
   Harbin Kitchen · 东北小炒 · QR Bordkort Generator<br>
@@ -102,44 +132,58 @@ const BASE_URL = 'https://order.harbinkitchen.dk/';
 const TOTAL_TABLES = 12;
 
 function generate() {
+  // Dine-in: 12 tables
   const grid = document.getElementById('qr-grid');
-
-  for (let i = 1; i <= TOTAL_TABLES; i++) {
+  for (let i = 1; i <= 12; i++) {
     const url = BASE_URL + '?type=dinein&table=' + i;
-
-    const card = document.createElement('div');
-    card.className = 'card';
-
-    const title = document.createElement('div');
-    title.className = 'card__table';
-    title.innerHTML = 'Bord ' + i + ' <span>桌 ' + i + '</span>';
-
-    const qrDiv = document.createElement('div');
-    qrDiv.className = 'card__qr';
-    qrDiv.id = 'qr-' + i;
-
-    const hint = document.createElement('div');
-    hint.className = 'card__hint';
-    hint.innerHTML = 'Scan for at bestille<br><strong>扫码点餐</strong>';
-
-    card.appendChild(title);
-    card.appendChild(qrDiv);
-    card.appendChild(hint);
+    const card = createCard('Bord ' + i, '桌 ' + i, url, 'Scan for at bestille<br><strong>扫码点餐</strong>');
     grid.appendChild(card);
-
-    try {
-      new QRCode(qrDiv, {
-        text: url,
-        width: 140,
-        height: 140,
-        colorDark: '#2D2A26',
-        colorLight: '#FFFFFF',
-        correctLevel: QRCode.CorrectLevel.M
-      });
-    } catch (err) {
-      qrDiv.textContent = 'QR Error';
-    }
   }
+
+  // Takeaway QR
+  const urlTA = BASE_URL + '?type=takeaway';
+  const gridTA = document.getElementById('qr-takeaway');
+  gridTA.appendChild(createCard('🚗 Takeaway', '外卖自取', urlTA, 'Scan for at bestille takeaway<br><strong>扫码点外卖</strong>'));
+
+  // Preorder QR
+  const urlPO = BASE_URL + '?type=preorder';
+  const gridPO = document.getElementById('qr-preorder');
+  gridPO.appendChild(createCard('📅 Preorder', '预约订餐', urlPO, 'Scan for at bestille på forhånd<br><strong>扫码预约</strong>'));
+}
+
+function createCard(title, titleZh, url, hint) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const t = document.createElement('div');
+  t.className = 'card__table';
+  t.innerHTML = title + ' <span>' + titleZh + '</span>';
+
+  const qrDiv = document.createElement('div');
+  qrDiv.className = 'card__qr';
+
+  const h = document.createElement('div');
+  h.className = 'card__hint';
+  h.innerHTML = hint;
+
+  card.appendChild(t);
+  card.appendChild(qrDiv);
+  card.appendChild(h);
+
+  try {
+    new QRCode(qrDiv, {
+      text: url,
+      width: 140,
+      height: 140,
+      colorDark: '#2D2A26',
+      colorLight: '#FFFFFF',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  } catch (err) {
+    qrDiv.textContent = 'QR Error';
+  }
+
+  return card;
 }
 
 generate();
