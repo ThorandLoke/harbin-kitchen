@@ -96,12 +96,12 @@
   Udarbejdet med ❤️
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const BASE_URL = 'https://order.harbinkitchen.dk/';
 const TOTAL_TABLES = 12;
 
-async function generate() {
+function generate() {
   const grid = document.getElementById('qr-grid');
 
   for (let i = 1; i <= TOTAL_TABLES; i++) {
@@ -112,14 +112,15 @@ async function generate() {
 
     const title = document.createElement('div');
     title.className = 'card__table';
-    title.innerHTML = `Bord ${i} <span>桌 ${i}</span>`;
+    title.innerHTML = 'Bord ' + i + ' <span>桌 ' + i + '</span>';
 
     const qrDiv = document.createElement('div');
     qrDiv.className = 'card__qr';
+    qrDiv.id = 'qr-' + i;
 
     const hint = document.createElement('div');
     hint.className = 'card__hint';
-    hint.innerHTML = currentLangHint();
+    hint.innerHTML = 'Scan for at bestille<br><strong>扫码点餐</strong>';
 
     card.appendChild(title);
     card.appendChild(qrDiv);
@@ -127,21 +128,18 @@ async function generate() {
     grid.appendChild(card);
 
     try {
-      const canvas = document.createElement('canvas');
-      await QRCode.toCanvas(canvas, url, {
+      new QRCode(qrDiv, {
+        text: url,
         width: 140,
-        margin: 1,
-        color: { dark: '#2D2A26', light: '#FFFFFF' }
+        height: 140,
+        colorDark: '#2D2A26',
+        colorLight: '#FFFFFF',
+        correctLevel: QRCode.CorrectLevel.M
       });
-      qrDiv.appendChild(canvas);
     } catch (err) {
       qrDiv.textContent = 'QR Error';
     }
   }
-}
-
-function currentLangHint() {
-  return 'Scan for at bestille<br><strong>扫码点餐</strong>';
 }
 
 generate();
