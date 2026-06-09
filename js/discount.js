@@ -6,7 +6,7 @@
    ============================================================ */
 
 const DISCOUNT_RATE = 0.10; // 10%
-const NO_DISCOUNT_IDS = ['sauce', 'drikkekort'];
+const NO_DISCOUNT_IDS = ['sauce', 'drikkekort', 'drikkekort_dinein'];
 
 // Order type: 'takeaway' or 'dinein'
 let orderType = localStorage.getItem('harbin_order_type') || '';

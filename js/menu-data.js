@@ -904,9 +904,10 @@ const MENU_DATA = [
   },
   {
     "id": "drikkekort",
-    "name_da": "Drikkekort",
-    "name_zh": "饮品",
+    "name_da": "Drikkekort (Takeaway)",
+    "name_zh": "饮品（外卖）",
     "discount": false,
+    "orderTypes": ["takeaway"],
     "items": [
       {
         "code": "V61",
@@ -1029,6 +1030,198 @@ const MENU_DATA = [
         "name_zh": "柠檬水",
         "description_da": "50cl装柠檬味饮料",
         "price": 59
+      }
+    ]
+  },
+  {
+    "id": "drikkekort_dinein",
+    "name_da": "Drikkekort & Dessert (Dine-in)",
+    "name_zh": "堂食饮品甜品",
+    "discount": false,
+    "orderTypes": ["dinein"],
+    "items": [
+      {
+        "code": "V80",
+        "id": "din_1",
+        "name_da": "Sodavand lille",
+        "name_zh": "汽水（小杯）",
+        "description_da": "Coca-Cola, Coca-Cola Zero, Sprite, Faxe Kondi, Pepsi Max, Squash",
+        "price": 39
+      },
+      {
+        "code": "V81",
+        "id": "din_2",
+        "name_da": "Sodavand mellem",
+        "name_zh": "汽水（中杯）",
+        "description_da": "Coca-Cola, Coca-Cola Zero, Sprite, Faxe Kondi, Pepsi Max, Squash",
+        "price": 49
+      },
+      {
+        "code": "V82",
+        "id": "din_3",
+        "name_da": "Sodavand stor",
+        "name_zh": "汽水（大杯）",
+        "description_da": "Coca-Cola, Coca-Cola Zero, Sprite, Faxe Kondi, Pepsi Max, Squash",
+        "price": 59
+      },
+      {
+        "code": "V83",
+        "id": "din_4",
+        "name_da": "Kinesiske drikkevarer",
+        "name_zh": "中国饮料",
+        "price": 49
+      },
+      {
+        "code": "V84",
+        "id": "din_5",
+        "name_da": "Juice (50 cl)",
+        "name_zh": "果汁（50cl）",
+        "description_da": "Æblejuice eller appelsinjuice",
+        "price": 49
+      },
+      {
+        "code": "V85",
+        "id": "din_6",
+        "name_da": "Limonade",
+        "name_zh": "柠檬水",
+        "price": 59
+      },
+      {
+        "code": "V86",
+        "id": "din_7",
+        "name_da": "Isvand (50 cl)",
+        "name_zh": "冰水（50cl）",
+        "price": 29
+      },
+      {
+        "code": "V87",
+        "id": "din_8",
+        "name_da": "San Pellegrino danskvand (50 cl)",
+        "name_zh": "巴黎水气泡水（50cl）",
+        "price": 49
+      },
+      {
+        "code": "V88",
+        "id": "din_9",
+        "name_da": "San Pellegrino danskvand (1 L)",
+        "name_zh": "巴黎水气泡水（1L）",
+        "price": 69
+      },
+      {
+        "code": "V89",
+        "id": "din_10",
+        "name_da": "Bubble Tea / Frugt-te Medium (50 cl)",
+        "name_zh": "爆珠果茶中杯（50cl）",
+        "description_da": "Passionsfrugt, Jordbær, Æble eller Peach",
+        "price": 49
+      },
+      {
+        "code": "V90",
+        "id": "din_11",
+        "name_da": "Bubble Tea / Frugt-te Large (75 cl)",
+        "name_zh": "爆珠果茶大杯（75cl）",
+        "description_da": "Passionsfrugt, Jordbær, Æble eller Peach",
+        "price": 59
+      },
+      {
+        "code": "V91",
+        "id": "din_12",
+        "name_da": "Tuborg Classic (33 cl)",
+        "name_zh": "图堡经典啤酒",
+        "price": 39
+      },
+      {
+        "code": "V92",
+        "id": "din_13",
+        "name_da": "Tuborg Grøn (33 cl)",
+        "name_zh": "图堡绿标啤酒",
+        "price": 39
+      },
+      {
+        "code": "V93",
+        "id": "din_14",
+        "name_da": "Carlsberg (33 cl)",
+        "name_zh": "嘉士伯啤酒",
+        "price": 39
+      },
+      {
+        "code": "V94",
+        "id": "din_15",
+        "name_da": "Carlsberg Alkoholfri (33 cl)",
+        "name_zh": "嘉士伯无酒精啤酒",
+        "price": 39
+      },
+      {
+        "code": "V95",
+        "id": "din_16",
+        "name_da": "Kinesisk Øl (33 cl)",
+        "name_zh": "青岛啤酒",
+        "price": 49
+      },
+      {
+        "code": "V96",
+        "id": "din_17",
+        "name_da": "Sapporo (65 cl)",
+        "name_zh": "三宝乐啤酒",
+        "price": 69
+      },
+      {
+        "code": "V97",
+        "id": "din_18",
+        "name_da": "Soju Peach/Grape (350 ml)",
+        "name_zh": "韩国果味烧酒（桃子/葡萄）",
+        "description_da": "Koreansk spiritus med frugtsmag (13,0% alc)",
+        "price": 129
+      },
+      {
+        "code": "V98",
+        "id": "din_19",
+        "name_da": "Rødvin (glas)",
+        "name_zh": "红酒（杯）",
+        "price": 69
+      },
+      {
+        "code": "V98-F",
+        "id": "din_20",
+        "name_da": "Rødvin (flaske)",
+        "name_zh": "红酒（瓶）",
+        "price": 249
+      },
+      {
+        "code": "V99",
+        "id": "din_21",
+        "name_da": "Hvidvin (glas)",
+        "name_zh": "白葡萄酒（杯）",
+        "price": 69
+      },
+      {
+        "code": "V99-F",
+        "id": "din_22",
+        "name_da": "Hvidvin (flaske)",
+        "name_zh": "白葡萄酒（瓶）",
+        "price": 249
+      },
+      {
+        "code": "V100",
+        "id": "din_23",
+        "name_da": "Kaffe",
+        "name_zh": "咖啡",
+        "price": 39
+      },
+      {
+        "code": "V101",
+        "id": "din_24",
+        "name_da": "Te",
+        "name_zh": "茶",
+        "price": 39
+      },
+      {
+        "code": "V102",
+        "id": "din_25",
+        "name_da": "Is (3 kugler)",
+        "name_zh": "冰淇淋（3球）",
+        "description_da": "Vanilje, chokolade og jordbær",
+        "price": 49
       }
     ]
   },

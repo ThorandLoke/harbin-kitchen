@@ -7,9 +7,15 @@ function renderMenu(categories, activeCategory, lang) {
   const container = document.getElementById('menu-container');
   if (!container) return;
 
+  const type = getOrderType();
+  const filteredByType = categories.filter((c) => {
+    if (!c.orderTypes) return true;
+    return c.orderTypes.includes(type);
+  });
+
   const filtered = activeCategory === 'all'
-    ? categories
-    : categories.filter((c) => c.id === activeCategory);
+    ? filteredByType
+    : filteredByType.filter((c) => c.id === activeCategory);
 
   container.innerHTML = filtered.map((cat) => renderCategory(cat, lang)).join('');
 }
@@ -89,9 +95,15 @@ function renderCategoryNav(categories, activeCategory, lang) {
   const nav = document.getElementById('category-nav');
   if (!nav) return;
 
+  const type = getOrderType();
+  const filteredByType = categories.filter((c) => {
+    if (!c.orderTypes) return true;
+    return c.orderTypes.includes(type);
+  });
+
   const allPill = `<button class="category-nav__pill ${activeCategory === 'all' ? 'active' : ''}" onclick="selectCategory('all')">${lang === 'zh' ? '全部' : 'Alle'}</button>`;
 
-  const pills = categories.map((cat) => {
+  const pills = filteredByType.map((cat) => {
     const label = lang === 'zh' ? cat.name_zh : cat.name_da;
     const icon = cat.preorder ? '⏰ ' : '';
     return `<button class="category-nav__pill ${activeCategory === cat.id ? 'active' : ''}" onclick="selectCategory('${cat.id}')">${icon}${label}</button>`;

@@ -50,6 +50,7 @@ async function loadMenuData() {
     const resp = await fetch('data/menu.json');
     const data = await resp.json();
     menuData = data.categories.filter(c => !c.preorder);
+
   } catch (err) {
     console.error('Failed to load menu:', err);
   }
