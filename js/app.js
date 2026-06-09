@@ -936,11 +936,14 @@ async function joinOrCreateDraftOrder(tableNumber) {
     const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Try to find existing draft order for this table
+    // Only join drafts updated within 1 hour (abandoned carts timeout)
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
     const { data, error } = await client
       .from('orders')
       .select('id, order_number, items')
       .eq('table_number', String(tableNumber))
       .eq('status', 'draft')
+      .gte('updated_at', oneHourAgo)
       .order('created_at', { ascending: false })
       .limit(1);
 
@@ -956,7 +959,7 @@ async function joinOrCreateDraftOrder(tableNumber) {
       currentOrderNumber = data[0].order_number;
       localStorage.setItem('harbin_draft_order_id', currentDraftOrderId);
       localStorage.setItem('harbin_draft_table', tableNumber);
-      console.log('[joinOrCreateDraft] Joined existing draft:', data[0].order_number, 'draft ID:', data[0].id);
+      console.log('[joinOrCreateDraft] Joined existing draft:', data[0].order_number, 'draft ID:', data[0].id, 'updated_at:', data[0].updated_at);
 
       // Load draft items into local cart
       clearCart();
