@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       showMergeModal(urlTable);
       window.history.replaceState({}, '', window.location.pathname);
     } else {
+      clearCart();
       document.getElementById('table-number').value = urlTable;
       selectOrderType('dinein', true);
       window.history.replaceState({}, '', window.location.pathname);
@@ -737,7 +738,7 @@ async function checkExistingOrderForTable(tableNumber) {
     const { data, error } = await client
       .from('orders')
       .select('id, order_number, items, customer_name, table_number')
-      .eq('table_number', String(tableNumber))
+      .eq('table_number', Number(tableNumber))
       .eq('status', 'new')
       .order('created_at', { ascending: false })
       .limit(1);
@@ -761,6 +762,7 @@ function showMergeModal(tableNumber) {
 
 function mergeChooseAdd() {
   document.getElementById('merge-modal').style.display = 'none';
+  clearCart();
   const existing = pendingMergeOrder;
   currentOrderId = existing.id;
   currentOrderNumber = existing.order_number;
