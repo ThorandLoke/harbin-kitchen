@@ -128,6 +128,12 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
+// 检查 qrcodejs 是否加载成功
+if (typeof QRCode === 'undefined') {
+  document.getElementById('qr-grid').innerHTML = '<p style="color:red;">❌ QR 库加载失败，请检查网络连接后刷新页面。</p>';
+  throw new Error('QRCode library not loaded');
+}
+
 const BASE_URL = 'https://order.harbinkitchen.dk/';
 const TOTAL_TABLES = 12;
 
@@ -177,7 +183,7 @@ function createCard(title, titleZh, url, hint) {
       height: 140,
       colorDark: '#2D2A26',
       colorLight: '#FFFFFF',
-      correctLevel: QRCode.CorrectLevel.M
+      correctLevel: 1  // M level (0=L, 1=M, 2=Q, 3=H)
     });
   } catch (err) {
     qrDiv.textContent = 'QR Error';
