@@ -20,7 +20,117 @@
 
 ---
 
-## 二、所有网址
+## 二、技术栈说明
+
+本章节详细列出系统前后端使用的所有技术、框架和第三方服务，供后续技术人员接手参考。
+
+### 前端技术栈
+
+| 技术 | 用途 | 说明 |
+|:-----|:-----|:-----|
+| **HTML5** | 页面结构 | 语义化标签，PWA 兼容 |
+| **CSS3 + CSS Variables** | 样式布局 | 主题变量集中管理（theme.css），支持北欧极简风格 |
+| **Vanilla JavaScript（ES6+）** | 核心逻辑 | 无框架依赖，原生 JS，易维护 |
+| **PWA（Progressive Web App）** | 移动端体验 | manifest.json + service-worker.js，支持「添加到主屏幕」、离线缓存 |
+| **Font Awesome 6** | 图标库 | CDN 引入，用于按钮和状态图标 |
+| **Google Fonts（Noto Sans SC）** | 中文字体 | 免费 CDN，覆盖简体中文 |
+| **qrcodejs** | 二维码生成 | CDN：`cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js` |
+| **localStorage** | 本地存储 | 购物车数据、语言偏好、订单草稿本地保存 |
+| **Fetch API** | 网络请求 | 向 Supabase REST API 发送订单数据 |
+
+**前端文件说明：**
+
+| 文件 | 技术细节 |
+|:-----|:---------|
+| `manifest.json` | PWA 配置：应用名称、图标、启动方式、显示模式（standalone） |
+| `service-worker.js` | 离线缓存策略：缓存 CSS/JS/图片/HTML，支持离线点餐 |
+| `css/theme.css` | CSS 变量定义：颜色（`--color-primary: #6B8E23`）、字体、间距 |
+| `js/discount.js` | 折扣引擎：分类级折扣规则，外卖 10% off（酱汁/饮品除外） |
+| `js/printer.js` | 热敏打印：Web Serial API，ESC/POS 指令集，支持 USB 打印机 |
+
+---
+
+### 后端与云服务技术栈
+
+本系统采用 **BaaS（Backend as a Service）** 架构，**无传统后端服务器**，所有后端能力由云服务提供。
+
+| 服务 | 技术 | 用途 | 费用 |
+|:-----|:-----|:-----|:-----|
+| **Supabase** | PostgreSQL + Realtime + REST API | 数据库、订单实时推送、无服务器函数 | 免费（Free Plan） |
+| **Supabase Realtime** | WebSocket | 管理页/后厨页实时接收新订单（无需轮询） | 免费 |
+| **Supabase REST API** | PostgREST | 前端直接通过 HTTPS 读写数据库（JWT 鉴权） | 免费 |
+| **GitHub Pages** | 静态网站托管 | 托管所有前端 HTML/CSS/JS，全球 CDN 加速 | 免费 |
+| **GitHub Actions** | CI/CD | 每次 push 到 main 分支自动部署 | 免费 |
+| **Let's Encrypt** | SSL 证书 | HTTPS 加密，GitHub Pages 自动签发续期 | 免费 |
+| **one.com DNS** | 域名解析 | `order.harbinkitchen.dk` A 记录指向 GitHub Pages | 约 100-150 DKK/年 |
+
+**为什么选 BaaS 架构？**
+- ✅ **零服务器维护**：无 Linux 服务器、无 Nginx、无 Docker，不依赖任何运维
+- ✅ **成本极低**：每年只花域名费，其他全免费
+- ✅ **自动扩展**：GitHub Pages + Supabase Free Plan 可支撑每日数百订单
+- ✅ **数据安全**：Supabase 自动每日备份（Free Plan 保留 1 天）
+
+---
+
+### 第三方服务与 CDN 依赖
+
+| 服务 | 用途 | 链接 | 风险 |
+|:-----|:-----|:-----|:-----|
+| Cloudflare CDN | qrcodejs 库加载 | `cdnjs.cloudflare.com` | 低（可下载到本地备用）|
+| Google Fonts | 中文字体 | `fonts.googleapis.com` | 低（可自托管）|
+| Font Awesome | 图标 | `cdnjs.cloudflare.com` | 低（可用 Unicode 替代）|
+| Supabase CDN | supabase-js SDK | `cdn.jsdelivr.net` | 低（已打包到 supabase-config.js）|
+
+> ⚠️ **如果某天 CDN 失效**：可以将 qrcodejs、Font Awesome 下载到 `libs/` 目录本地引用，不依赖任何外部 CDN。
+
+---
+
+### 数据库结构（Supabase）
+
+**`orders` 表（订单主表）：**
+
+| 列名 | 类型 | 说明 |
+|:-----|:-----|:-----|
+| `id` | `bigserial` | 自增主键 |
+| `order_number` | `text` | 订单号（格式：`HK-XXXXXX`） |
+| `order_type` | `text` | `dinein` / `takeaway` / `preorder` |
+| `table_number` | `text` | 桌号（堂食用） |
+| `customer_name` | `text` | 顾客姓名 |
+| `customer_phone` | `text` | 顾客电话 |
+| `items` | `jsonb` | 菜品明细（含编号、名称、数量、单价） |
+| `total` | `integer` | 总价（单位：Øre，即分） |
+| `status` | `text` | `new` → `preparing` → `ready` → `completed` |
+| `created_at` | `timestamptz` | 订单创建时间 |
+| `updated_at` | `timestamptz` | 状态最后更新时间 |
+
+**`profiles` 表（可选，未启用）：** 用于未来扩展员工登录功能。
+
+---
+
+### 系统架构图
+
+```
+顾客手机（扫码）
+      │
+      ▼
+🌐 GitHub Pages（静态前端）
+  index.html / admin.html / kitchen.html
+      │
+      │ Fetch API + JWT
+      ▼
+🗄️ Supabase（PostgreSQL）
+  orders 表
+      │
+      │ Realtime WebSocket
+      ▼
+🖥️ 管理页 + 后厨页（实时刷新）
+```
+
+> 整个系统**没有**传统后端服务器（Node.js / Python / Java），所有数据库操作通过 Supabase REST API 完成，前端直接调用。
+
+---
+
+## 三、所有网址
 
 ### 顾客端
 
@@ -47,7 +157,7 @@
 
 ---
 
-## 三、服务与账号
+## 四、服务与账号
 
 ### 1. 域名 — one.com
 
@@ -153,7 +263,7 @@
 
 ---
 
-## 四、项目文件结构
+## 五、项目文件结构
 
 代码仓库 https://github.com/ThorandLoke/harbin-kitchen 的文件结构：
 
@@ -187,7 +297,7 @@ harbin-kitchen/
 
 ---
 
-## 五、常见操作指南
+## 六、常见操作指南
 
 ### 🍽️ 更新菜品/价格
 
@@ -233,7 +343,7 @@ harbin-kitchen/
 
 ---
 
-## 六、费用汇总
+## 七、费用汇总
 
 | 服务 | 费用 | 续费周期 |
 |:-----|:-----|:---------|
@@ -248,7 +358,7 @@ harbin-kitchen/
 
 ---
 
-## 七、技术对接人
+## 八、技术对接人
 
 | 角色 | 姓名 | 联系方式 |
 |:-----|:-----|:---------|
@@ -258,7 +368,7 @@ harbin-kitchen/
 
 ---
 
-## 八、故障排查
+## 九、故障排查
 
 | 问题 | 可能原因 | 解决方法 |
 |:-----|:---------|:---------|
