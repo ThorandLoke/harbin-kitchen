@@ -584,6 +584,17 @@ body {
   min-height: 60px;
 }
 
+.payment-hint {
+  background: #FFF8E1;
+  border: 1.5px solid #FFB300;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  font-size: var(--font-size-sm);
+  color: #5D4037;
+  line-height: 1.5;
+}
+
 .submit-btn {
   width: 100%;
   padding: 14px;

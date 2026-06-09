@@ -172,6 +172,8 @@ function updateCheckoutForm() {
   const phoneGroup = document.getElementById('phone-group');
   const pickupGroup = document.getElementById('pickup-time-group');
   const guestCountGroup = document.getElementById('guest-count-group');
+  const paymentHint = document.getElementById('checkout-payment-hint');
+  const da = currentLang === 'da';
 
   if (type === 'dinein') {
     // Dine-in: no name/phone, no pickup time, show guest count
@@ -183,6 +185,9 @@ function updateCheckoutForm() {
     document.getElementById('cust-phone').value = '';
     pickupGroup.style.display = 'none';
     guestCountGroup.style.display = '';
+    paymentHint.innerHTML = da
+      ? '💳 Betaling sker ved kassen — ikke online'
+      : '💳 请到收银台付款 — 本页面不支持在线支付';
   } else if (type === 'preorder') {
     // Preorder: name & phone required, show pickup date/time, no guest count, no discount
     nameGroup.style.display = '';
@@ -194,6 +199,9 @@ function updateCheckoutForm() {
     pickupGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '预约日期' : 'Dato for afhentning';
     document.getElementById('pickup-time').type = 'date';
     guestCountGroup.style.display = 'none';
+    paymentHint.innerHTML = da
+      ? '💳 Betal ved kassen når du afhenter — ikke online'
+      : '💳 取餐时在收银台付款 — 本页面不支持在线支付';
   } else {
     // Takeaway: name & phone required, pickup time shown, hide guest count
     nameGroup.style.display = '';
@@ -205,6 +213,9 @@ function updateCheckoutForm() {
     pickupGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '取餐时间' : 'Afhentningstid';
     document.getElementById('pickup-time').type = 'time';
     guestCountGroup.style.display = 'none';
+    paymentHint.innerHTML = da
+      ? '💳 Betal ved kassen når du afhenter — ikke online'
+      : '💳 取餐时在收银台付款 — 本页面不支持在线支付';
   }
 }
 
@@ -620,8 +631,10 @@ function showOrderConfirmation(order) {
         ${da ? `Type: ${typeLabel}` : `用餐方式：${typeLabel}`}<br>
         ${details}<br>
         ${type === 'dinein'
-          ? (da ? `Betaling ved bordet: <strong>${order.totals.total} kr.</strong>` : `到桌付款：<strong>${order.totals.total} kr.</strong>`)
-          : (da ? `Betal ved afhentning: <strong>${order.totals.total} kr.</strong>` : `到店取餐时付款：<strong>${order.totals.total} kr.</strong>`)
+          ? (da ? `💳 Betaling: Venligst betal ved kassen. Total: <strong>${order.totals.total} kr.</strong>` : `💳 付款方式：请到收银台付款。合计：<strong>${order.totals.total} kr.</strong>`)
+          : type === 'takeaway'
+            ? (da ? `💳 Betaling: Betal ved kassen når du afhenter. Total: <strong>${order.totals.total} kr.</strong>` : `💳 付款方式：取餐时在收银台付款。合计：<strong>${order.totals.total} kr.</strong>`)
+            : (da ? `💳 Betaling: Betal ved kassen når du afhenter. Total: <strong>${order.totals.total} kr.</strong>` : `💳 付款方式：取餐时在收银台付款。合计：<strong>${order.totals.total} kr.</strong>`)
         }
       </div>
       <button class="order-confirm__btn" onclick="backToMenu()">
