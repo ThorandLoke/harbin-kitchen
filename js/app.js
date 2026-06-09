@@ -28,6 +28,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   const urlType = params.get('type');
   const urlTable = params.get('table');
 
+  // Try to rejoin saved draft order (page refresh without QR scan)
+  const savedDraftId = localStorage.getItem('harbin_draft_order_id');
+  const savedDraftTable = localStorage.getItem('harbin_draft_table');
+  if (savedDraftId && savedDraftTable && !urlType) {
+    console.log('[App] Rejoining saved draft for table', savedDraftTable);
+    await joinOrCreateDraftOrder(savedDraftTable);
+    const existing = await checkExistingOrderForTable(savedDraftTable);
+    if (existing) {
+      pendingMergeOrder = existing;
+      showMergeModal(savedDraftTable);
+    }
+    window.history.replaceState({}, '', window.location.pathname);
+    registerSW();
+    return;
+  }
+
   if (urlType === 'dinein' && urlTable) {
     // QR scan: first join or create a draft order (shared cart)
     document.getElementById('table-number').value = urlTable;
@@ -433,6 +449,8 @@ function goToWelcome() {
     realtimeChannel = null;
   }
   currentDraftOrderId = null;
+  localStorage.removeItem('harbin_draft_order_id');
+  localStorage.removeItem('harbin_draft_table');
   document.getElementById('table-number').value = '';
 
   // Show welcome page
@@ -629,6 +647,8 @@ async function submitOrder(e) {
     realtimeChannel = null;
   }
   currentDraftOrderId = null;
+  localStorage.removeItem('harbin_draft_order_id');
+  localStorage.removeItem('harbin_draft_table');
 
   showOrderConfirmation(order);
 }
@@ -934,6 +954,8 @@ async function joinOrCreateDraftOrder(tableNumber) {
       // Draft exists — join it
       currentDraftOrderId = data[0].id;
       currentOrderNumber = data[0].order_number;
+      localStorage.setItem('harbin_draft_order_id', currentDraftOrderId);
+      localStorage.setItem('harbin_draft_table', tableNumber);
       console.log('[joinOrCreateDraft] Joined existing draft:', data[0].order_number);
 
       // Load draft items into local cart
@@ -954,6 +976,7 @@ async function joinOrCreateDraftOrder(tableNumber) {
       updateCartBar();
     } else {
       // No draft — create a new one
+      clearCart();
       const newOrderNumber = 'HK-' + Date.now().toString(36).toUpperCase();
       const { data: insertData, error: insertError } = await client
         .from('orders')
@@ -979,6 +1002,8 @@ async function joinOrCreateDraftOrder(tableNumber) {
       } else if (insertData && insertData.length > 0) {
         currentDraftOrderId = insertData[0].id;
         currentOrderNumber = insertData[0].order_number;
+        localStorage.setItem('harbin_draft_order_id', currentDraftOrderId);
+        localStorage.setItem('harbin_draft_table', tableNumber);
         console.log('[joinOrCreateDraft] Created new draft:', newOrderNumber);
       }
     }
