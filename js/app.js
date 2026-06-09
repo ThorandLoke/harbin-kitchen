@@ -560,7 +560,7 @@ function renderCheckoutPage() {
   updateCheckoutForm();
 }
 
-function submitOrder(e) {
+async function submitOrder(e) {
   e.preventDefault();
 
   const name = document.getElementById('cust-name').value.trim();
