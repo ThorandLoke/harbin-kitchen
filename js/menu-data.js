@@ -17,7 +17,7 @@ const MENU_DATA = [
         "code": "F2",
         "id": "forretter_2",
         "name_da": "Mini forårsruller 6stk.",
-        "name_zh": "小春卷",
+        "name_zh": "小春卷6个",
         "description_da": "素食",
         "price": 48,
         "image": "images/forretter_1.jpg"
@@ -26,7 +26,7 @@ const MENU_DATA = [
         "code": "F3",
         "id": "forretter_3",
         "name_da": "Hjemmelavede forårsruller med oksekød 4 stk.",
-        "name_zh": "牛肉春卷",
+        "name_zh": "牛肉春卷4个",
         "description_da": "馅料为碎牛肉和圆白菜",
         "price": 58,
         "image": "images/forretter_2.jpg"
@@ -35,7 +35,7 @@ const MENU_DATA = [
         "code": "F4",
         "id": "forretter_4",
         "name_da": "Hjemmelavede forårsruller med and 3 stk.",
-        "name_zh": "鸭春卷",
+        "name_zh": "鸭春卷3个",
         "description_da": "馅料为碎鸭肉和圆白菜",
         "price": 58,
         "image": "images/forretter_3.png"
@@ -44,7 +44,7 @@ const MENU_DATA = [
         "code": "F5",
         "id": "forretter_5",
         "name_da": "Dybstegte Tempura Rejer 4stk.",
-        "name_zh": "日本炸虾",
+        "name_zh": "日本炸虾4个",
         "description_da": "",
         "price": 58,
         "image": "images/forretter_4.webp"
@@ -53,7 +53,7 @@ const MENU_DATA = [
         "code": "F6",
         "id": "forretter_6",
         "name_da": "Kyllinge nuggets 6 stk",
-        "name_zh": "炸鸡块",
+        "name_zh": "炸鸡块6块",
         "description_da": "",
         "price": 58,
         "image": "images/forretter_5.jpg"
@@ -62,7 +62,7 @@ const MENU_DATA = [
         "code": "F7",
         "id": "forretter_7",
         "name_da": "Dybstegte dumplings med kylling 5stk",
-        "name_zh": "炸鸡肉饺子",
+        "name_zh": "炸鸡肉饺子5个",
         "description_da": "",
         "price": 58,
         "image": "images/forretter_6.png"
@@ -71,7 +71,7 @@ const MENU_DATA = [
         "code": "F8",
         "id": "forretter_8",
         "name_da": "Hjemmelavede dumplings i chiliolie",
-        "name_zh": "红油水饺",
+        "name_zh": "红油水饺4个",
         "description_da": "馅料为碎猪肉和韭菜，辣味",
         "price": 58,
         "image": "images/forretter_7.jpg"
@@ -80,7 +80,7 @@ const MENU_DATA = [
         "code": "F9",
         "id": "forretter_9",
         "name_da": "Kogte Harbin-dumplings 10stk.",
-        "name_zh": "东北水饺",
+        "name_zh": "东北水饺10个",
         "description_da": "馅料为碎猪肉和韭菜",
         "price": 128,
         "image": "images/forretter_8.jpg"
@@ -150,7 +150,7 @@ const MENU_DATA = [
         "code": "D1",
         "id": "dum_1",
         "name_da": "Char Siu Bao 3stk.",
-        "name_zh": "叉烧包",
+        "name_zh": "叉烧包3个",
         "description_da": "内馅为甜口烧烤猪肉的包子",
         "price": 58,
         "image": "images/dum_1.jpg"
@@ -159,7 +159,7 @@ const MENU_DATA = [
         "code": "D2",
         "id": "dum_2",
         "name_da": "Siu Mai 4stk.",
-        "name_zh": "烧卖",
+        "name_zh": "烧卖4个",
         "description_da": "猪肉和蘑菇馅的蒸饺",
         "price": 58,
         "image": "images/dum_2.png"
@@ -168,7 +168,7 @@ const MENU_DATA = [
         "code": "D3",
         "id": "dum_3",
         "name_da": "Har Gow 4stk.",
-        "name_zh": "虾饺",
+        "name_zh": "虾饺4个",
         "description_da": "虾和竹笋馅的蒸饺",
         "price": 58,
         "image": "images/dum_3.png"
@@ -177,7 +177,7 @@ const MENU_DATA = [
         "code": "D4",
         "id": "dum_4",
         "name_da": "Sesamboller 5stk.",
-        "name_zh": "芝麻球",
+        "name_zh": "芝麻球5个",
         "description_da": "裹芝麻的糯米油炸球，内馅为红豆",
         "price": 58,
         "image": "images/dum_4.jpg"
@@ -570,7 +570,7 @@ const MENU_DATA = [
         "code": "H31",
         "id": "h_rejer_1",
         "name_da": "Wokstegte rejer med skal",
-        "name_zh": "干锅大虾",
+        "name_zh": "干锅大虾（有壳）",
         "description_da": "干锅炒大虾，搭配芹菜、蘑菇、红彩椒和绿彩椒",
         "price": 198,
         "image": "images/h_rejer_1.jpg"
@@ -579,7 +579,7 @@ const MENU_DATA = [
         "code": "H32",
         "id": "h_rejer_2",
         "name_da": "Sprødstegte te-rejer med skal",
-        "name_zh": "茶香虾",
+        "name_zh": "茶香虾（有壳）",
         "description_da": "带壳大虾油炸，搭配茶叶",
         "price": 198,
         "image": "images/h_rejer_2.jpg"
@@ -588,7 +588,7 @@ const MENU_DATA = [
         "code": "H33",
         "id": "h_rejer_3",
         "name_da": "Stærk og krydret rejer med skal",
-        "name_zh": "香辣一品虾",
+        "name_zh": "香辣一品虾（有壳）",
         "description_da": "带壳大虾用重辣酱汁炒制",
         "price": 198
       },
@@ -622,7 +622,7 @@ const MENU_DATA = [
         "code": "H36",
         "id": "h_fisk_1",
         "name_da": "Harbin grillet fisk (hel fisk med ben)",
-        "name_zh": "哈尔滨烤鱼",
+        "name_zh": "哈尔滨烤鱼（有骨）",
         "description_da": "整条带骨烤鱼，搭配鸡汤、黄瓜、莲藕和豆腐",
         "price": 288,
         "image": "images/h_fisk_1.jpg"
@@ -631,7 +631,7 @@ const MENU_DATA = [
         "code": "H37",
         "id": "h_fisk_2",
         "name_da": "Chongqing-stil fiskefilet i sennepkålssuppe (uden ben)",
-        "name_zh": "重庆酸菜鱼",
+        "name_zh": "重庆酸菜鱼（无骨）",
         "description_da": "无骨煮鱼片，搭配发酵酸菜酸汤",
         "price": 228,
         "image": "images/h_fisk_2.jpg"
@@ -640,7 +640,7 @@ const MENU_DATA = [
         "code": "H38",
         "id": "h_fisk_3",
         "name_da": "Sichuan-stil pocheret fisk (uden ben)",
-        "name_zh": "沸腾鱼",
+        "name_zh": "沸腾鱼（无骨）",
         "description_da": "无骨煮鱼片，搭配豆芽和白菜，淋入香辣红油",
         "price": 238,
         "image": "images/h_fisk_3.jpg"
@@ -649,7 +649,7 @@ const MENU_DATA = [
         "code": "H39",
         "id": "h_fisk_4",
         "name_da": "Fiskefilet i gylden suppe (uden ben)",
-        "name_zh": "金汤鱼片",
+        "name_zh": "金汤鱼片（无骨）",
         "description_da": "无骨鱼片，搭配西兰花、黄瓜和金针菇，浇入金汤底",
         "price": 238,
         "image": "images/h_fisk_4.jpg"
@@ -658,7 +658,7 @@ const MENU_DATA = [
         "code": "H40",
         "id": "h_fisk_5",
         "name_da": "Sprødstegt fisk med sur-sød sauce (hel fisk med ben)",
-        "name_zh": "松鼠鱼",
+        "name_zh": "松鼠鱼（有骨）",
         "description_da": "整条炸鱼，搭配经典酸甜酱汁",
         "price": 268,
         "image": "images/h_fisk_5.jpg"
@@ -805,7 +805,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
-        "code": "M55",
+        "code": "N55",
         "id": "h_nudler_1",
         "name_da": "Stegte nudler / ris / udon nudler / risnudler med oksekød",
         "name_zh": "牛肉炒面/饭/乌冬/河粉",
@@ -814,7 +814,7 @@ const MENU_DATA = [
         "image": "images/h_nudler_1.jpg"
       },
       {
-        "code": "M56",
+        "code": "N56",
         "id": "h_nudler_2",
         "name_da": "Stegte nudler / ris / udon nudler / ris nudler med kylling",
         "name_zh": "鸡肉炒面/饭/乌冬/河粉",
@@ -823,7 +823,7 @@ const MENU_DATA = [
         "image": "images/h_nudler_2.jpg"
       },
       {
-        "code": "M57",
+        "code": "N57",
         "id": "h_nudler_3",
         "name_da": "Stegte nudler / ris / udon nudler / ris nudler med rejer",
         "name_zh": "大虾炒面/饭/乌冬/河粉",
@@ -831,7 +831,7 @@ const MENU_DATA = [
         "price": 138
       },
       {
-        "code": "M58",
+        "code": "N58",
         "id": "h_nudler_4",
         "name_da": "Vegetar stegte nudler / ris / udon nudler / ris nudler",
         "name_zh": "素炒面/饭/乌冬/河粉",
