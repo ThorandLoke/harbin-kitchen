@@ -206,7 +206,8 @@ function renderOrderCard(order) {
   // Items list
   const itemsHTML = (order.items || []).map(item => {
     const name = da ? item.name_da : item.name_zh;
-    return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${name}</span><span>${item.lineTotal} kr.</span></div>`;
+    const code = item.code ? `<span class="order-card__item-code">${item.code}</span> ` : '';
+    return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>`;
   }).join('');
 
   // Action buttons based on status

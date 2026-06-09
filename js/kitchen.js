@@ -240,11 +240,12 @@ function buildKitchenCard(order) {
       const name = currentLang === 'da' ? (item.name_da || item.name) : (item.name_zh || item.name_da || item.name);
       const qty = item.qty || 1;
       const notes = item.notes || '';
+      const code = item.code ? `<span class="kit-item__code">${item.code}</span> ` : '';
       itemsHtml += `
         <div class="kit-item">
           <div class="kit-item__qty">${qty}x</div>
           <div class="kit-item__name">
-            ${name}
+            ${code}${name}
             ${notes ? `<div class="kit-item__notes">📝 ${notes}</div>` : ''}
             ${item.lead_days ? `<div class="kit-item__lead">⏰ ${currentLang === 'da' ? `Bestil ${item.lead_days} dag${item.lead_days>1?'e':''} i forvejen` : `需提前${item.lead_days}天预约`}</div>` : ''}
           </div>
@@ -357,7 +358,8 @@ function openKitModal(orderId) {
   let itemsHtml = '';
   items.forEach(item => {
     const name = currentLang === 'da' ? (item.name_da || item.name) : (item.name_zh || item.name_da || item.name);
-    itemsHtml += `<div class="kit-modal__item-row"><span class="kit-modal__item-qty">${item.qty}x</span> ${name} — ${(item.unitPrice||0).toFixed(2)} kr.</div>`;
+    const code = item.code ? `<span class="kit-modal__item-code">${item.code}</span> ` : '';
+    itemsHtml += `<div class="kit-modal__item-row"><span class="kit-modal__item-qty">${item.qty}x</span> ${code}${name} — ${(item.unitPrice||0).toFixed(2)} kr.</div>`;
     if (item.notes) itemsHtml += `<div style="font-size:12px;color:#F5A623;margin-left:28px;">📝 ${item.notes}</div>`;
   });
 

@@ -453,11 +453,12 @@ function renderCartPage() {
       ? `<div class="cart-item__img-wrap"><img class="cart-item__img" src="${c.item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
       : '';
 
+    const codeTag = c.item.code ? `<span class="cart-item__code">${c.item.code}</span> ` : '';
     return `
       <div class="cart-item">
         ${cartImg}
         <div class="cart-item__info">
-          <div class="cart-item__name">${preorderTag}${name}</div>
+          <div class="cart-item__name">${codeTag}${preorderTag}${name}</div>
           <div class="cart-item__name-zh">${nameAlt}</div>
           <div>
             ${discounted
@@ -556,11 +557,12 @@ function submitOrder(e) {
   const order = {
     orderNumber,
     orderType: type,
-    table: type === 'dinein' ? tableNum : null,
+    table_number: type === 'dinein' ? tableNum : null,
     guestCount: type === 'dinein' && guestCount ? parseInt(guestCount) : null,
     customer: { name, phone, pickupTime, notes },
     items: enriched.map((c) => ({
       id: c.itemId,
+      code: c.item.code || '',
       name_da: c.item.name_da,
       name_zh: c.item.name_zh,
       qty: c.qty,
@@ -598,8 +600,8 @@ function showOrderConfirmation(order) {
       : (da ? 'Afhentning' : '外卖');
 
   let details = '';
-  if (type === 'dinein' && order.table) {
-    details += (da ? `Bord: ${order.table}` : `桌号：${order.table}`) + '<br>';
+  if (type === 'dinein' && order.table_number) {
+    details += (da ? `Bord: ${order.table_number}` : `桌号：${order.table_number}`) + '<br>';
   }
   if (type === 'dinein' && order.guestCount) {
     details += (da ? `Antal gæster: ${order.guestCount}` : `人数：${order.guestCount}`) + '<br>';
@@ -669,7 +671,7 @@ async function submitOrderToSupabase(order) {
   const payload = {
     order_number: order.orderNumber,
     order_type: order.orderType,
-    table: order.table || null,
+    table_number: order.table_number || null,
     guest_count: order.guestCount,
     customer_name: order.customer.name || ('Bord ' + (order.table || '')),
     customer_phone: order.customer.phone || null,

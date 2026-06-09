@@ -266,6 +266,18 @@ body {
   margin-bottom: 2px;
 }
 
+.menu-item__code {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
 .menu-item__name-zh {
   font-family: var(--font-chinese);
   font-size: var(--font-size-sm);
@@ -450,6 +462,18 @@ body {
 .cart-item__name {
   font-weight: 600;
   font-size: var(--font-size-base);
+}
+
+.cart-item__code {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-right: 4px;
+  vertical-align: middle;
 }
 
 .cart-item__name-zh {

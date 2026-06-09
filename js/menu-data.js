@@ -6,6 +6,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "F1",
         "id": "forretter_1",
         "name_da": "Snackkurv (til 2 personer)",
         "name_zh": "前餐拼盘",
@@ -13,6 +14,7 @@ const MENU_DATA = [
         "price": 128
       },
       {
+        "code": "F2",
         "id": "forretter_2",
         "name_da": "Mini forårsruller 6stk.",
         "name_zh": "小春卷",
@@ -21,6 +23,7 @@ const MENU_DATA = [
         "image": "images/forretter_1.jpg"
       },
       {
+        "code": "F3",
         "id": "forretter_3",
         "name_da": "Hjemmelavede forårsruller med oksekød 4 stk.",
         "name_zh": "牛肉春卷",
@@ -29,6 +32,7 @@ const MENU_DATA = [
         "image": "images/forretter_2.jpg"
       },
       {
+        "code": "F4",
         "id": "forretter_4",
         "name_da": "Hjemmelavede forårsruller med and 3 stk.",
         "name_zh": "鸭春卷",
@@ -37,6 +41,7 @@ const MENU_DATA = [
         "image": "images/forretter_3.png"
       },
       {
+        "code": "F5",
         "id": "forretter_5",
         "name_da": "Dybstegte Tempura Rejer 4stk.",
         "name_zh": "日本炸虾",
@@ -45,6 +50,7 @@ const MENU_DATA = [
         "image": "images/forretter_4.webp"
       },
       {
+        "code": "F6",
         "id": "forretter_6",
         "name_da": "Kyllinge nuggets 6 stk",
         "name_zh": "炸鸡块",
@@ -53,6 +59,7 @@ const MENU_DATA = [
         "image": "images/forretter_5.jpg"
       },
       {
+        "code": "F7",
         "id": "forretter_7",
         "name_da": "Dybstegte dumplings med kylling 5stk",
         "name_zh": "炸鸡肉饺子",
@@ -61,6 +68,7 @@ const MENU_DATA = [
         "image": "images/forretter_6.png"
       },
       {
+        "code": "F8",
         "id": "forretter_8",
         "name_da": "Hjemmelavede dumplings i chiliolie",
         "name_zh": "红油水饺",
@@ -69,6 +77,7 @@ const MENU_DATA = [
         "image": "images/forretter_7.jpg"
       },
       {
+        "code": "F9",
         "id": "forretter_9",
         "name_da": "Kogte Harbin-dumplings 10stk.",
         "name_zh": "东北水饺",
@@ -77,6 +86,7 @@ const MENU_DATA = [
         "image": "images/forretter_8.jpg"
       },
       {
+        "code": "F10",
         "id": "forretter_10",
         "name_da": "Rejer Chips",
         "name_zh": "虾片",
@@ -93,6 +103,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "S1",
         "id": "suppe_1",
         "name_da": "Peking suppe",
         "name_zh": "北京汤",
@@ -101,6 +112,7 @@ const MENU_DATA = [
         "image": "images/suppe_1.jpg"
       },
       {
+        "code": "S2",
         "id": "suppe_2",
         "name_da": "Kylling suppe",
         "name_zh": "鸡丝汤",
@@ -109,6 +121,7 @@ const MENU_DATA = [
         "image": "images/suppe_2.jpg"
       },
       {
+        "code": "S3",
         "id": "suppe_3",
         "name_da": "Wonton suppe",
         "name_zh": "云吞汤",
@@ -117,6 +130,7 @@ const MENU_DATA = [
         "image": "images/suppe_3.jpg"
       },
       {
+        "code": "S4",
         "id": "suppe_4",
         "name_da": "Majssuppe med kylling stykker",
         "name_zh": "鸡蛋玉米羹",
@@ -133,6 +147,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "D1",
         "id": "dum_1",
         "name_da": "Char Siu Bao 3stk.",
         "name_zh": "叉烧包",
@@ -141,6 +156,7 @@ const MENU_DATA = [
         "image": "images/dum_1.jpg"
       },
       {
+        "code": "D2",
         "id": "dum_2",
         "name_da": "Siu Mai 4stk.",
         "name_zh": "烧卖",
@@ -149,6 +165,7 @@ const MENU_DATA = [
         "image": "images/dum_2.png"
       },
       {
+        "code": "D3",
         "id": "dum_3",
         "name_da": "Har Gow 4stk.",
         "name_zh": "虾饺",
@@ -157,6 +174,7 @@ const MENU_DATA = [
         "image": "images/dum_3.png"
       },
       {
+        "code": "D4",
         "id": "dum_4",
         "name_da": "Sesamboller 5stk.",
         "name_zh": "芝麻球",
@@ -173,6 +191,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "K1",
         "id": "kold_1",
         "name_da": "Special edamame",
         "name_zh": "醉香毛豆",
@@ -181,6 +200,7 @@ const MENU_DATA = [
         "image": "images/kold_1.jpg"
       },
       {
+        "code": "K2",
         "id": "kold_2",
         "name_da": "Kimchi kinakål",
         "name_zh": "辣白菜",
@@ -189,6 +209,7 @@ const MENU_DATA = [
         "image": "images/kold_2.jpg"
       },
       {
+        "code": "K3",
         "id": "kold_3",
         "name_da": "Agurk strimler med citron sauce",
         "name_zh": "柠檬黄瓜条",
@@ -197,6 +218,7 @@ const MENU_DATA = [
         "image": "images/kold_3.jpg"
       },
       {
+        "code": "K4",
         "id": "kold_4",
         "name_da": "Fuqi Feipian",
         "name_zh": "夫妻肺片",
@@ -205,6 +227,7 @@ const MENU_DATA = [
         "image": "images/kold_4.jpg"
       },
       {
+        "code": "K5",
         "id": "kold_5",
         "name_da": "Oksemave salad i chilioil",
         "name_zh": "红油牛肚",
@@ -213,6 +236,7 @@ const MENU_DATA = [
         "image": "images/kold_5.jpg"
       },
       {
+        "code": "K6",
         "id": "kold_6",
         "name_da": "Okse-tripe salat i chili sauce",
         "name_zh": "凉拌牛百叶",
@@ -221,6 +245,7 @@ const MENU_DATA = [
         "image": "images/kold_6.jpg"
       },
       {
+        "code": "K7",
         "id": "kold_7",
         "name_da": "Kylling med citron sauce",
         "name_zh": "柠檬鸡",
@@ -236,6 +261,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "H1",
         "id": "h_kylling_1",
         "name_da": "Dry wok med kylling",
         "name_zh": "干锅鸡",
@@ -244,6 +270,7 @@ const MENU_DATA = [
         "image": "images/h_kylling_1.jpg"
       },
       {
+        "code": "H2",
         "id": "h_kylling_2",
         "name_da": "Gong Bao Kylling",
         "name_zh": "宫保鸡丁",
@@ -252,6 +279,7 @@ const MENU_DATA = [
         "image": "images/h_kylling_2.jpg"
       },
       {
+        "code": "H3",
         "id": "h_kylling_3",
         "name_da": "Kylling i sur sød sauce",
         "name_zh": "甜酸鸡",
@@ -259,6 +287,7 @@ const MENU_DATA = [
         "price": 168
       },
       {
+        "code": "H4",
         "id": "h_kylling_4",
         "name_da": "Kylling a la Harbin",
         "name_zh": "哈尔滨辣子鸡",
@@ -267,6 +296,7 @@ const MENU_DATA = [
         "image": "images/h_kylling_4.jpg"
       },
       {
+        "code": "H5",
         "id": "h_kylling_5",
         "name_da": "Lynstegt kylling i østerssauce",
         "name_zh": "蚝油鸡片",
@@ -275,6 +305,7 @@ const MENU_DATA = [
         "image": "images/h_kylling_5.jpg"
       },
       {
+        "code": "H6",
         "id": "h_kylling_6",
         "name_da": "Kylling i rød Karry",
         "name_zh": "红咖喱鸡",
@@ -291,6 +322,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "H7",
         "id": "h_okse_1",
         "name_da": "Dry wok med oksekød",
         "name_zh": "干锅牛肉",
@@ -299,6 +331,7 @@ const MENU_DATA = [
         "image": "images/h_okse_1.jpg"
       },
       {
+        "code": "H8",
         "id": "h_okse_2",
         "name_da": "Oksekød i sort peber sauce på jernfad",
         "name_zh": "铁板黑椒牛肉",
@@ -306,6 +339,7 @@ const MENU_DATA = [
         "price": 188
       },
       {
+        "code": "H9",
         "id": "h_okse_3",
         "name_da": "Braiseret oksekød",
         "name_zh": "红烧牛肉",
@@ -314,6 +348,7 @@ const MENU_DATA = [
         "image": "images/h_okse_3.jpg"
       },
       {
+        "code": "H10",
         "id": "h_okse_4",
         "name_da": "Oksekød i gylden suppe",
         "name_zh": "金汤肥牛",
@@ -322,6 +357,7 @@ const MENU_DATA = [
         "image": "images/h_okse_4.jpg"
       },
       {
+        "code": "H11",
         "id": "h_okse_5",
         "name_da": "Oksekød i stærk Szechuan-sauce",
         "name_zh": "水煮牛肉",
@@ -330,6 +366,7 @@ const MENU_DATA = [
         "image": "images/h_okse_5.jpg"
       },
       {
+        "code": "H12",
         "id": "h_okse_6",
         "name_da": "Oksekød med to slags chili",
         "name_zh": "双椒牛肉",
@@ -338,6 +375,7 @@ const MENU_DATA = [
         "image": "images/h_okse_6.jpg"
       },
       {
+        "code": "H13",
         "id": "h_okse_7",
         "name_da": "Oksekød i østerssauce",
         "name_zh": "蚝油牛肉",
@@ -346,6 +384,7 @@ const MENU_DATA = [
         "image": "images/h_okse_7.jpg"
       },
       {
+        "code": "H14",
         "id": "h_okse_8",
         "name_da": "Oksekød i rød karry",
         "name_zh": "红咖喱牛肉",
@@ -362,6 +401,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "H15",
         "id": "h_svine_1",
         "name_da": "Dry wok med Spareribs",
         "name_zh": "干锅排骨",
@@ -370,6 +410,7 @@ const MENU_DATA = [
         "image": "images/h_svine_1.jpg"
       },
       {
+        "code": "H16",
         "id": "h_svine_2",
         "name_da": "Dry wok med Svinetarm",
         "name_zh": "干锅肥肠",
@@ -378,6 +419,7 @@ const MENU_DATA = [
         "image": "images/h_svine_2.jpg"
       },
       {
+        "code": "H17",
         "id": "h_svine_3",
         "name_da": "Guo Bao med svinekød",
         "name_zh": "锅包肉",
@@ -386,6 +428,7 @@ const MENU_DATA = [
         "image": "images/h_svine_3.jpg"
       },
       {
+        "code": "H18",
         "id": "h_svine_4",
         "name_da": "Svinekød i sur sød sauce",
         "name_zh": "菠萝咕咾肉",
@@ -394,6 +437,7 @@ const MENU_DATA = [
         "image": "images/h_svine_4.jpg"
       },
       {
+        "code": "H19",
         "id": "h_svine_5",
         "name_da": "Yuxiang svinekød",
         "name_zh": "鱼香肉丝",
@@ -402,6 +446,7 @@ const MENU_DATA = [
         "image": "images/h_svine_5.jpg"
       },
       {
+        "code": "H20",
         "id": "h_svine_6",
         "name_da": "Harbin-style dobbeltstegt svinekød",
         "name_zh": "哈香回锅肉",
@@ -410,6 +455,7 @@ const MENU_DATA = [
         "image": "images/h_svine_6.jpg"
       },
       {
+        "code": "H21",
         "id": "h_svine_7",
         "name_da": "Sprødt fristurestegt svinekød",
         "name_zh": "溜肉段",
@@ -418,6 +464,7 @@ const MENU_DATA = [
         "image": "images/h_svine_7.jpg"
       },
       {
+        "code": "H22",
         "id": "h_svine_8",
         "name_da": "Salt & Pepper svinekød",
         "name_zh": "椒盐猪柳",
@@ -426,6 +473,7 @@ const MENU_DATA = [
         "image": "images/h_svine_8.jpg"
       },
       {
+        "code": "H23",
         "id": "h_svine_9",
         "name_da": "Harbin-style braiseret svinekød",
         "name_zh": "哈尔滨坛子红烧肉+鹌鹑蛋",
@@ -434,6 +482,7 @@ const MENU_DATA = [
         "image": "images/h_svine_9.jpg"
       },
       {
+        "code": "H24",
         "id": "h_svine_10",
         "name_da": "Máo Xûe Wàng",
         "name_zh": "毛血旺",
@@ -450,6 +499,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "H25",
         "id": "h_lam_1",
         "name_da": "Lammekød med spidskommen",
         "name_zh": "孜然羊肉",
@@ -458,6 +508,7 @@ const MENU_DATA = [
         "image": "images/h_lam_1.jpg"
       },
       {
+        "code": "H26",
         "id": "h_lam_2",
         "name_da": "Hu Nan Lam",
         "name_zh": "湘西羊肉",
@@ -465,6 +516,7 @@ const MENU_DATA = [
         "price": 198
       },
       {
+        "code": "H27",
         "id": "h_lam_3",
         "name_da": "Lynstegt lam med forårsløg",
         "name_zh": "葱爆羊肉",
@@ -481,6 +533,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "H28",
         "id": "h_and_1",
         "name_da": "Dry Pot Boneless Duck",
         "name_zh": "干锅去骨鸭",
@@ -489,6 +542,7 @@ const MENU_DATA = [
         "image": "images/h_and_1.jpg"
       },
       {
+        "code": "H29",
         "id": "h_and_2",
         "name_da": "Yuiang-sauce på jernpande",
         "name_zh": "鱼香铁板鸭",
@@ -496,6 +550,7 @@ const MENU_DATA = [
         "price": 188
       },
       {
+        "code": "H30",
         "id": "h_and_3",
         "name_da": "Sprødstegt and",
         "name_zh": "香酥鸭",
@@ -512,6 +567,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "H31",
         "id": "h_rejer_1",
         "name_da": "Wokstegte rejer med skal",
         "name_zh": "干锅大虾",
@@ -520,6 +576,7 @@ const MENU_DATA = [
         "image": "images/h_rejer_1.jpg"
       },
       {
+        "code": "H32",
         "id": "h_rejer_2",
         "name_da": "Sprødstegte te-rejer med skal",
         "name_zh": "茶香虾",
@@ -528,6 +585,7 @@ const MENU_DATA = [
         "image": "images/h_rejer_2.jpg"
       },
       {
+        "code": "H33",
         "id": "h_rejer_3",
         "name_da": "Stærk og krydret rejer med skal",
         "name_zh": "香辣一品虾",
@@ -535,6 +593,7 @@ const MENU_DATA = [
         "price": 198
       },
       {
+        "code": "H34",
         "id": "h_rejer_4",
         "name_da": "Lynstegte rejer i lys sauce",
         "name_zh": "清炒虾仁",
@@ -543,6 +602,7 @@ const MENU_DATA = [
         "image": "images/h_rejer_4.jpg"
       },
       {
+        "code": "H35",
         "id": "h_rejer_5",
         "name_da": "Rejer i rød karry",
         "name_zh": "咖喱虾",
@@ -559,6 +619,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "H36",
         "id": "h_fisk_1",
         "name_da": "Harbin grillet fisk (hel fisk med ben)",
         "name_zh": "哈尔滨烤鱼",
@@ -567,6 +628,7 @@ const MENU_DATA = [
         "image": "images/h_fisk_1.jpg"
       },
       {
+        "code": "H37",
         "id": "h_fisk_2",
         "name_da": "Chongqing-stil fiskefilet i sennepkålssuppe (uden ben)",
         "name_zh": "重庆酸菜鱼",
@@ -575,6 +637,7 @@ const MENU_DATA = [
         "image": "images/h_fisk_2.jpg"
       },
       {
+        "code": "H38",
         "id": "h_fisk_3",
         "name_da": "Sichuan-stil pocheret fisk (uden ben)",
         "name_zh": "沸腾鱼",
@@ -583,6 +646,7 @@ const MENU_DATA = [
         "image": "images/h_fisk_3.jpg"
       },
       {
+        "code": "H39",
         "id": "h_fisk_4",
         "name_da": "Fiskefilet i gylden suppe (uden ben)",
         "name_zh": "金汤鱼片",
@@ -591,6 +655,7 @@ const MENU_DATA = [
         "image": "images/h_fisk_4.jpg"
       },
       {
+        "code": "H40",
         "id": "h_fisk_5",
         "name_da": "Sprødstegt fisk med sur-sød sauce (hel fisk med ben)",
         "name_zh": "松鼠鱼",
@@ -607,6 +672,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "H41",
         "id": "h_groent_1",
         "name_da": "Tørstegt blomkål (Vegetar)",
         "name_zh": "干锅菜花",
@@ -615,6 +681,7 @@ const MENU_DATA = [
         "image": "images/h_groent_1.jpg"
       },
       {
+        "code": "H42",
         "id": "h_groent_2",
         "name_da": "Tørstegt marineret lotusrod (Vegetar)",
         "name_zh": "干锅卤藕",
@@ -623,6 +690,7 @@ const MENU_DATA = [
         "image": "images/h_groent_2.jpg"
       },
       {
+        "code": "H43",
         "id": "h_groent_3",
         "name_da": "Lynstegte grøntsager med lotusrod og svampe (Vegetar)",
         "name_zh": "荷塘小炒",
@@ -631,6 +699,7 @@ const MENU_DATA = [
         "image": "images/h_groent_3.jpg"
       },
       {
+        "code": "H44",
         "id": "h_groent_4",
         "name_da": "Di San Xian (Earth's Three Delights)",
         "name_zh": "地三鲜",
@@ -639,6 +708,7 @@ const MENU_DATA = [
         "image": "images/h_groent_4.jpg"
       },
       {
+        "code": "H45",
         "id": "h_groent_5",
         "name_da": "Sichuan-braiseret aubergine med hvidløgssauce (Vegetar)",
         "name_zh": "鱼香茄子",
@@ -647,6 +717,7 @@ const MENU_DATA = [
         "image": "images/h_groent_5.jpg"
       },
       {
+        "code": "H46",
         "id": "h_groent_6",
         "name_da": "Mapo Tofu (med oksekød)",
         "name_zh": "麻婆豆腐",
@@ -655,6 +726,7 @@ const MENU_DATA = [
         "image": "images/h_groent_6.jpg"
       },
       {
+        "code": "H47",
         "id": "h_groent_7",
         "name_da": "Rød braised Tofu (Vegetar)",
         "name_zh": "红烧豆腐",
@@ -663,6 +735,7 @@ const MENU_DATA = [
         "image": "images/h_groent_7.jpg"
       },
       {
+        "code": "H48",
         "id": "h_groent_8",
         "name_da": "Tørstegte grønne bønner (Vegetar)",
         "name_zh": "干煸四季豆",
@@ -671,6 +744,7 @@ const MENU_DATA = [
         "image": "images/h_groent_8.jpg"
       },
       {
+        "code": "H49",
         "id": "h_groent_9",
         "name_da": "Wokstegte hvidkål (Vegetar)",
         "name_zh": "手撕包菜",
@@ -679,6 +753,7 @@ const MENU_DATA = [
         "image": "images/h_groent_9.jpg"
       },
       {
+        "code": "H50",
         "id": "h_groent_10",
         "name_da": "Kinakål i gylden suppe (Vegetar)",
         "name_zh": "金汤奶白菜",
@@ -687,6 +762,7 @@ const MENU_DATA = [
         "image": "images/h_groent_10.jpg"
       },
       {
+        "code": "H51",
         "id": "h_groent_11",
         "name_da": "Lynstegte hvidløgsstængler med fast tofu (Vegetar)",
         "name_zh": "蒜苔炒香干",
@@ -695,6 +771,7 @@ const MENU_DATA = [
         "image": "images/h_groent_11.jpg"
       },
       {
+        "code": "H52",
         "id": "h_groent_12",
         "name_da": "Stegt vandspinat med fermenteret rød bønnepasta og tofu (Vegetar)",
         "name_zh": "南乳空心菜",
@@ -703,6 +780,7 @@ const MENU_DATA = [
         "image": "images/h_groent_12.jpg"
       },
       {
+        "code": "H53",
         "id": "h_groent_13",
         "name_da": "Stegte pak choi med shiitake-svampe (Vegetar)",
         "name_zh": "香菇扒菜胆",
@@ -710,6 +788,7 @@ const MENU_DATA = [
         "price": 148
       },
       {
+        "code": "H54",
         "id": "h_groent_14",
         "name_da": "Lynstegt Pak Choi (Vegetar)",
         "name_zh": "清炒油菜",
@@ -726,6 +805,7 @@ const MENU_DATA = [
     "discount": true,
     "items": [
       {
+        "code": "M55",
         "id": "h_nudler_1",
         "name_da": "Stegte nudler / ris / udon nudler / risnudler med oksekød",
         "name_zh": "牛肉炒面/饭/乌冬/河粉",
@@ -734,6 +814,7 @@ const MENU_DATA = [
         "image": "images/h_nudler_1.jpg"
       },
       {
+        "code": "M56",
         "id": "h_nudler_2",
         "name_da": "Stegte nudler / ris / udon nudler / ris nudler med kylling",
         "name_zh": "鸡肉炒面/饭/乌冬/河粉",
@@ -742,6 +823,7 @@ const MENU_DATA = [
         "image": "images/h_nudler_2.jpg"
       },
       {
+        "code": "M57",
         "id": "h_nudler_3",
         "name_da": "Stegte nudler / ris / udon nudler / ris nudler med rejer",
         "name_zh": "大虾炒面/饭/乌冬/河粉",
@@ -749,6 +831,7 @@ const MENU_DATA = [
         "price": 138
       },
       {
+        "code": "M58",
         "id": "h_nudler_4",
         "name_da": "Vegetar stegte nudler / ris / udon nudler / ris nudler",
         "name_zh": "素炒面/饭/乌冬/河粉",
@@ -764,6 +847,7 @@ const MENU_DATA = [
     "discount": false,
     "items": [
       {
+        "code": "S55",
         "id": "sauce_1",
         "name_da": "Chili olie",
         "name_zh": "油泼辣椒",
@@ -772,6 +856,7 @@ const MENU_DATA = [
         "image": "images/sauce_1.jpg"
       },
       {
+        "code": "S56",
         "id": "sauce_2",
         "name_da": "Sød og sur sauce",
         "name_zh": "酸甜酱",
@@ -780,6 +865,7 @@ const MENU_DATA = [
         "image": "images/sauce_2.jpg"
       },
       {
+        "code": "S57",
         "id": "sauce_3",
         "name_da": "Dumpling dip",
         "name_zh": "饺子醋",
@@ -788,6 +874,7 @@ const MENU_DATA = [
         "image": "images/sauce_3.jpg"
       },
       {
+        "code": "S58",
         "id": "sauce_4",
         "name_da": "Chilimayo",
         "name_zh": "辣味蛋黄酱",
@@ -796,6 +883,7 @@ const MENU_DATA = [
         "image": "images/sauce_4.jpg"
       },
       {
+        "code": "S59",
         "id": "sauce_5",
         "name_da": "Mayo",
         "name_zh": "标准蛋黄酱",
@@ -804,6 +892,7 @@ const MENU_DATA = [
         "image": "images/sauce_5.jpg"
       },
       {
+        "code": "S60",
         "id": "sauce_6",
         "name_da": "Sriracha",
         "name_zh": "泰式是拉差辣酱",
@@ -820,6 +909,7 @@ const MENU_DATA = [
     "discount": false,
     "items": [
       {
+        "code": "V61",
         "id": "drikke_1",
         "name_da": "Kinesisk drik",
         "name_zh": "茶派",
@@ -828,6 +918,7 @@ const MENU_DATA = [
         "image": "images/drikke_1.jpg"
       },
       {
+        "code": "V62",
         "id": "drikke_2",
         "name_da": "Sodavand",
         "name_zh": "碳酸饮料",
@@ -836,6 +927,7 @@ const MENU_DATA = [
         "image": "images/drikke_2.png"
       },
       {
+        "code": "V63",
         "id": "drikke_3",
         "name_da": "Still water",
         "name_zh": "无泡矿泉水",
@@ -844,6 +936,7 @@ const MENU_DATA = [
         "image": "images/drikke_3.jpg"
       },
       {
+        "code": "V64",
         "id": "drikke_4",
         "name_da": "San Pellegrino",
         "name_zh": "巴黎水",
@@ -852,6 +945,7 @@ const MENU_DATA = [
         "image": "images/drikke_4.webp"
       },
       {
+        "code": "V65",
         "id": "drikke_5",
         "name_da": "Dansk øl",
         "name_zh": "嘉士伯啤酒",
@@ -860,6 +954,7 @@ const MENU_DATA = [
         "image": "images/drikke_5.webp"
       },
       {
+        "code": "V66",
         "id": "drikke_6",
         "name_da": "Kinesisk øl Tsingtao",
         "name_zh": "青岛啤酒",
@@ -868,6 +963,7 @@ const MENU_DATA = [
         "image": "images/drikke_6.jpg"
       },
       {
+        "code": "V67",
         "id": "drikke_7",
         "name_da": "Japansk øl Sapporo",
         "name_zh": "日本三宝乐啤酒",
@@ -876,6 +972,7 @@ const MENU_DATA = [
         "image": "images/drikke_7.jpg"
       },
       {
+        "code": "V68",
         "id": "drikke_8",
         "name_da": "Koreansk Soju Peach/grape 13,0%",
         "name_zh": "韩国烧酒",
@@ -884,6 +981,7 @@ const MENU_DATA = [
         "image": "images/drikke_8.jpg"
       },
       {
+        "code": "V69",
         "id": "drikke_9",
         "name_da": "Rødvin (glas)",
         "name_zh": "红酒 (杯)",
@@ -892,6 +990,7 @@ const MENU_DATA = [
         "image": "images/drikke_9.webp"
       },
       {
+        "code": "V69-F",
         "id": "drikke_10",
         "name_da": "Rødvin (flaske)",
         "name_zh": "红酒 (瓶)",
@@ -899,6 +998,7 @@ const MENU_DATA = [
         "price": 219
       },
       {
+        "code": "V70",
         "id": "drikke_11",
         "name_da": "Hvidvin (glas)",
         "name_zh": "白葡萄酒 (杯)",
@@ -907,6 +1007,7 @@ const MENU_DATA = [
         "image": "images/drikke_11.webp"
       },
       {
+        "code": "V70-F",
         "id": "drikke_12",
         "name_da": "Hvidvin (flaske)",
         "name_zh": "白葡萄酒 (瓶)",
@@ -914,6 +1015,7 @@ const MENU_DATA = [
         "price": 219
       },
       {
+        "code": "V71",
         "id": "drikke_13",
         "name_da": "Danskvand 50cl",
         "name_zh": "气泡水",
@@ -921,6 +1023,7 @@ const MENU_DATA = [
         "price": 49
       },
       {
+        "code": "V72",
         "id": "drikke_14",
         "name_da": "Lemonade 50cl",
         "name_zh": "柠檬水",
@@ -937,6 +1040,7 @@ const MENU_DATA = [
     "preorder": true,
     "items": [
       {
+        "code": "P1",
         "id": "preorder_1",
         "name_da": "Hongshao hel fisk (braiseret fisk)",
         "name_zh": "红烧全鱼",
@@ -946,6 +1050,7 @@ const MENU_DATA = [
         "lead_days": 1
       },
       {
+        "code": "P2",
         "id": "preorder_2",
         "name_da": "Kinesisk lu-mødt kød plade",
         "name_zh": "卤味拼盘",
