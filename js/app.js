@@ -737,9 +737,9 @@ async function checkExistingOrderForTable(tableNumber) {
     const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const { data, error } = await client
       .from('orders')
-      .select('id, order_number, items, customer_name, table_number')
+      .select('id, order_number, items, customer_name, table_number, status')
       .eq('table_number', Number(tableNumber))
-      .eq('status', 'new')
+      .in('status', ['new', 'preparing'])
       .order('created_at', { ascending: false })
       .limit(1);
     if (error || !data || data.length === 0) return null;
@@ -750,13 +750,37 @@ async function checkExistingOrderForTable(tableNumber) {
 function showMergeModal(tableNumber) {
   const da = currentLang === 'da';
   const existing = pendingMergeOrder;
+
+  // Build items preview HTML
+  let itemsHtml = '';
+  if (existing.items && Array.isArray(existing.items)) {
+    itemsHtml = '<div class="merge-modal__items-preview">';
+    existing.items.forEach(function(it) {
+      // Find item name
+      let name = it.id;
+      for (const cat of menuData) {
+        const m = cat.items.find(function(i) { return i.id === it.id; });
+        if (m) { name = da ? (m.name_da || m.name) : (m.name || m.name_da); break; }
+      }
+      itemsHtml += '<div class="merge-modal__item-row">'
+        + '<span>' + name + '</span>'
+        + '<span class="merge-modal__item-qty">x' + it.qty + '</span>'
+        + '</div>';
+    });
+    itemsHtml += '</div>';
+  }
+
   document.getElementById('merge-modal-title').textContent = da
     ? 'Eksisterende bestilling' : '已有订单';
   document.getElementById('merge-modal-text').innerHTML = da
-    ? `Bord ${tableNumber} har ale en bestilling (<strong>${existing.order_number}</strong>).<br>Vil du tilføje til den eksisterende bestilling?`
-    : `第 ${tableNumber} 桌已有订单（<strong>${existing.order_number}</strong>）。<br>是否加入该订单？`;
+    ? `Bord ${tableNumber} har ale en bestilling (<strong>${existing.order_number}</strong>).<br>Vil du tilføje retter?`
+    : `第 ${tableNumber} 桌已有订单（<strong>${existing.order_number}</strong>）<br>是否加菜？`;
+  // Show items preview
+  const previewEl = document.getElementById('merge-modal-preview');
+  if (previewEl) previewEl.innerHTML = itemsHtml;
+
   document.getElementById('merge-modal-new').textContent = da ? 'Ny bestilling' : '新订单';
-  document.getElementById('merge-modal-add').textContent = da ? 'Tilføj til eksisterende' : '加入现有订单';
+  document.getElementById('merge-modal-add').textContent = da ? 'Tilføj retter (加菜)' : '加菜';
   document.getElementById('merge-modal').style.display = '';
 }
 

@@ -994,3 +994,39 @@ body {
 .modal-box__btn:active {
   transform: scale(0.97);
 }
+
+/* ═══ Merge Modal items preview ═══ */
+#merge-modal-preview {
+  margin: 12px 0 4px;
+  max-height: 220px;
+  overflow-y: auto;
+  text-align: left;
+  padding: 0 4px;
+}
+
+.merge-modal__items-preview {
+  background: var(--color-bg-hover);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.merge-modal__item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.merge-modal__item-row:last-child {
+  border-bottom: none;
+}
+
+.merge-modal__item-qty {
+  font-weight: 600;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  margin-left: 8px;
+}
