@@ -774,6 +774,7 @@ function mergeChooseAdd() {
 
 function mergeChooseNew() {
   document.getElementById('merge-modal').style.display = 'none';
+  clearCart();
   pendingMergeOrder = null;
   currentOrderId = null;
   currentOrderNumber = null;
