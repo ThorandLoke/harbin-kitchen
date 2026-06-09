@@ -9,6 +9,9 @@ let currentLang = localStorage.getItem('harbin_lang') || 'da';
 let currentCategory = 'all';
 let currentPage = 'welcome'; // 'welcome' | 'menu' | 'cart' | 'checkout' | 'confirm'
 let pendingPreorderItem = null; // { itemId, categoryId }
+let currentOrderId   = null;   // null = 新订单；非null = 合并到已有订单 (Supabase id)
+let currentOrderNumber = null;   // 合并时保留原订单号，避免重复生成
+let pendingMergeOrder = null; // 弹窗时暂存已有订单信息
 
 // ── Init ──
 document.addEventListener('DOMContentLoaded', async () => {
@@ -20,11 +23,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const urlTable = params.get('table');
 
   if (urlType === 'dinein' && urlTable) {
-    // QR scan: auto enter dine-in with table number
-    document.getElementById('table-number').value = urlTable;
-    selectOrderType('dinein', true);
-    // Clean URL without reloading
-    window.history.replaceState({}, '', window.location.pathname);
+    // QR scan: check if there's already a "new" order for this table
+    const existing = await checkExistingOrderForTable(urlTable);
+    if (existing) {
+      pendingMergeOrder = existing;
+      showMergeModal(urlTable);
+      window.history.replaceState({}, '', window.location.pathname);
+    } else {
+      document.getElementById('table-number').value = urlTable;
+      selectOrderType('dinein', true);
+      window.history.replaceState({}, '', window.location.pathname);
+    }
   } else if (urlType === 'takeaway') {
     selectOrderType('takeaway', true);
     window.history.replaceState({}, '', window.location.pathname);
@@ -402,6 +411,9 @@ function goToWelcome() {
 
   // Clear cart and order type
   clearCart();
+  currentOrderId = null;
+  currentOrderNumber = null;
+  pendingMergeOrder = null;
   localStorage.removeItem('harbin_order_type');
   document.getElementById('table-number').value = '';
 
@@ -553,7 +565,7 @@ function submitOrder(e) {
 
   const enriched = getEnrichedCart(menuData);
   const totals = calculateCartTotals(enriched);
-  const orderNumber = 'HK-' + Date.now().toString(36).toUpperCase();
+  const orderNumber = currentOrderNumber || ('HK-' + Date.now().toString(36).toUpperCase());
 
   const order = {
     orderNumber,
@@ -587,6 +599,8 @@ function submitOrder(e) {
   });
 
   clearCart();
+  currentOrderId = null;
+  currentOrderNumber = null;
   showOrderConfirmation(order);
 }
 
@@ -669,24 +683,39 @@ async function submitOrderToSupabase(order) {
   const { createClient } = supabase;
   const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const payload = {
-    order_number: order.orderNumber,
-    order_type: order.orderType,
-    table_number: order.table_number || null,
-    guest_count: order.guestCount,
-    customer_name: order.customer.name || ('Bord ' + (order.table_number || '')),
-    customer_phone: order.customer.phone || null,
-    pickup_time: order.customer.pickupTime || null,
-    notes: order.customer.notes || null,
-    items: order.items,
-    subtotal: order.totals.subtotal,
-    discount: order.totals.totalDiscount,
-    total: order.totals.total,
-    status: 'new'
-  };
-
-  const { error } = await client.from('orders').insert(payload);
-  if (error) throw error;
+  if (currentOrderId) {
+    // Merge mode: UPDATE existing order
+    const { error } = await client
+      .from('orders')
+      .update({
+        items: order.items,
+        subtotal: order.totals.subtotal,
+        discount: order.totals.totalDiscount,
+        total: order.totals.total,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', currentOrderId);
+    if (error) throw error;
+  } else {
+    // Normal mode: INSERT new order
+    const payload = {
+      order_number: order.orderNumber,
+      order_type: order.orderType,
+      table_number: order.table_number || null,
+      guest_count: order.guestCount,
+      customer_name: order.customer.name || ('Bord ' + (order.table_number || '')),
+      customer_phone: order.customer.phone || null,
+      pickup_time: order.customer.pickupTime || null,
+      notes: order.customer.notes || null,
+      items: order.items,
+      subtotal: order.totals.subtotal,
+      discount: order.totals.totalDiscount,
+      total: order.totals.total,
+      status: 'new'
+    };
+    const { error } = await client.from('orders').insert(payload);
+    if (error) throw error;
+  }
 }
 
 function updateHeader() {
@@ -696,4 +725,74 @@ function updateHeader() {
       ? '东北小炒 <span>Harbin Kitchen</span>'
       : 'Harbin Kitchen <span>东北小炒</span>';
   }
+}
+
+// ── Merge Order: check for existing "new" order for a table ──
+async function checkExistingOrderForTable(tableNumber) {
+  if (typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL || SUPABASE_URL.includes('YOUR_')) return null;
+  if (typeof supabase === 'undefined') return null;
+  try {
+    const { createClient } = supabase;
+    const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { data, error } = await client
+      .from('orders')
+      .select('id, order_number, items, customer_name, table_number')
+      .eq('table_number', String(tableNumber))
+      .eq('status', 'new')
+      .order('created_at', { ascending: false })
+      .limit(1);
+    if (error || !data || data.length === 0) return null;
+    return data[0];
+  } catch (e) { return null; }
+}
+
+function showMergeModal(tableNumber) {
+  const da = currentLang === 'da';
+  const existing = pendingMergeOrder;
+  document.getElementById('merge-modal-title').textContent = da
+    ? 'Eksisterende bestilling' : '已有订单';
+  document.getElementById('merge-modal-text').innerHTML = da
+    ? `Bord ${tableNumber} har ale en bestilling (<strong>${existing.order_number}</strong>).<br>Vil du tilføje til den eksisterende bestilling?`
+    : `第 ${tableNumber} 桌已有订单（<strong>${existing.order_number}</strong>）。<br>是否加入该订单？`;
+  document.getElementById('merge-modal-new').textContent = da ? 'Ny bestilling' : '新订单';
+  document.getElementById('merge-modal-add').textContent = da ? 'Tilføj til eksisterende' : '加入现有订单';
+  document.getElementById('merge-modal').style.display = '';
+}
+
+function mergeChooseAdd() {
+  document.getElementById('merge-modal').style.display = 'none';
+  const existing = pendingMergeOrder;
+  currentOrderId = existing.id;
+  currentOrderNumber = existing.order_number;
+  document.getElementById('table-number').value = existing.table_number || '';
+  loadExistingOrderIntoCart(existing);
+  selectOrderType('dinein', true);
+  updateCartBar();
+}
+
+function mergeChooseNew() {
+  document.getElementById('merge-modal').style.display = 'none';
+  pendingMergeOrder = null;
+  currentOrderId = null;
+  currentOrderNumber = null;
+  const params = new URLSearchParams(window.location.search);
+  const urlTable = params.get('table');
+  document.getElementById('table-number').value = urlTable || '';
+  selectOrderType('dinein', true);
+  window.history.replaceState({}, '', window.location.pathname);
+}
+
+function loadExistingOrderIntoCart(existingOrder) {
+  if (!existingOrder.items || !Array.isArray(existingOrder.items)) return;
+  existingOrder.items.forEach(orderItem => {
+    for (const cat of menuData) {
+      const menuItem = cat.items.find(i => i.id === orderItem.id);
+      if (menuItem) {
+        for (let i = 0; i < orderItem.qty; i++) {
+          addToCart(menuItem, cat.id);
+        }
+        break;
+      }
+    }
+  });
 }
