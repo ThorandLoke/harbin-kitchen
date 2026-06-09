@@ -177,11 +177,18 @@ function renderOrderCard(order) {
   const statusClass = `order-card__status order-card__status--${order.status}`;
   const statusLabel = { new: '🆕 新订单', preparing: '🍳 制作中', ready: '✅ 待取餐', completed: '✔ 已完成', cancelled: '❌ 已取消' }[order.status] || order.status;
 
+  // Table number for dine-in (check both possible field names)
+  const tableNum = order.table_number || order.table || '';
+  const tableBadge = (order.order_type === 'dinein' && tableNum)
+    ? `<span style="background:#2D2A26;color:#D4A574;padding:2px 8px;border-radius:4px;font-size:14px;font-weight:700;margin-left:6px;">🪑 桌${tableNum}</span>`
+    : '';
+
   // Table & guest info (dine-in)
   let metaHTML = '';
+  const tableNum = order.table_number || order.table || '';
   if (order.order_type === 'dinein') {
-    if (order.table_number) {
-      metaHTML += `<span class="order-card__meta-item">🪑 桌号: <b>${order.table_number}</b></span>`;
+    if (tableNum) {
+      metaHTML += `<span class="order-card__meta-item">🪑 桌号: <b>${tableNum}</b></span>`;
     }
     if (order.guest_count) {
       metaHTML += `<span class="order-card__meta-item">👤 人数: <b>${order.guest_count}</b></span>`;
@@ -225,7 +232,7 @@ function renderOrderCard(order) {
   return `
     <div class="order-card" id="order-${order.order_number}">
       <div class="order-card__header">
-        <span class="order-card__id">${typeIcon} ${order.order_number} · ${typeLabel}</span>
+        <span class="order-card__id">${typeIcon} ${order.order_number} · ${typeLabel}${tableBadge}</span>
         <span class="${statusClass}">${statusLabel}</span>
       </div>
       ${metaHTML ? `<div class="order-card__meta">${metaHTML}</div>` : ''}

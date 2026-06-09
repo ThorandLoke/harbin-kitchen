@@ -669,7 +669,7 @@ async function submitOrderToSupabase(order) {
   const payload = {
     order_number: order.orderNumber,
     order_type: order.orderType,
-    table_number: order.table,
+    table: order.table || null,
     guest_count: order.guestCount,
     customer_name: order.customer.name || ('Bord ' + (order.table || '')),
     customer_phone: order.customer.phone || null,
