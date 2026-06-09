@@ -1,0 +1,40 @@
+name: Supabase Keep-Alive
+
+# ── 保活说明 ──
+# Supabase 免费版 7 天无活动会自动暂停项目（Pause），
+# 一旦暂停，后厨页和管理页无法接收新订单，需手动 Restore。
+#
+# 本 workflow 每天自动发一次轻量请求，保持项目活跃，
+# 完全不影响正常点单，只读查询，不写任何数据。
+#
+# 时间：每天丹麦时间凌晨 02:00（夏令 UTC+2 = UTC 00:00，冬令 UTC+1 = UTC 01:00）
+# 使用 UTC 00:00，夏令时刚好 02:00，冬令时为 01:00，保活完全够用
+# 也可在 GitHub → Actions → 左侧 "Supabase Keep-Alive" → Run workflow 手动触发
+
+on:
+  schedule:
+    # 每天 UTC 00:00 = 丹麦夏令 02:00 / 冬令 01:00
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # 允许手动点击触发
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Ping Supabase（保活，防止项目暂停）
+        run: |
+          echo "📡 Pinging Supabase to keep project active..."
+          RESP=$(curl -s -w "\n%{http_code}" -X GET \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/orders?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          HTTP_CODE=$(echo "$RESP" | tail -n1)
+          echo "HTTP status: $HTTP_CODE"
+          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "201" ]; then
+            echo "✅ Supabase is alive!"
+          else
+            echo "⚠️ Ping returned $HTTP_CODE — 项目可能已暂停，请登录 Supabase 后台检查"
+            exit 1
+          fi
