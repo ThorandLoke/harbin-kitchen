@@ -735,16 +735,27 @@ async function checkExistingOrderForTable(tableNumber) {
   try {
     const { createClient } = supabase;
     const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // 查找该桌所有"未结账"状态的订单
+    // new=未开始, preparing=制作中, ready=待取餐, completed=已完成的未结账订单也可加菜
+    // 只有老板在 admin 页面点"已完成"后才会不出现（实际上 completed 仍然可以加酒水等，所以这里保留）
     const { data, error } = await client
       .from('orders')
       .select('id, order_number, items, customer_name, table_number, status')
-      .eq('table_number', Number(tableNumber))
-      .in('status', ['new', 'preparing'])
+      .eq('table_number', String(tableNumber))
+      .in('status', ['new', 'preparing', 'ready'])
       .order('created_at', { ascending: false })
       .limit(1);
-    if (error || !data || data.length === 0) return null;
+    if (error) {
+      console.error('[checkExistingOrderForTable] Supabase error:', error);
+      return null;
+    }
+    if (!data || data.length === 0) {
+      console.log('[checkExistingOrderForTable] No existing order found for table', tableNumber);
+      return null;
+    }
+    console.log('[checkExistingOrderForTable] Found existing order:', data[0].order_number, data[0].status);
     return data[0];
-  } catch (e) { return null; }
+  } catch (e) { console.error('[checkExistingOrderForTable] Exception:', e); return null; }
 }
 
 function showMergeModal(tableNumber) {
