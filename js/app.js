@@ -956,7 +956,7 @@ async function joinOrCreateDraftOrder(tableNumber) {
       currentOrderNumber = data[0].order_number;
       localStorage.setItem('harbin_draft_order_id', currentDraftOrderId);
       localStorage.setItem('harbin_draft_table', tableNumber);
-      console.log('[joinOrCreateDraft] Joined existing draft:', data[0].order_number);
+      console.log('[joinOrCreateDraft] Joined existing draft:', data[0].order_number, 'draft ID:', data[0].id);
 
       // Load draft items into local cart
       clearCart();
@@ -1004,7 +1004,7 @@ async function joinOrCreateDraftOrder(tableNumber) {
         currentOrderNumber = insertData[0].order_number;
         localStorage.setItem('harbin_draft_order_id', currentDraftOrderId);
         localStorage.setItem('harbin_draft_table', tableNumber);
-        console.log('[joinOrCreateDraft] Created new draft:', newOrderNumber);
+        console.log('[joinOrCreateDraft] Created new draft:', newOrderNumber, 'draft ID:', insertData[0].id);
       }
     }
 
@@ -1013,6 +1013,7 @@ async function joinOrCreateDraftOrder(tableNumber) {
 
     // Setup Realtime subscription
     setupRealtimeSubscription(client);
+    console.log('[joinOrCreateDraft] Realtime setup done for draft:', currentDraftOrderId);
 
   } catch (e) {
     console.error('[joinOrCreateDraft] Exception:', e);
@@ -1053,8 +1054,11 @@ function setupRealtimeSubscription(supabaseClient) {
       applyDraftItemsToCart(newItems);
       isApplyingRealtime = false;
     })
-    .subscribe((status) => {
-      console.log('[Realtime] Subscription status:', status);
+    .subscribe((status, err) => {
+      console.log('[Realtime] Subscription status:', status, err || '');
+      if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+        console.error('[Realtime] Subscription FAILED:', status, err);
+      }
     });
 }
 
@@ -1089,7 +1093,7 @@ function applyDraftItemsToCart(items) {
  * Sync local cart to Supabase draft order (debounced).
  */
 function syncCartToDraft() {
-  if (!currentDraftOrderId) return;
+  if (!currentDraftOrderId) { console.log('[syncCartToDraft] SKIP: no draft ID'); return; }
   if (isApplyingRealtime) return; // don't sync while applying Realtime changes
   if (typeof SUPABASE_URL === 'undefined' || !SUPABASE_URL || SUPABASE_URL.includes('YOUR_')) return;
   if (typeof supabase === 'undefined') return;
