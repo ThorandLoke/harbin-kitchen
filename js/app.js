@@ -674,7 +674,7 @@ async function submitOrderToSupabase(order) {
     order_type: order.orderType,
     table_number: order.table_number || null,
     guest_count: order.guestCount,
-    customer_name: order.customer.name || ('Bord ' + (order.table || '')),
+    customer_name: order.customer.name || ('Bord ' + (order.table_number || '')),
     customer_phone: order.customer.phone || null,
     pickup_time: order.customer.pickupTime || null,
     notes: order.customer.notes || null,

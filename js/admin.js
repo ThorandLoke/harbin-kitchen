@@ -185,7 +185,6 @@ function renderOrderCard(order) {
 
   // Table & guest info (dine-in)
   let metaHTML = '';
-  const tableNum = order.table_number || order.table || '';
   if (order.order_type === 'dinein') {
     if (tableNum) {
       metaHTML += `<span class="order-card__meta-item">🪑 桌号: <b>${tableNum}</b></span>`;
