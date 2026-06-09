@@ -61,6 +61,7 @@
 | **Supabase REST API** | PostgREST | 前端直接通过 HTTPS 读写数据库（JWT 鉴权） | 免费 |
 | **GitHub Pages** | 静态网站托管 | 托管所有前端 HTML/CSS/JS，全球 CDN 加速 | 免费 |
 | **GitHub Actions** | CI/CD | 每次 push 到 main 分支自动部署 | 免费 |
+| **GitHub Actions** | Supabase 保活 | 每天自动 ping 数据库，防止免费版 7 天无活动暂停 | 免费 |
 | **Let's Encrypt** | SSL 证书 | HTTPS 加密，GitHub Pages 自动签发续期 | 免费 |
 | **one.com DNS** | 域名解析 | `order.harbinkitchen.dk` A 记录指向 GitHub Pages | 约 100-150 DKK/年 |
 
@@ -245,8 +246,23 @@
 - 如果忘记密码：在 https://supabase.com 点 "Forgot Password" 重置
 - 项目 ID：`glfmoqfevyeeuqbihjht`
 
-> ⚠️ Supabase 免费版会在 **7 天无活动** 后暂停项目（Pause），暂停后管理页和后厨页将无法收到新订单。  
-> 暂停后需要登录 Supabase 后台手动点击 **Restore** 恢复。
+> ⚠️ Supabase 免费版会在 **7 天无活动** 后暂停项目（Pause），暂停后管理页和后厨页将无法收到新订单。
+> 已配置 **GitHub Actions 自动保活**（见下方），正常情况下项目不会自动暂停。
+> 如保活失败导致暂停，需登录 Supabase 后台手动点击 **Restore** 恢复。
+
+**Supabase 自动保活方案：**
+
+| 项目 | 详情 |
+|:-----|:-----|
+| 方案 | GitHub Actions 定时保活（免费） |
+| 配置文件 | `.github/workflows/keep-alive.yml` |
+| 执行频率 | 每天 UTC 00:00（丹麦夏令 02:00 / 冬令 01:00） |
+| 执行动作 | `GET /rest/v1/orders?select=id&limit=1`（只读 1 条记录，最轻量查询） |
+| 对正常点单的影响 | **零影响**——仅读取 1 条记录，不写任何数据，不改变任何状态 |
+| GitHub Secrets | `SUPABASE_URL` + `SUPABASE_ANON_KEY`（存于仓库 Settings → Secrets → Actions） |
+| 手动触发 | GitHub → Actions → Supabase Keep-Alive → Run workflow |
+| 运行日志 | GitHub → Actions → Supabase Keep-Alive → 查看每次运行结果 |
+| 失败告警 | Actions 页面会显示红色 ❌，可通过 GitHub 通知接收 |
 
 ---
 
@@ -270,6 +286,9 @@
 ```
 harbin-kitchen/
 ├── CNAME                    ← 自定义域名配置（order.harbinkitchen.dk）
+├── .github/
+│   └── workflows/
+│       └── keep-alive.yml   ← ★ Supabase 保活（每天自动 ping，防止暂停）
 ├── index.html               ← 顾客点餐主页面
 ├── admin.html               ← 老板管理页面
 ├── kitchen.html             ← 后厨出单页面
@@ -322,11 +341,14 @@ harbin-kitchen/
 
 ### 🔇 Supabase 项目被暂停
 
+正常情况下不会发生（已配置自动保活），如仍被暂停：
+
 1. 登录 https://supabase.com
 2. 进入项目 harbin-kitchen
 3. 看到黄色 "Paused" 标签，点击 **Restore project**
 4. 等待约 1 分钟恢复
 5. 刷新管理页和后厨页
+6. 检查保活是否正常：GitHub → Actions → Supabase Keep-Alive，查看最近一次运行结果
 
 ### 🔄 域名续费
 
@@ -373,7 +395,7 @@ harbin-kitchen/
 | 问题 | 可能原因 | 解决方法 |
 |:-----|:---------|:---------|
 | 点餐页面打不开 | 域名过期 or DNS 被改 | 检查 one.com 域名续费 + DNS 的 4 条 A 记录 |
-| 管理页看不到新订单 | Supabase 项目被暂停 | 登录 supabase.com → Restore project |
+| 管理页看不到新订单 | Supabase 项目被暂停 | 登录 supabase.com → Restore project；检查保活：GitHub Actions → Keep-Alive |
 | 菜品图片显示不出来 | 图片文件被删除 | 检查 GitHub 仓库 images/ 目录 |
 | 二维码扫不了 | 链接错误 | 确认二维码指向 order.harbinkitchen.dk |
 | 网页显示旧内容 | 浏览器缓存 | 强制刷新：Ctrl+Shift+R / ⌘+Shift+R |
