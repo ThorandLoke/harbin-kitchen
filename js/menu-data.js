@@ -922,9 +922,18 @@ const MENU_DATA = [
       {
         "code": "V62",
         "id": "drikke_2",
-        "name_da": "Sodavand",
-        "name_zh": "碳酸饮料",
-        "description_da": "碳酸类饮料",
+        "name_da": "Coca-Cola",
+        "name_zh": "可口可乐",
+        "description_da": "Klassisk Coca-Cola med sukker",
+        "price": 29,
+        "image": "images/drikke_2.png"
+      },
+      {
+        "code": "V62Z",
+        "id": "drikke_2z",
+        "name_da": "Coca-Cola Zero",
+        "name_zh": "零度可乐",
+        "description_da": "Coca-Cola uden sukker",
         "price": 29,
         "image": "images/drikke_2.png"
       },
@@ -1045,25 +1054,49 @@ const MENU_DATA = [
       {
         "code": "V80",
         "id": "din_1",
-        "name_da": "Sodavand lille",
-        "name_zh": "汽水（小杯）",
-        "description_da": "Coca-Cola, Coca-Cola Zero, Sprite, Faxe Kondi, Pepsi Max, Squash",
+        "name_da": "Coca-Cola (lille)",
+        "name_zh": "可口可乐（小杯）",
+        "description_da": "Klassisk Coca-Cola med sukker",
+        "price": 39
+      },
+      {
+        "code": "V80Z",
+        "id": "din_1z",
+        "name_da": "Coca-Cola Zero (lille)",
+        "name_zh": "零度可乐（小杯）",
+        "description_da": "Coca-Cola uden sukker",
         "price": 39
       },
       {
         "code": "V81",
         "id": "din_2",
-        "name_da": "Sodavand mellem",
-        "name_zh": "汽水（中杯）",
-        "description_da": "Coca-Cola, Coca-Cola Zero, Sprite, Faxe Kondi, Pepsi Max, Squash",
+        "name_da": "Coca-Cola (mellem)",
+        "name_zh": "可口可乐（中杯）",
+        "description_da": "Klassisk Coca-Cola med sukker",
+        "price": 49
+      },
+      {
+        "code": "V81Z",
+        "id": "din_2z",
+        "name_da": "Coca-Cola Zero (mellem)",
+        "name_zh": "零度可乐（中杯）",
+        "description_da": "Coca-Cola uden sukker",
         "price": 49
       },
       {
         "code": "V82",
         "id": "din_3",
-        "name_da": "Sodavand stor",
-        "name_zh": "汽水（大杯）",
-        "description_da": "Coca-Cola, Coca-Cola Zero, Sprite, Faxe Kondi, Pepsi Max, Squash",
+        "name_da": "Coca-Cola (stor)",
+        "name_zh": "可口可乐（大杯）",
+        "description_da": "Klassisk Coca-Cola med sukker",
+        "price": 59
+      },
+      {
+        "code": "V82Z",
+        "id": "din_3z",
+        "name_da": "Coca-Cola Zero (stor)",
+        "name_zh": "零度可乐（大杯）",
+        "description_da": "Coca-Cola uden sukker",
         "price": 59
       },
       {
