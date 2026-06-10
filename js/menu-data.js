@@ -908,6 +908,7 @@ const MENU_DATA = [
     "name_zh": "饮品（外卖）",
     "discount": false,
     "orderTypes": ["takeaway"],
+    "categoryType": "drink",
     "items": [
       {
         "code": "V61",
@@ -1039,6 +1040,7 @@ const MENU_DATA = [
     "name_zh": "堂食饮品甜品",
     "discount": false,
     "orderTypes": ["dinein"],
+    "categoryType": "drink",
     "items": [
       {
         "code": "V80",

@@ -202,12 +202,28 @@ function renderOrderCard(order) {
   // Time elapsed
   const elapsed = getTimeElapsed(order.created_at);
 
-  // Items list
-  const itemsHTML = (order.items || []).map(item => {
-    const name = da ? item.name_da : item.name_zh;
-    const code = item.code ? `<span class="order-card__item-code">${item.code}</span> ` : '';
-    return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>`;
-  }).join('');
+  // Items list - separate dishes and drinks
+  const items = order.items || [];
+  const dishItems = items.filter(item => item.categoryType !== 'drink');
+  const drinkItems = items.filter(item => item.categoryType === 'drink');
+  
+  let itemsHTML = '';
+  if (dishItems.length > 0) {
+    itemsHTML += `<div style="font-size:12px;color:var(--color-text-secondary);margin:4px 18px 2px;">${da ? '🍽️ Retter' : '🍽️ 菜品'}</div>`;
+    itemsHTML += dishItems.map(item => {
+      const name = da ? item.name_da : item.name_zh;
+      const code = item.code ? `<span class="order-card__item-code">${item.code}</span> ` : '';
+      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>`;
+    }).join('');
+  }
+  if (drinkItems.length > 0) {
+    itemsHTML += `<div style="font-size:12px;color:var(--color-text-secondary);margin:4px 18px 2px;">${da ? '🥤 Drikkevarer' : '🥤 饮品'}</div>`;
+    itemsHTML += drinkItems.map(item => {
+      const name = da ? item.name_da : item.name_zh;
+      const code = item.code ? `<span class="order-card__item-code">${item.code}</span> ` : '';
+      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>`;
+    }).join('');
+  }
 
   // Action buttons based on status
   let actionsHTML = '';

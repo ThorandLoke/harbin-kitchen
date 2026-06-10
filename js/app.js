@@ -474,6 +474,39 @@ function goToWelcome() {
 // Cart Page
 // ═══════════════════════════════════════
 
+function renderCartItem(c) {
+  const { finalPrice, discounted } = calculatePrice(c.item.price, c.categoryId);
+  const name = currentLang === 'zh' ? c.item.name_zh : c.item.name_da;
+  const nameAlt = currentLang === 'zh' ? c.item.name_da : c.item.name_zh;
+  const lineTotal = finalPrice * c.qty;
+  const preorderTag = c.item.lead_days ? `<span class="menu-item__preorder-badge">⏰ ${c.item.lead_days}d</span> ` : '';
+  const cartImg = c.item.image
+    ? `<div class="cart-item__img-wrap"><img class="cart-item__img" src="${c.item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
+    : '';
+  const codeTag = c.item.code ? `<span class="cart-item__code">${c.item.code}</span> ` : '';
+  return `
+    <div class="cart-item">
+      ${cartImg}
+      <div class="cart-item__info">
+        <div class="cart-item__name">${codeTag}${preorderTag}${name}</div>
+        <div class="cart-item__name-zh">${nameAlt}</div>
+        <div>
+          ${discounted
+              ? `<span class="cart-item__price">${finalPrice} kr.</span><span class="cart-item__price-original">${c.item.price} kr.</span>`
+              : `<span class="cart-item__price">${c.item.price} kr.</span>`
+            }
+        </div>
+      </div>
+      <div class="cart-item__qty">
+        <button class="qty-btn qty-btn--minus" onclick="handleQtyChange('${c.itemId}', -1)">−</button>
+        <span class="cart-item__qty-num">${c.qty}</span>
+        <button class="qty-btn qty-btn--plus" onclick="handleQtyChange('${c.itemId}', 1)">+</button>
+      </div>
+      <div class="cart-item__line-total">${lineTotal} kr.</div>
+    </div>
+  `;
+}
+
 function renderCartPage() {
   const container = document.getElementById('cart-items');
   const enriched = getEnrichedCart(menuData);
@@ -492,39 +525,32 @@ function renderCartPage() {
 
   document.getElementById('cart-checkout-btn').style.display = '';
 
-  container.innerHTML = enriched.map((c) => {
-    const { finalPrice, discount, hasDiscount: discounted } = calculatePrice(c.item.price, c.categoryId);
-    const name = currentLang === 'zh' ? c.item.name_zh : c.item.name_da;
-    const nameAlt = currentLang === 'zh' ? c.item.name_da : c.item.name_zh;
-    const lineTotal = finalPrice * c.qty;
-    const preorderTag = c.item.lead_days ? `<span class="menu-item__preorder-badge">⏰ ${c.item.lead_days}d</span> ` : '';
-    const cartImg = c.item.image
-      ? `<div class="cart-item__img-wrap"><img class="cart-item__img" src="${c.item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
-      : '';
+  // Separate dishes and drinks
+  const dishes = [];
+  const drinks = [];
+  enriched.forEach(c => {
+    const cat = c.category;
+    if (cat && cat.categoryType === "drink") {
+      drinks.push(c);
+    } else {
+      dishes.push(c);
+    }
+  });
 
-    const codeTag = c.item.code ? `<span class="cart-item__code">${c.item.code}</span> ` : '';
-    return `
-      <div class="cart-item">
-        ${cartImg}
-        <div class="cart-item__info">
-          <div class="cart-item__name">${codeTag}${preorderTag}${name}</div>
-          <div class="cart-item__name-zh">${nameAlt}</div>
-          <div>
-            ${discounted
-              ? `<span class="cart-item__price">${finalPrice} kr.</span><span class="cart-item__price-original">${c.item.price} kr.</span>`
-              : `<span class="cart-item__price">${c.item.price} kr.</span>`
-            }
-          </div>
-        </div>
-        <div class="cart-item__qty">
-          <button class="qty-btn qty-btn--minus" onclick="handleQtyChange('${c.itemId}', -1)">−</button>
-          <span class="cart-item__qty-num">${c.qty}</span>
-          <button class="qty-btn qty-btn--plus" onclick="handleQtyChange('${c.itemId}', 1)">+</button>
-        </div>
-        <div class="cart-item__line-total">${lineTotal} kr.</div>
-      </div>
-    `;
-  }).join('');
+  // Render dishes section
+  let html = "";
+  if (dishes.length > 0) {
+    html += `<div class="cart-section-title">${currentLang === "zh" ? "🍽️ 菜品" : "🍽️ Retter"}</div>`;
+    html += dishes.map(c => renderCartItem(c)).join("");
+  }
+
+  // Render drinks section
+  if (drinks.length > 0) {
+    html += `<div class="cart-section-title">${currentLang === "zh" ? "🥤 饮品" : "🥤 Drikkevarer"}</div>`;
+    html += drinks.map(c => renderCartItem(c)).join("");
+  }
+
+  container.innerHTML = html;
 
   // Summary
   const type = getOrderType();
@@ -618,7 +644,8 @@ async function submitOrder(e) {
       qty: c.qty,
       unitPrice: calculatePrice(c.item.price, c.categoryId).finalPrice,
       lineTotal: calculatePrice(c.item.price, c.categoryId).finalPrice * c.qty,
-      lead_days: c.item.lead_days || 0
+      lead_days: c.item.lead_days || 0,
+      categoryType: c.category ? c.category.categoryType || 'dish' : 'dish'
     })),
     totals,
     status: 'new',
@@ -1118,7 +1145,8 @@ function syncCartToDraft() {
         qty: c.qty,
         unitPrice: c.finalPrice,
         lineTotal: c.finalPrice * c.qty,
-        lead_days: c.item.lead_days || 0
+        lead_days: c.item.lead_days || 0,
+        categoryType: c.category ? c.category.categoryType || 'dish' : 'dish'
       }));
 
       const { error } = await client

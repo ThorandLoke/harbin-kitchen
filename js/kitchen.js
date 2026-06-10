@@ -224,9 +224,12 @@ function buildKitchenCard(order) {
     ? (currentLang === 'da' ? '🪑 Spis her' : '🪑 堂食')
     : (currentLang === 'da' ? '🥡 Afhentning' : '🥡 外卖');
 
+  // Filter out drinks (only show dishes in kitchen)
+  const dishItems = items.filter(item => item.categoryType !== 'drink');
+  
   // Group items by category for kitchen
   const grouped = {};
-  items.forEach(item => {
+  dishItems.forEach(item => {
     const cat = item.category_name_da || item.category || 'Andet';
     if (!grouped[cat]) grouped[cat] = [];
     grouped[cat].push(item);
@@ -355,8 +358,11 @@ function openKitModal(orderId) {
   if (customerName) metaHtml += `👤 ${customerName}`;
   if (customerPhone) metaHtml += ` &nbsp; 📞 ${customerPhone}`;
 
+  // Filter out drinks (only show dishes in kitchen modal)
+  const dishItems = items.filter(item => item.categoryType !== 'drink');
+  
   let itemsHtml = '';
-  items.forEach(item => {
+  dishItems.forEach(item => {
     const name = currentLang === 'da' ? (item.name_da || item.name) : (item.name_zh || item.name_da || item.name);
     const code = item.code ? `<span class="kit-modal__item-code">${item.code}</span> ` : '';
     itemsHtml += `<div class="kit-modal__item-row"><span class="kit-modal__item-qty">${item.qty}x</span> ${code}${name} — ${(item.unitPrice||0).toFixed(2)} kr.</div>`;
