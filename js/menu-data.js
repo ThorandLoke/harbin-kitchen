@@ -1240,6 +1240,7 @@ const MENU_DATA = [
         "description_da": "Hel fisk braiseret i sojasauce og krydderier. Skal bestilles 1 dag i forvejen.",
         "description_zh": "整条鱼红烧做法，酱香浓郁。需提前1天预约。",
         "price": 368,
+        "image": "images/preorder_1.jpg",
         "lead_days": 1
       },
       {
