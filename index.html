@@ -166,6 +166,26 @@
     </div>
   </div>
 
+  <!-- ═══ Option Select Modal ═══ -->
+  <div class="modal-overlay" id="option-modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-box__close" onclick="cancelOptionModal()">✕</div>
+      <div class="modal-box__img" id="option-modal-img"></div>
+      <div class="modal-box__title" id="option-modal-title"></div>
+      <div class="modal-box__text" id="option-modal-desc"></div>
+      <div class="option-choices" id="option-choices"></div>
+      <div class="option-qty-row">
+        <button class="qty-btn qty-btn--minus" onclick="optionQtyChange(-1)">−</button>
+        <span class="option-qty-num" id="option-qty-num">1</span>
+        <button class="qty-btn qty-btn--plus" onclick="optionQtyChange(1)">+</button>
+      </div>
+      <div class="modal-box__actions">
+        <button class="modal-box__btn modal-box__btn--cancel" onclick="cancelOptionModal()"></button>
+        <button class="modal-box__btn modal-box__btn--confirm" onclick="confirmOptionAndAddToCart()"></button>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══ Merge Order Modal (dine-in same table) ═══ -->
   <div class="modal-overlay" id="merge-modal" style="display:none">
     <div class="modal-box">

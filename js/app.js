@@ -306,6 +306,12 @@ function handleAddToCart(itemId, categoryId) {
     return;
   }
 
+  // Check if item has options (e.g. starch choice)
+  if (item.options && item.options.length > 0) {
+    showOptionModal(item, categoryId);
+    return;
+  }
+
   addToCart(item, categoryId);
   updateCartBar();
   syncCartToDraft();
@@ -346,6 +352,122 @@ function confirmPreorder() {
   pendingPreorderItem = null;
   document.getElementById('preorder-modal').style.display = 'none';
 }
+  }
+
+// ═════════════════════════════
+// Option Select Modal
+// ═════════════════════════════
+let pendingOptionItem = null;
+let pendingOptionCategoryId = null;
+let selectedOptionId = null;
+let optionQty = 1;
+
+function showOptionModal(item, categoryId) {
+  pendingOptionItem = item;
+  pendingOptionCategoryId = categoryId;
+  selectedOptionId = item.options && item.options.length > 0 ? item.options[0].id : null;
+  optionQty = 1;
+
+  const da = currentLang === 'da';
+
+  // Image
+  const imgEl = document.getElementById('option-modal-img');
+  if (item.image) {
+    imgEl.innerHTML = `<img src="${item.image}" alt="${da ? item.name_da : item.name_zh}" style="width:100%;border-radius:8px;">`;
+    imgEl.style.display = '';
+  } else {
+    imgEl.style.display = 'none';
+  }
+
+  // Title
+  document.getElementById('option-modal-title').textContent = da ? item.name_da : item.name_zh;
+
+  // Description
+  const desc = da ? (item.description_da || '') : (item.description_zh || '');
+  document.getElementById('option-modal-desc').textContent = desc;
+
+  // Options
+  const choicesEl = document.getElementById('option-choices');
+  choicesEl.innerHTML = item.options.map(opt => `
+    <button class="option-choice ${opt.id === selectedOptionId ? 'option-choice--selected' : ''}"
+            onclick="selectOption('${opt.id}')">
+      ${da ? opt.name_da : opt.name_zh}
+    </button>
+  `).join('');
+
+  // Qty
+  document.getElementById('option-qty-num').textContent = optionQty;
+
+  // Button texts
+  const cancelBtn = document.querySelector('#option-modal .modal-box__btn--cancel');
+  const confirmBtn = document.querySelector('#option-modal .modal-box__btn--confirm');
+  cancelBtn.textContent = da ? 'Annuller' : '取消';
+  confirmBtn.textContent = da ? 'Tilføj' : '加入购物车';
+
+  // Show
+  document.getElementById('option-modal').style.display = '';
+}
+
+function selectOption(optionId) {
+  selectedOptionId = optionId;
+  const item = pendingOptionItem;
+  if (!item || !item.options) return;
+  const da = currentLang === 'da';
+  const choicesEl = document.getElementById('option-choices');
+  choicesEl.innerHTML = item.options.map(opt => `
+    <button class="option-choice ${opt.id === selectedOptionId ? 'option-choice--selected' : ''}"
+            onclick="selectOption('${opt.id}')">
+      ${da ? opt.name_da : opt.name_zh}
+    </button>
+  `).join('');
+}
+
+function optionQtyChange(delta) {
+  optionQty = Math.max(1, optionQty + delta);
+  document.getElementById('option-qty-num').textContent = optionQty;
+}
+
+function confirmOptionAndAddToCart() {
+  if (!pendingOptionItem || !selectedOptionId) return;
+
+  // Check if same item + same option already in cart
+  const existingIdx = cart.findIndex(c =>
+    c.itemId === pendingOptionItem.id && c.selectedOption === selectedOptionId
+  );
+
+  if (existingIdx >= 0) {
+    cart[existingIdx].qty += optionQty;
+  } else {
+    cart.push({
+      itemId: pendingOptionItem.id,
+      categoryId: pendingOptionCategoryId,
+      selectedOption: selectedOptionId,
+      qty: optionQty
+    });
+  }
+
+  saveCart();
+  updateCartBar();
+  syncCartToDraft();
+
+  // Visual feedback
+  const el = document.querySelector(`[data-item-id="${pendingOptionItem.id}"] .add-btn`);
+  if (el) {
+    el.style.transform = 'scale(1.3)';
+    setTimeout(() => { el.style.transform = ''; }, 150);
+  }
+
+  cancelOptionModal();
+}
+
+function cancelOptionModal() {
+  pendingOptionItem = null;
+  pendingOptionCategoryId = null;
+  selectedOptionId = null;
+  optionQty = 1;
+  document.getElementById('option-modal').style.display = 'none';
+}
+
 
 // ═══════════════════════════════════════
 // Cart Bar
@@ -474,21 +596,38 @@ function goToWelcome() {
 // Cart Page
 // ═══════════════════════════════════════
 
-function renderCartItem(c) {
+function renderCartItem(c, idx = -1) {
   const { finalPrice, discounted } = calculatePrice(c.item.price, c.categoryId);
   const name = currentLang === 'zh' ? c.item.name_zh : c.item.name_da;
   const nameAlt = currentLang === 'zh' ? c.item.name_da : c.item.name_zh;
   const lineTotal = finalPrice * c.qty;
+
+  // Show selected option (e.g. noodle/rice/udon/hefen)
+  let optionTag = '';
+  if (c.selectedOption && c.item.options) {
+    const opt = c.item.options.find(o => o.id === c.selectedOption);
+    if (opt) {
+      const optName = currentLang === 'zh' ? opt.name_zh : opt.name_da;
+      optionTag = `<span class="cart-item__option">(${optName})</span>`;
+    }
+  }
+
   const preorderTag = c.item.lead_days ? `<span class="menu-item__preorder-badge">⏰ ${c.item.lead_days}d</span> ` : '';
   const cartImg = c.item.image
-    ? `<div class="cart-item__img-wrap"><img class="cart-item__img" src="${c.item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
+    ? `<div class="cart-item__img-wrap"><img class="cart-item__img" src="${c.item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display=\'none\'"></div>`
     : '';
   const codeTag = c.item.code ? `<span class="cart-item__code">${c.item.code}</span> ` : '';
+
+  // Choose qty change handler
+  const qtyHandler = (idx >= 0)
+    ? `handleQtyChangeByIndex(${idx},`
+    : `handleQtyChange('${c.itemId}', ${c.selectedOption ? `'${c.selectedOption}'` : 'null'},`;
+
   return `
     <div class="cart-item">
       ${cartImg}
       <div class="cart-item__info">
-        <div class="cart-item__name">${codeTag}${preorderTag}${name}</div>
+        <div class="cart-item__name">${codeTag}${preorderTag}${name} ${optionTag}</div>
         <div class="cart-item__name-zh">${nameAlt}</div>
         <div>
           ${discounted
@@ -498,9 +637,9 @@ function renderCartItem(c) {
         </div>
       </div>
       <div class="cart-item__qty">
-        <button class="qty-btn qty-btn--minus" onclick="handleQtyChange('${c.itemId}', -1)">−</button>
+        <button class="qty-btn qty-btn--minus" onclick="${qtyHandler}-1)">−</button>
         <span class="cart-item__qty-num">${c.qty}</span>
-        <button class="qty-btn qty-btn--plus" onclick="handleQtyChange('${c.itemId}', 1)">+</button>
+        <button class="qty-btn qty-btn--plus" onclick="${qtyHandler}+1)">+</button>
       </div>
       <div class="cart-item__line-total">${lineTotal} kr.</div>
     </div>
@@ -588,6 +727,22 @@ function handleQtyChange(itemId, delta) {
   } else {
     decreaseFromCart(itemId);
   }
+  updateCartBar();
+  renderCartPage();
+  syncCartToDraft();
+}
+
+function handleQtyChangeByIndex(idx, delta) {
+  if (idx < 0 || idx >= cart.length) return;
+  if (delta > 0) {
+    cart[idx].qty += 1;
+  } else {
+    cart[idx].qty -= 1;
+    if (cart[idx].qty <= 0) {
+      cart.splice(idx, 1);
+    }
+  }
+  saveCart();
   updateCartBar();
   renderCartPage();
   syncCartToDraft();

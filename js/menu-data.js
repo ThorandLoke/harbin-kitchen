@@ -800,8 +800,8 @@ const MENU_DATA = [
   },
   {
     "id": "hovedretter_nudler",
-    "name_da": "Hovedretter - Nudler",
-    "name_zh": "主菜 - 炒面炒饭",
+    "name_da": "Hovedretter - Ris & Nudler",
+    "name_zh": "主菜 - 饭面",
     "discount": true,
     "items": [
       {
@@ -811,7 +811,13 @@ const MENU_DATA = [
         "name_zh": "牛肉炒面/饭/乌冬/河粉",
         "description_da": "牛肉、鸡蛋、蔬菜",
         "price": 138,
-        "image": "images/h_nudler_1.jpg"
+        "image": "images/h_nudler_1.jpg",
+        "options": [
+          {"id": "noodle", "name_da": "Nudler", "name_zh": "面"},
+          {"id": "rice", "name_da": "Ris", "name_zh": "饭"},
+          {"id": "udon", "name_da": "Udon nudler", "name_zh": "乌冬"},
+          {"id": "hefen", "name_da": "Risnudler", "name_zh": "河粉"}
+        ]
       },
       {
         "code": "N56",
@@ -820,7 +826,13 @@ const MENU_DATA = [
         "name_zh": "鸡肉炒面/饭/乌冬/河粉",
         "description_da": "鸡肉、鸡蛋、蔬菜",
         "price": 138,
-        "image": "images/h_nudler_2.jpg"
+        "image": "images/h_nudler_2.jpg",
+        "options": [
+          {"id": "noodle", "name_da": "Nudler", "name_zh": "面"},
+          {"id": "rice", "name_da": "Ris", "name_zh": "饭"},
+          {"id": "udon", "name_da": "Udon nudler", "name_zh": "乌冬"},
+          {"id": "hefen", "name_da": "Risnudler", "name_zh": "河粉"}
+        ]
       },
       {
         "code": "N57",
@@ -828,7 +840,13 @@ const MENU_DATA = [
         "name_da": "Stegte nudler / ris / udon nudler / ris nudler med rejer",
         "name_zh": "大虾炒面/饭/乌冬/河粉",
         "description_da": "大虾、鸡蛋、蔬菜",
-        "price": 138
+        "price": 138,
+        "options": [
+          {"id": "noodle", "name_da": "Nudler", "name_zh": "面"},
+          {"id": "rice", "name_da": "Ris", "name_zh": "饭"},
+          {"id": "udon", "name_da": "Udon nudler", "name_zh": "乌冬"},
+          {"id": "hefen", "name_da": "Risnudler", "name_zh": "河粉"}
+        ]
       },
       {
         "code": "N58",
@@ -836,7 +854,13 @@ const MENU_DATA = [
         "name_da": "Vegetar stegte nudler / ris / udon nudler / ris nudler",
         "name_zh": "素炒面/饭/乌冬/河粉",
         "description_da": "鸡蛋、额外时令蔬菜",
-        "price": 128
+        "price": 128,
+        "options": [
+          {"id": "noodle", "name_da": "Nudler", "name_zh": "面"},
+          {"id": "rice", "name_da": "Ris", "name_zh": "饭"},
+          {"id": "udon", "name_da": "Udon nudler", "name_zh": "乌冬"},
+          {"id": "hefen", "name_da": "Risnudler", "name_zh": "河粉"}
+        ]
       }
     ]
   },
