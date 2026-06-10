@@ -352,7 +352,6 @@ function confirmPreorder() {
   pendingPreorderItem = null;
   document.getElementById('preorder-modal').style.display = 'none';
 }
-  }
 
 // ═════════════════════════════
 // Option Select Modal
@@ -794,17 +793,25 @@ async function submitOrder(e) {
     table_number: type === 'dinein' ? tableNum : null,
     guestCount: type === 'dinein' && guestCount ? parseInt(guestCount) : null,
     customer: { name, phone, pickupTime, notes },
-    items: enriched.map((c) => ({
-      id: c.itemId,
-      code: c.item.code || '',
-      name_da: c.item.name_da,
-      name_zh: c.item.name_zh,
-      qty: c.qty,
-      unitPrice: calculatePrice(c.item.price, c.categoryId).finalPrice,
-      lineTotal: calculatePrice(c.item.price, c.categoryId).finalPrice * c.qty,
-      lead_days: c.item.lead_days || 0,
-      categoryType: c.category ? c.category.categoryType || 'dish' : 'dish'
-    })),
+    items: enriched.map((c) => {
+      const opt = c.selectedOption && c.item && c.item.options 
+        ? c.item.options.find(o => o.id === c.selectedOption) 
+        : null;
+      return {
+        id: c.itemId,
+        code: c.item.code || '',
+        name_da: c.item.name_da,
+        name_zh: c.item.name_zh,
+        qty: c.qty,
+        unitPrice: calculatePrice(c.item.price, c.categoryId).finalPrice,
+        lineTotal: calculatePrice(c.item.price, c.categoryId).finalPrice * c.qty,
+        lead_days: c.item.lead_days || 0,
+        categoryType: c.category ? c.category.categoryType || 'dish' : 'dish',
+        selectedOption: c.selectedOption || null,
+        optionName_da: opt ? opt.name_da : null,
+        optionName_zh: opt ? opt.name_zh : null,
+      };
+    }),
     totals,
     status: 'new',
     createdAt: new Date().toISOString()
@@ -1295,17 +1302,25 @@ function syncCartToDraft() {
 
       const enriched = getEnrichedCart(menuData);
       const totals = calculateCartTotals(enriched);
-      const itemsForSupabase = enriched.map(c => ({
-        id: c.itemId,
-        code: c.item.code || '',
-        name_da: c.item.name_da,
-        name_zh: c.item.name_zh,
-        qty: c.qty,
-        unitPrice: c.finalPrice,
-        lineTotal: c.finalPrice * c.qty,
-        lead_days: c.item.lead_days || 0,
-        categoryType: c.category ? c.category.categoryType || 'dish' : 'dish'
-      }));
+      const itemsForSupabase = enriched.map(c => {
+        const opt = c.selectedOption && c.item && c.item.options 
+          ? c.item.options.find(o => o.id === c.selectedOption) 
+          : null;
+        return {
+          id: c.itemId,
+          code: c.item.code || '',
+          name_da: c.item.name_da,
+          name_zh: c.item.name_zh,
+          qty: c.qty,
+          unitPrice: c.finalPrice,
+          lineTotal: c.finalPrice * c.qty,
+          lead_days: c.item.lead_days || 0,
+          categoryType: c.category ? c.category.categoryType || 'dish' : 'dish',
+          selectedOption: c.selectedOption || null,
+          optionName_da: opt ? opt.name_da : null,
+          optionName_zh: opt ? opt.name_zh : null,
+        };
+      });
 
       const { error } = await client
         .from('orders')
