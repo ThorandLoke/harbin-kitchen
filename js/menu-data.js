@@ -1246,11 +1246,31 @@ const MENU_DATA = [
       {
         "code": "P2",
         "id": "preorder_2",
-        "name_da": "Kinesisk lu-mødt kød plade",
-        "name_zh": "卤味拼盘",
-        "description_da": "Assorteret kinesisk braiseret kød: okse, svineører, kyllingefødder m.m. Skal bestilles 3 dage i forvejen.",
-        "description_zh": "中式卤味拼盘：卤牛肉、猪耳、鸡爪等。需提前3天预约。",
-        "price": 298,
+        "name_da": "Lu-braiseret oksekød",
+        "name_zh": "卤牛肉",
+        "description_da": "Kinesisk braiseret oksekød med special krydderier. Skal bestilles 3 dage i forvejen.",
+        "description_zh": "中式卤牛肉，秘制卤料慢炖。需提前3天预约。",
+        "price": 120,
+        "lead_days": 3
+      },
+      {
+        "code": "P3",
+        "id": "preorder_3",
+        "name_da": "Lu-braiseret svineinderste",
+        "name_zh": "卤大肠",
+        "description_da": "Kinesisk braiseret svineinderste med special krydderier. Skal bestilles 3 dage i forvejen.",
+        "description_zh": "中式卤大肠，秘制卤料慢炖。需提前3天预约。",
+        "price": 110,
+        "lead_days": 3
+      },
+      {
+        "code": "P4",
+        "id": "preorder_4",
+        "name_da": "Lu-braiseret oksemave",
+        "name_zh": "卤牛肚",
+        "description_da": "Kinesisk braiseret oksemave med special krydderier. Skal bestilles 3 dage i forvejen.",
+        "description_zh": "中式卤牛肚，秘制卤料慢炖。需提前3天预约。",
+        "price": 110,
         "lead_days": 3
       }
     ]
