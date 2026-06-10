@@ -678,15 +678,18 @@ function renderCartPage() {
 
   // Render dishes section
   let html = "";
+  let globalIdx = 0;
   if (dishes.length > 0) {
     html += `<div class="cart-section-title">${currentLang === "zh" ? "🍽️ 菜品" : "🍽️ Retter"}</div>`;
-    html += dishes.map(c => renderCartItem(c)).join("");
+    html += dishes.map((c, i) => renderCartItem(c, globalIdx + i)).join("");
+    globalIdx += dishes.length;
   }
 
   // Render drinks section
   if (drinks.length > 0) {
     html += `<div class="cart-section-title">${currentLang === "zh" ? "🥤 饮品" : "🥤 Drikkevarer"}</div>`;
-    html += drinks.map(c => renderCartItem(c)).join("");
+    html += drinks.map((c, i) => renderCartItem(c, globalIdx + i)).join("");
+    globalIdx += drinks.length;
   }
 
   container.innerHTML = html;
