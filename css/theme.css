@@ -1,36 +1,36 @@
 /* ============================================================
-   Harbin Kitchen PWA — Theme: Nordic Minimal (Hygge)
+   Harbin Kitchen PWA — Theme: Chinese Red (中国红)
    Change ONLY this file to switch the entire app's look.
    ============================================================ */
 
 :root {
   /* ── Brand colours ── */
-  --color-primary:       #2D2A26;
-  --color-primary-light: #4A4540;
-  --color-primary-rgb:   45, 42, 38;
+  --color-primary:       #C41E3A;
+  --color-primary-light: #E8334D;
+  --color-primary-rgb:   196, 30, 58;
 
   /* ── Backgrounds ── */
-  --color-bg:            #FAFAF7;
-  --color-bg-warm:       #F5F2ED;
+  --color-bg:            #FDF6F0;
+  --color-bg-warm:       #FAF0E6;
   --color-bg-card:       #FFFFFF;
-  --color-bg-hover:      #F0EDE8;
+  --color-bg-hover:      #FFF0F0;
 
   /* ── Accent / Discount ── */
-  --color-accent:        #6B8E23;
-  --color-accent-light:  #F0F4E4;
-  --color-accent-rgb:    107, 142, 35;
+  --color-accent:        #C41E3A;
+  --color-accent-light:  #FFF0F0;
+  --color-accent-rgb:    196, 30, 58;
 
   /* ── Text ── */
-  --color-text:          #2D2A26;
+  --color-text:          #1A1714;
   --color-text-secondary:#8A8580;
-  --color-text-inverse:  #FAFAF7;
+  --color-text-inverse:  #FDF6F0;
 
   /* ── Borders / Dividers ── */
-  --color-border:        #E8E4DF;
-  --color-divider:       #F0EDE8;
+  --color-border:        #F0E0D6;
+  --color-divider:       #F5ECE4;
 
   /* ── Functional ── */
-  --color-success:       #6B8E23;
+  --color-success:       #2E7D32;
   --color-warning:       #D4A574;
   --color-danger:        #C41E3A;
 
@@ -54,8 +54,8 @@
 
   /* ── Shadows ── */
   --shadow-sm:   0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md:   0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg:   0 8px 30px rgba(0,0,0,0.10);
+  --shadow-md:   0 4px 12px rgba(196,30,58,0.08);
+  --shadow-lg:   0 8px 30px rgba(196,30,58,0.10);
 
   /* ── Transitions ── */
   --transition-fast: 150ms ease;
