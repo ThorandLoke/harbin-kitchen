@@ -1081,7 +1081,8 @@ const MENU_DATA = [
         "name_da": "Coca-Cola (lille)",
         "name_zh": "可口可乐（小杯）",
         "description_da": "Klassisk Coca-Cola med sukker",
-        "price": 39
+        "price": 39,
+        "image": "images/drikke_2.png"
       },
       {
         "code": "V80Z",
@@ -1089,7 +1090,8 @@ const MENU_DATA = [
         "name_da": "Coca-Cola Zero (lille)",
         "name_zh": "零度可乐（小杯）",
         "description_da": "Coca-Cola uden sukker",
-        "price": 39
+        "price": 39,
+        "image": "images/drikke_2.png"
       },
       {
         "code": "V81",
@@ -1097,7 +1099,8 @@ const MENU_DATA = [
         "name_da": "Coca-Cola (mellem)",
         "name_zh": "可口可乐（中杯）",
         "description_da": "Klassisk Coca-Cola med sukker",
-        "price": 49
+        "price": 49,
+        "image": "images/drikke_2.png"
       },
       {
         "code": "V81Z",
@@ -1105,7 +1108,8 @@ const MENU_DATA = [
         "name_da": "Coca-Cola Zero (mellem)",
         "name_zh": "零度可乐（中杯）",
         "description_da": "Coca-Cola uden sukker",
-        "price": 49
+        "price": 49,
+        "image": "images/drikke_2.png"
       },
       {
         "code": "V82",
@@ -1113,7 +1117,8 @@ const MENU_DATA = [
         "name_da": "Coca-Cola (stor)",
         "name_zh": "可口可乐（大杯）",
         "description_da": "Klassisk Coca-Cola med sukker",
-        "price": 59
+        "price": 59,
+        "image": "images/drikke_2.png"
       },
       {
         "code": "V82Z",
@@ -1121,14 +1126,16 @@ const MENU_DATA = [
         "name_da": "Coca-Cola Zero (stor)",
         "name_zh": "零度可乐（大杯）",
         "description_da": "Coca-Cola uden sukker",
-        "price": 59
+        "price": 59,
+        "image": "images/drikke_2.png"
       },
       {
         "code": "V83",
         "id": "din_4",
         "name_da": "Kinesiske drikkevarer",
         "name_zh": "中国饮料",
-        "price": 49
+        "price": 49,
+        "image": "images/drikke_1.jpg"
       },
       {
         "code": "V84",
@@ -1136,35 +1143,40 @@ const MENU_DATA = [
         "name_da": "Juice (50 cl)",
         "name_zh": "果汁（50cl）",
         "description_da": "Æblejuice eller appelsinjuice",
-        "price": 49
+        "price": 49,
+        "image": "images/drikke_3.jpg"
       },
       {
         "code": "V85",
         "id": "din_6",
         "name_da": "Limonade",
         "name_zh": "柠檬水",
-        "price": 59
+        "price": 59,
+        "image": "images/drikke_3.jpg"
       },
       {
         "code": "V86",
         "id": "din_7",
         "name_da": "Isvand (50 cl)",
         "name_zh": "冰水（50cl）",
-        "price": 29
+        "price": 29,
+        "image": "images/drikke_3.jpg"
       },
       {
         "code": "V87",
         "id": "din_8",
         "name_da": "San Pellegrino danskvand (50 cl)",
         "name_zh": "巴黎水气泡水（50cl）",
-        "price": 49
+        "price": 49,
+        "image": "images/drikke_4.webp"
       },
       {
         "code": "V88",
         "id": "din_9",
         "name_da": "San Pellegrino danskvand (1 L)",
         "name_zh": "巴黎水气泡水（1L）",
-        "price": 69
+        "price": 69,
+        "image": "images/drikke_4.webp"
       },
       {
         "code": "V89",
@@ -1172,7 +1184,8 @@ const MENU_DATA = [
         "name_da": "Bubble Tea / Frugt-te Medium (50 cl)",
         "name_zh": "爆珠果茶中杯（50cl）",
         "description_da": "Passionsfrugt, Jordbær, Æble eller Peach",
-        "price": 49
+        "price": 49,
+        "image": "images/drikke_1.jpg"
       },
       {
         "code": "V90",
@@ -1180,49 +1193,56 @@ const MENU_DATA = [
         "name_da": "Bubble Tea / Frugt-te Large (75 cl)",
         "name_zh": "爆珠果茶大杯（75cl）",
         "description_da": "Passionsfrugt, Jordbær, Æble eller Peach",
-        "price": 59
+        "price": 59,
+        "image": "images/drikke_1.jpg"
       },
       {
         "code": "V91",
         "id": "din_12",
         "name_da": "Tuborg Classic (33 cl)",
         "name_zh": "图堡经典啤酒",
-        "price": 39
+        "price": 39,
+        "image": "images/drikke_5.webp"
       },
       {
         "code": "V92",
         "id": "din_13",
         "name_da": "Tuborg Grøn (33 cl)",
         "name_zh": "图堡绿标啤酒",
-        "price": 39
+        "price": 39,
+        "image": "images/drikke_5.webp"
       },
       {
         "code": "V93",
         "id": "din_14",
         "name_da": "Carlsberg (33 cl)",
         "name_zh": "嘉士伯啤酒",
-        "price": 39
+        "price": 39,
+        "image": "images/drikke_5.webp"
       },
       {
         "code": "V94",
         "id": "din_15",
         "name_da": "Carlsberg Alkoholfri (33 cl)",
         "name_zh": "嘉士伯无酒精啤酒",
-        "price": 39
+        "price": 39,
+        "image": "images/drikke_5.webp"
       },
       {
         "code": "V95",
         "id": "din_16",
         "name_da": "Kinesisk Øl (33 cl)",
         "name_zh": "青岛啤酒",
-        "price": 49
+        "price": 49,
+        "image": "images/drikke_6.jpg"
       },
       {
         "code": "V96",
         "id": "din_17",
         "name_da": "Sapporo (65 cl)",
         "name_zh": "三宝乐啤酒",
-        "price": 69
+        "price": 69,
+        "image": "images/drikke_7.jpg"
       },
       {
         "code": "V97",
@@ -1230,49 +1250,56 @@ const MENU_DATA = [
         "name_da": "Soju Peach/Grape (350 ml)",
         "name_zh": "韩国果味烧酒（桃子/葡萄）",
         "description_da": "Koreansk spiritus med frugtsmag (13,0% alc)",
-        "price": 129
+        "price": 129,
+        "image": "images/drikke_8.jpg"
       },
       {
         "code": "V98",
         "id": "din_19",
         "name_da": "Rødvin (glas)",
         "name_zh": "红酒（杯）",
-        "price": 69
+        "price": 69,
+        "image": "images/drikke_9.webp"
       },
       {
         "code": "V98-F",
         "id": "din_20",
         "name_da": "Rødvin (flaske)",
         "name_zh": "红酒（瓶）",
-        "price": 249
+        "price": 249,
+        "image": "images/drikke_9.webp"
       },
       {
         "code": "V99",
         "id": "din_21",
         "name_da": "Hvidvin (glas)",
         "name_zh": "白葡萄酒（杯）",
-        "price": 69
+        "price": 69,
+        "image": "images/drikke_11.webp"
       },
       {
         "code": "V99-F",
         "id": "din_22",
         "name_da": "Hvidvin (flaske)",
         "name_zh": "白葡萄酒（瓶）",
-        "price": 249
+        "price": 249,
+        "image": "images/drikke_11.webp"
       },
       {
         "code": "V100",
         "id": "din_23",
         "name_da": "Kaffe",
         "name_zh": "咖啡",
-        "price": 39
+        "price": 39,
+        "image": "images/drikke_3.jpg"
       },
       {
         "code": "V101",
         "id": "din_24",
         "name_da": "Te",
         "name_zh": "茶",
-        "price": 39
+        "price": 39,
+        "image": "images/drikke_1.jpg"
       },
       {
         "code": "V102",
@@ -1280,7 +1307,8 @@ const MENU_DATA = [
         "name_da": "Is (3 kugler)",
         "name_zh": "冰淇淋（3球）",
         "description_da": "Vanilje, chokolade og jordbær",
-        "price": 49
+        "price": 49,
+        "image": "images/drikke_3.jpg"
       }
     ]
   },
