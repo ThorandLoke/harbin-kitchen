@@ -4,11 +4,133 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#2D2A26">
-  <title>东北小炒 · 订单管理</title>
+  <title>东北小炒 · 管理后台</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/admin.css">
+  <style>
+    /* 标签页切换 */
+    .admin-tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .admin-tab {
+      flex: 1;
+      padding: 14px 20px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    .admin-tab:hover {
+      background: #F9F9F9;
+    }
+    .admin-tab.active {
+      background: #FFF5F7;
+      border-bottom-color: var(--primary);
+      color: var(--primary);
+    }
+    /* 预订列表 */
+    .booking-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .booking-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .booking-card__name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .booking-card__status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .booking-card__status--pending {
+      background: #FFF3CD;
+      color: #856404;
+    }
+    .booking-card__status--confirmed {
+      background: #D4EDDA;
+      color: #155724;
+    }
+    .booking-card__status--cancelled {
+      background: #F8D7DA;
+      color: #721C24;
+    }
+    .booking-card__status--completed {
+      background: #Cce5FF;
+      color: #004085;
+    }
+    .booking-card__details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+    .booking-card__detail {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .booking-card__actions {
+      display: flex;
+      gap: 8px;
+    }
+    .booking-card__btn {
+      flex: 1;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .booking-card__btn--confirm {
+      background: #28A745;
+      color: white;
+    }
+    .booking-card__btn--cancel {
+      background: #DC3545;
+      color: white;
+    }
+    .booking-card__btn--complete {
+      background: #007BFF;
+      color: white;
+    }
+    .booking-card__btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .booking-card__notes {
+      background: #F8F9FA;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 12px;
+    }
+  </style>
 </head>
 <body>
 
@@ -17,7 +139,7 @@
   <!-- Header -->
   <header class="admin-header">
     <div class="admin-header__left">
-      <h1 class="admin-header__title">🍜 东北小炒 · 订单管理</h1>
+      <h1 class="admin-header__title">🍜 东北小炒 · 管理后台</h1>
       <span class="admin-header__live" id="live-dot">● 实时连接中</span>
     </div>
     <div class="admin-header__right">
@@ -26,54 +148,74 @@
     </div>
   </header>
 
-  <!-- Printer Status Bar -->
-  <div class="printer-bar" id="printer-bar" style="display:none">
-    <span class="printer-bar__status" id="printer-status">
-      <span class="printer-bar__dot printer-bar__dot--on"></span> 打印机已连接
-    </span>
-    <label class="printer-bar__auto">
-      <input type="checkbox" id="auto-print-check" checked onchange="Printer.setAutoPrint(this.checked)">
-      自动打印新订单
-    </label>
-    <button class="printer-bar__test" onclick="Printer.testPrint()">测试打印</button>
-    <button class="printer-bar__disconnect" onclick="disconnectPrinter()">断开</button>
+  <!-- Tabs -->
+  <div class="admin-tabs">
+    <div class="admin-tab active" onclick="switchTab('orders')">📋 订单管理</div>
+    <div class="admin-tab" onclick="switchTab('bookings')">📅 预订管理</div>
   </div>
 
-  <!-- Stats Bar -->
-  <div class="stats-bar">
-    <div class="stat-card stat--new">
-      <div class="stat-card__count" id="stat-new">0</div>
-      <div class="stat-card__label">🆕 新订单</div>
+  <!-- Orders Section -->
+  <div id="orders-section">
+    <!-- Printer Status Bar -->
+    <div class="printer-bar" id="printer-bar" style="display:none">
+      <span class="printer-bar__status" id="printer-status">
+        <span class="printer-bar__dot printer-bar__dot--on"></span> 打印机已连接
+      </span>
+      <label class="printer-bar__auto">
+        <input type="checkbox" id="auto-print-check" checked onchange="Printer.setAutoPrint(this.checked)">
+        自动打印新订单
+      </label>
+      <button class="printer-bar__test" onclick="Printer.testPrint()">测试打印</button>
+      <button class="printer-bar__disconnect" onclick="disconnectPrinter()">断开</button>
     </div>
-    <div class="stat-card stat--preparing">
-      <div class="stat-card__count" id="stat-preparing">0</div>
-      <div class="stat-card__label">🍳 制作中</div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-card stat--new">
+        <div class="stat-card__count" id="stat-new">0</div>
+        <div class="stat-card__label">🆕 新订单</div>
+      </div>
+      <div class="stat-card stat--preparing">
+        <div class="stat-card__count" id="stat-preparing">0</div>
+        <div class="stat-card__label">🍳 制作中</div>
+      </div>
+      <div class="stat-card stat--ready">
+        <div class="stat-card__count" id="stat-ready">0</div>
+        <div class="stat-card__label">✅ 待取餐</div>
+      </div>
+      <div class="stat-card stat--completed">
+        <div class="stat-card__count" id="stat-completed">0</div>
+        <div class="stat-card__label">✔ 已完成</div>
+      </div>
     </div>
-    <div class="stat-card stat--ready">
-      <div class="stat-card__count" id="stat-ready">0</div>
-      <div class="stat-card__label">✅ 待取餐</div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">全部</button>
+      <button class="filter-btn" data-filter="new" onclick="setFilter('new')">🆕 新订单</button>
+      <button class="filter-btn" data-filter="preparing" onclick="setFilter('preparing')">🍳 制作中</button>
+      <button class="filter-btn" data-filter="ready" onclick="setFilter('ready')">✅ 待取餐</button>
+      <button class="filter-btn" data-filter="completed" onclick="setFilter('completed')">✔ 已完成</button>
     </div>
-    <div class="stat-card stat--completed">
-      <div class="stat-card__count" id="stat-completed">0</div>
-      <div class="stat-card__label">✔ 已完成</div>
+
+    <!-- Orders List -->
+    <div class="orders-list" id="orders-list">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-state__icon">📋</div>
+        <div class="empty-state__text">暂无订单</div>
+        <div class="empty-state__sub">新订单将实时出现在这里</div>
+      </div>
     </div>
   </div>
 
-  <!-- Filter Tabs -->
-  <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">全部</button>
-    <button class="filter-btn" data-filter="new" onclick="setFilter('new')">🆕 新订单</button>
-    <button class="filter-btn" data-filter="preparing" onclick="setFilter('preparing')">🍳 制作中</button>
-    <button class="filter-btn" data-filter="ready" onclick="setFilter('ready')">✅ 待取餐</button>
-    <button class="filter-btn" data-filter="completed" onclick="setFilter('completed')">✔ 已完成</button>
-  </div>
-
-  <!-- Orders List -->
-  <div class="orders-list" id="orders-list">
-    <div class="empty-state" id="empty-state">
-      <div class="empty-state__icon">📋</div>
-      <div class="empty-state__text">暂无订单</div>
-      <div class="empty-state__sub">新订单将实时出现在这里</div>
+  <!-- Bookings Section (hidden by default) -->
+  <div id="bookings-section" style="display:none;">
+    <div class="bookings-list" id="bookings-list">
+      <div class="empty-state" id="bookings-empty">
+        <div class="empty-state__icon">📅</div>
+        <div class="empty-state__text">暂无预订</div>
+        <div class="empty-state__sub">新预订将出现在列表顶部</div>
+      </div>
     </div>
   </div>
 </div>
@@ -82,5 +224,136 @@
 <script src="js/supabase-config.js"></script>
 <script src="js/printer.js"></script>
 <script src="js/admin.js"></script>
+<script>
+  // 标签页切换
+  function switchTab(tab) {
+    const tabs = document.querySelectorAll('.admin-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+    
+    if (tab === 'orders') {
+      tabs[0].classList.add('active');
+      document.getElementById('orders-section').style.display = 'block';
+      document.getElementById('bookings-section').style.display = 'none';
+    } else if (tab === 'bookings') {
+      tabs[1].classList.add('active');
+      document.getElementById('orders-section').style.display = 'none';
+      document.getElementById('bookings-section').style.display = 'block';
+      loadBookings();
+    }
+  }
+
+  // 加载预订列表
+  async function loadBookings() {
+    try {
+      if (typeof SUPABASE_URL === 'undefined') {
+        console.error('Supabase not configured');
+        return;
+      }
+
+      const client = window.supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      
+      const { data, error } = await client
+        .from('bookings')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Failed to load bookings:', error);
+        return;
+      }
+
+      const listEl = document.getElementById('bookings-list');
+      const emptyEl = document.getElementById('bookings-empty');
+
+      if (!data || data.length === 0) {
+        emptyEl.style.display = 'block';
+        listEl.innerHTML = '';
+        listEl.appendChild(emptyEl);
+        return;
+      }
+
+      emptyEl.style.display = 'none';
+
+      let html = '';
+      data.forEach(booking => {
+        const statusClass = `booking-card__status--${booking.status}`;
+        const statusText = {
+          'pending': '待确认',
+          'confirmed': '已确认',
+          'cancelled': '已取消',
+          'completed': '已完成'
+        }[booking.status] || booking.status;
+
+        const dateStr = new Date(booking.date).toLocaleDateString('da-DK');
+        const createdStr = new Date(booking.created_at).toLocaleString('da-DK');
+
+        html += `
+          <div class="booking-card" id="booking-${booking.id}">
+            <div class="booking-card__header">
+              <div class="booking-card__name">${booking.name}</div>
+              <div class="booking-card__status ${statusClass}">${statusText}</div>
+            </div>
+            <div class="booking-card__details">
+              <div class="booking-card__detail">📞 ${booking.phone}</div>
+              <div class="booking-card__detail">👥 ${booking.guests} personer</div>
+              <div class="booking-card__detail">📅 ${dateStr}</div>
+              <div class="booking-card__detail">🕐 ${booking.time}</div>
+            </div>
+            ${booking.notes ? `<div class="booking-card__notes">📝 ${booking.notes}</div>` : ''}
+            <div class="booking-card__actions">
+              ${booking.status === 'pending' ? `
+                <button class="booking-card__btn booking-card__btn--confirm" onclick="updateBookingStatus('${booking.id}', 'confirmed')">✅ 确认</button>
+                <button class="booking-card__btn booking-card__btn--cancel" onclick="updateBookingStatus('${booking.id}', 'cancelled')">❌ 取消</button>
+              ` : ''}
+              ${booking.status === 'confirmed' ? `
+                <button class="booking-card__btn booking-card__btn--complete" onclick="updateBookingStatus('${booking.id}', 'completed')">✔ 完成</button>
+                <button class="booking-card__btn booking-card__btn--cancel" onclick="updateBookingStatus('${booking.id}', 'cancelled')">❌ 取消</button>
+              ` : ''}
+            </div>
+            <div style="font-size:12px;color:#999;margin-top:8px;">提交时间：${createdStr}</div>
+          </div>
+        `;
+      });
+
+      listEl.innerHTML = html;
+
+    } catch (error) {
+      console.error('Load bookings error:', error);
+    }
+  }
+
+  // 更新预订状态
+  async function updateBookingStatus(bookingId, newStatus) {
+    try {
+      const client = window.supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      
+      const { error } = await client
+        .from('bookings')
+        .update({ status: newStatus, updated_at: new Date().toISOString() })
+        .eq('id', bookingId);
+
+      if (error) {
+        console.error('Failed to update booking:', error);
+        alert('更新失败 / Update failed');
+        return;
+      }
+
+      // 重新加载列表
+      loadBookings();
+
+    } catch (error) {
+      console.error('Update booking error:', error);
+      alert('更新失败 / Update failed');
+    }
+  }
+
+  // 页面加载时初始化
+  document.addEventListener('DOMContentLoaded', () => {
+    // 检查 Supabase 是否加载
+    if (typeof SUPABASE_URL === 'undefined') {
+      console.warn('Supabase not configured');
+    }
+  });
+</script>
 </body>
 </html>
