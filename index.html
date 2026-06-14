@@ -29,8 +29,12 @@
   <!-- ═══ Welcome / Order Type Page ═══ -->
   <div class="page active" id="page-welcome">
     <div class="welcome-page">
-      <div class="welcome-page__logo">Harbin Kitchen <span>东北小炒</span></div>
+      <div class="welcome-page__logo" id="welcome-logo">Harbin Kitchen</div>
       <div class="welcome-page__sub" id="welcome-sub">Hvordan vil du spise?</div>
+      <div class="welcome-page__lang">
+        <button class="lang-toggle__btn active" data-wlang="da" onclick="toggleWelcomeLang('da')">DA</button>
+        <button class="lang-toggle__btn" data-wlang="zh" onclick="toggleWelcomeLang('zh')">中文</button>
+      </div>
       <div class="welcome-page__cards">
         <!-- Dine-in -->
         <div class="welcome-card" onclick="selectOrderType('dinein')">

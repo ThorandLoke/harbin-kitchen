@@ -768,17 +768,35 @@ body {
   margin-bottom: 4px;
 }
 
-.welcome-page__logo span {
-  font-family: var(--font-chinese);
-  font-size: 16px;
-  color: var(--color-text-secondary);
-  margin-left: 8px;
-}
-
 .welcome-page__sub {
   font-size: var(--font-size-base);
   color: var(--color-text-secondary);
-  margin-bottom: 40px;
+  margin-bottom: 12px;
+}
+
+.welcome-page__lang {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  justify-content: center;
+}
+
+.welcome-page__lang .lang-toggle__btn {
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.welcome-page__lang .lang-toggle__btn.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
 }
 
 .welcome-page__cards {

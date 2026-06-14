@@ -99,6 +99,7 @@ function registerSW() {
 
 function updateWelcomeText() {
   const da = currentLang === 'da';
+  document.getElementById('welcome-logo').textContent = da ? 'Harbin Kitchen' : '东北小炒';
   document.getElementById('welcome-sub').textContent = da ? 'Hvordan vil du spise?' : '您想怎么用餐？';
   document.getElementById('welcome-dinein-title').textContent = da ? 'Spis her' : '堂食';
   document.getElementById('welcome-dinein-desc').textContent = da ? 'Sid i restauranten og bestil fra din telefon · Betal ved kassen' : '在餐厅就座，用手机点餐 · 吧台付款';
@@ -108,6 +109,17 @@ function updateWelcomeText() {
   document.getElementById('welcome-preorder-title').textContent = da ? 'Forud bestilling' : '需预约';
   document.getElementById('welcome-preorder-desc').textContent = da ? 'Retter der skal bestilles 1–3 dage i forvejen · Betal ved afhentning' : '需要提前1-3天预约的菜品 · 取餐时付款';
   document.getElementById('welcome-preorder-badge').textContent = da ? '🐟 Hongshao fisk · 🍖 Lu-kød' : '🐟 红烧全鱼 · 🍖 卤味拼盘';
+  // Update welcome page lang toggle active state
+  document.querySelectorAll('.welcome-page__lang .lang-toggle__btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.wlang === currentLang);
+  });
+}
+
+// Toggle language from welcome page
+function toggleWelcomeLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('harbin_lang', lang);
+  updateWelcomeText();
 }
 
 function selectOrderType(type, silent) {
