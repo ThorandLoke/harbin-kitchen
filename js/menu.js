@@ -32,14 +32,12 @@ function renderCategory(cat, lang) {
         : '';
 
   const name = lang === 'zh' ? cat.name_zh : cat.name_da;
-  const subtitle = lang === 'zh' ? cat.name_da : cat.name_zh;
 
   const items = cat.items.map((item) => renderMenuItem(item, cat, lang)).join('');
 
   return `
     <div class="menu-section" id="cat-${cat.id}">
       <div class="menu-section__title">${name} ${discountTag}</div>
-      <div class="menu-section__subtitle">${subtitle}</div>
       ${items}
     </div>
   `;
