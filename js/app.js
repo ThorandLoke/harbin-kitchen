@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (existing) {
       pendingMergeOrder = existing;
       showMergeModal(savedDraftTable);
+    } else {
+      selectOrderType('dinein', true);
     }
     window.history.replaceState({}, '', window.location.pathname);
     registerSW();
@@ -54,6 +56,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (existing) {
       pendingMergeOrder = existing;
       showMergeModal(urlTable);
+    } else {
+      // No existing order — enter menu page directly
+      selectOrderType('dinein', true);
     }
     window.history.replaceState({}, '', window.location.pathname);
   } else if (urlType === 'takeaway') {
