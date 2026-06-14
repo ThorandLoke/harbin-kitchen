@@ -100,14 +100,14 @@ function registerSW() {
 function updateWelcomeText() {
   const da = currentLang === 'da';
   document.getElementById('welcome-sub').textContent = da ? 'Hvordan vil du spise?' : '您想怎么用餐？';
-  document.getElementById('welcome-dinein-title').innerHTML = da ? 'Spis her <span>堂食</span>' : '堂食 <span>Spis her</span>';
-  document.getElementById('welcome-dinein-desc').textContent = da ? 'Sid i restauranten og bestil fra din telefon · Betal ved kassen / 吧台付款' : '在餐厅就座，用手机或iPad点餐 · 吧台付款 / Betal ved kassen';
-  document.getElementById('welcome-takeaway-title').innerHTML = da ? 'Afhentning <span>外卖</span>' : '外卖 <span>Afhentning</span>';
-  document.getElementById('welcome-takeaway-desc').textContent = da ? 'Bestil til afhentning – betal i butikken · 取餐时吧台付款' : '点外卖到店取餐付款 · Betal i butikken ved afhentning';
+  document.getElementById('welcome-dinein-title').textContent = da ? 'Spis her' : '堂食';
+  document.getElementById('welcome-dinein-desc').textContent = da ? 'Sid i restauranten og bestil fra din telefon · Betal ved kassen' : '在餐厅就座，用手机点餐 · 吧台付款';
+  document.getElementById('welcome-takeaway-title').textContent = da ? 'Afhentning' : '外卖';
+  document.getElementById('welcome-takeaway-desc').textContent = da ? 'Bestil til afhentning – betal i butikken' : '点外卖到店取餐付款';
   document.getElementById('welcome-takeaway-badge').textContent = da ? '🌱 10% rabat på alle retter (undtagen drikkevarer & saucer)' : '🌱 全场菜品10%折扣（酒水和酱料除外）';
-  document.getElementById('welcome-preorder-title').innerHTML = da ? 'Forud bestilling <span>需预约</span>' : '需预约 <span>Forud bestilling</span>';
-  document.getElementById('welcome-preorder-desc').textContent = da ? 'Retter der skal bestilles 1–3 dage i forvejen · Betal ved afhentning / 取餐时付款' : '需要提前1-3天预约的菜品 · 取餐时付款 / Betal ved afhentning';
-  document.getElementById('welcome-preorder-badge').textContent = da ? '🐟 Hongshao fisk · 🍖 Lu-mødt' : '🐟 红烧全鱼 · 🍖 卤味拼盘';
+  document.getElementById('welcome-preorder-title').textContent = da ? 'Forud bestilling' : '需预约';
+  document.getElementById('welcome-preorder-desc').textContent = da ? 'Retter der skal bestilles 1–3 dage i forvejen · Betal ved afhentning' : '需要提前1-3天预约的菜品 · 取餐时付款';
+  document.getElementById('welcome-preorder-badge').textContent = da ? '🐟 Hongshao fisk · 🍖 Lu-kød' : '🐟 红烧全鱼 · 🍖 卤味拼盘';
 }
 
 function selectOrderType(type, silent) {
@@ -1005,9 +1005,7 @@ async function submitOrderToSupabase(order) {
 function updateHeader() {
   const titleEl = document.getElementById('header-title');
   if (titleEl) {
-    titleEl.innerHTML = currentLang === 'zh'
-      ? '东北小炒 <span>Harbin Kitchen</span>'
-      : 'Harbin Kitchen <span>东北小炒</span>';
+    titleEl.textContent = currentLang === 'zh' ? '东北小炒' : 'Harbin Kitchen';
   }
 }
 
