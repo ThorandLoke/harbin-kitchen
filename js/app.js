@@ -33,12 +33,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const savedDraftTable = localStorage.getItem('harbin_draft_table');
   if (savedDraftId && savedDraftTable && !urlType) {
     console.log('[App] Rejoining saved draft for table', savedDraftTable);
-    await joinOrCreateDraftOrder(savedDraftTable);
-    const existing = await checkExistingOrderForTable(savedDraftTable);
-    if (existing) {
-      pendingMergeOrder = existing;
-      showMergeModal(savedDraftTable);
-    } else {
+    try { await joinOrCreateDraftOrder(savedDraftTable); } catch (e) { console.warn('[App] joinOrCreateDraftOrder failed:', e); }
+    try {
+      const existing = await checkExistingOrderForTable(savedDraftTable);
+      if (existing) {
+        pendingMergeOrder = existing;
+        showMergeModal(savedDraftTable);
+      } else {
+        selectOrderType('dinein', true);
+      }
+    } catch (e) {
+      console.warn('[App] checkExistingOrderForTable failed, entering menu:', e);
       selectOrderType('dinein', true);
     }
     window.history.replaceState({}, '', window.location.pathname);
@@ -49,15 +54,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (urlType === 'dinein' && urlTable) {
     // QR scan: first join or create a draft order (shared cart)
     document.getElementById('table-number').value = urlTable;
-    await joinOrCreateDraftOrder(urlTable);
+    try {
+      await joinOrCreateDraftOrder(urlTable);
+    } catch (e) {
+      console.warn('[App] joinOrCreateDraftOrder failed (non-blocking):', e);
+    }
 
     // Also check if there's an existing "new/preparing/ready" order (for 加菜)
-    const existing = await checkExistingOrderForTable(urlTable);
-    if (existing) {
-      pendingMergeOrder = existing;
-      showMergeModal(urlTable);
-    } else {
-      // No existing order — enter menu page directly
+    try {
+      const existing = await checkExistingOrderForTable(urlTable);
+      if (existing) {
+        pendingMergeOrder = existing;
+        showMergeModal(urlTable);
+      } else {
+        selectOrderType('dinein', true);
+      }
+    } catch (e) {
+      console.warn('[App] checkExistingOrderForTable failed, entering menu directly:', e);
       selectOrderType('dinein', true);
     }
     window.history.replaceState({}, '', window.location.pathname);
