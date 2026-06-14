@@ -49,8 +49,9 @@ function renderMenuItem(item, cat, lang) {
   const { finalPrice, discount, hasDiscount: discounted } = calculatePrice(item.price, cat.id);
 
   const name = lang === 'zh' ? item.name_zh : item.name_da;
-  const nameAlt = lang === 'zh' ? item.name_da : item.name_zh;
-  const desc = lang === 'zh' ? (item.description_zh || item.description_da) : (item.description_da || '');
+  const desc = lang === 'zh' 
+    ? (item.description_zh || item.description_da || '') 
+    : (item.description_da || item.description_zh || '');
   const code = item.code ? `<span class="menu-item__code">${item.code}</span>` : '';
 
   // Preorder badge
@@ -77,7 +78,6 @@ function renderMenuItem(item, cat, lang) {
       <div class="menu-item__info">
         ${preorderBadge}
         <div class="menu-item__name">${code}${name}</div>
-        <div class="menu-item__name-zh">${nameAlt}</div>
         ${desc ? `<div class="menu-item__desc">${desc}</div>` : ''}
         <div class="menu-item__prices">${priceHtml}</div>
       </div>
