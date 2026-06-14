@@ -258,10 +258,8 @@ function updateCheckoutForm() {
     document.getElementById('pickup-time').type = 'time';
     guestCountGroup.style.display = 'none';
     paymentHint.innerHTML = da
-      ? '💳 Betal ved kassen når du afhenter — ikke online'
-      : '💳 取餐时在收银台付款 — 本页面不支持在线支付';
-  }
-}
+      ? '💳 Betal ved kassen når du afhenter — ikke online<br>⏱️ Forventet tilberedningstid: 20-30 minutter'
+      : '💳 取餐时在收银台付款 — 本页面不支持在线支付<br>⏱️ 本单预计制作时间 20-30 分钟';
 
 // ═══════════════════════════════════════
 // Render
@@ -740,8 +738,8 @@ function renderCartPage() {
         : '💳 Betaling ved kassen — ingen online betaling';
     } else {
       cartHint.innerHTML = currentLang === 'zh'
-        ? '💳 取餐时在收银台付款 — 暂不支持在线支付'
-        : '💳 Betal ved kassen ved afhentning — ingen online betaling';
+        ? '💳 取餐时在收银台付款 — 暂不支持在线支付<br>⏱️ 本单预计制作时间 20-30 分钟'
+        : '💳 Betal ved kassen ved afhentning — ingen online betaling<br>⏱️ Forventet tilberedningstid: 20-30 minutter';
     }
   }
 }
