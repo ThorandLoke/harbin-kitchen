@@ -101,12 +101,12 @@ function updateWelcomeText() {
   const da = currentLang === 'da';
   document.getElementById('welcome-sub').textContent = da ? 'Hvordan vil du spise?' : '您想怎么用餐？';
   document.getElementById('welcome-dinein-title').innerHTML = da ? 'Spis her <span>堂食</span>' : '堂食 <span>Spis her</span>';
-  document.getElementById('welcome-dinein-desc').textContent = da ? 'Sid i restauranten og bestil fra din telefon eller iPad' : '在餐厅就座，用手机或iPad点餐';
+  document.getElementById('welcome-dinein-desc').textContent = da ? 'Sid i restauranten og bestil fra din telefon · Betal ved kassen / 吧台付款' : '在餐厅就座，用手机或iPad点餐 · 吧台付款 / Betal ved kassen';
   document.getElementById('welcome-takeaway-title').innerHTML = da ? 'Afhentning <span>外卖</span>' : '外卖 <span>Afhentning</span>';
-  document.getElementById('welcome-takeaway-desc').textContent = da ? 'Bestil til afhentning – betal i butikken' : '点外卖到店取餐付款';
+  document.getElementById('welcome-takeaway-desc').textContent = da ? 'Bestil til afhentning – betal i butikken · 取餐时吧台付款' : '点外卖到店取餐付款 · Betal i butikken ved afhentning';
   document.getElementById('welcome-takeaway-badge').textContent = da ? '🌱 10% rabat på alle retter (undtagen drikkevarer & saucer)' : '🌱 全场菜品10%折扣（酒水和酱料除外）';
   document.getElementById('welcome-preorder-title').innerHTML = da ? 'Forud bestilling <span>需预约</span>' : '需预约 <span>Forud bestilling</span>';
-  document.getElementById('welcome-preorder-desc').textContent = da ? 'Retter der skal bestilles 1–3 dage i forvejen' : '需要提前1-3天预约的菜品';
+  document.getElementById('welcome-preorder-desc').textContent = da ? 'Retter der skal bestilles 1–3 dage i forvejen · Betal ved afhentning / 取餐时付款' : '需要提前1-3天预约的菜品 · 取餐时付款 / Betal ved afhentning';
   document.getElementById('welcome-preorder-badge').textContent = da ? '🐟 Hongshao fisk · 🍖 Lu-mødt' : '🐟 红烧全鱼 · 🍖 卤味拼盘';
 }
 
@@ -658,6 +658,8 @@ function renderCartPage() {
       </div>`;
     document.getElementById('cart-summary').innerHTML = '';
     document.getElementById('cart-checkout-btn').style.display = 'none';
+    const cartHint = document.getElementById('cart-payment-hint');
+    if (cartHint) cartHint.style.display = 'none';
     return;
   }
 
@@ -715,6 +717,21 @@ function renderCartPage() {
       ${type === 'dinein' ? `<div style="text-align:center;font-size:var(--font-size-xs);color:var(--color-text-secondary);margin-top:8px;">${currentLang === 'zh' ? '堂食无折扣' : 'Ingen rabat ved spisested'}</div>` : ''}
     </div>
   `;
+
+  // Cart payment hint
+  const cartHint = document.getElementById('cart-payment-hint');
+  if (cartHint) {
+    cartHint.style.display = '';
+    if (type === 'dinein') {
+      cartHint.innerHTML = currentLang === 'zh'
+        ? '💳 请到收银台付款 — 暂不支持在线支付'
+        : '💳 Betaling ved kassen — ingen online betaling';
+    } else {
+      cartHint.innerHTML = currentLang === 'zh'
+        ? '💳 取餐时在收银台付款 — 暂不支持在线支付'
+        : '💳 Betal ved kassen ved afhentning — ingen online betaling';
+    }
+  }
 }
 
 function handleQtyChange(itemId, delta) {

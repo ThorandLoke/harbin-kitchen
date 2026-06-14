@@ -36,20 +36,20 @@
         <div class="welcome-card" onclick="selectOrderType('dinein')">
           <div class="welcome-card__icon">🍽️</div>
           <div class="welcome-card__title" id="welcome-dinein-title">Spis her <span>堂食</span></div>
-          <div class="welcome-card__desc" id="welcome-dinein-desc">Sid i restauranten og bestil fra din telefon eller iPad</div>
+          <div class="welcome-card__desc" id="welcome-dinein-desc">Sid i restauranten og bestil fra din telefon eller iPad · Betal ved kassen / 吧台付款</div>
         </div>
         <!-- Takeaway -->
         <div class="welcome-card" onclick="selectOrderType('takeaway')">
           <div class="welcome-card__icon">🥡</div>
           <div class="welcome-card__title" id="welcome-takeaway-title">Afhentning <span>外卖</span></div>
-          <div class="welcome-card__desc" id="welcome-takeaway-desc">Bestil til afhentning – betal i butikken</div>
+          <div class="welcome-card__desc" id="welcome-takeaway-desc">Bestil til afhentning – betal i butikken · 取餐时吧台付款</div>
           <div class="welcome-card__badge" id="welcome-takeaway-badge">🌱 10% rabat på alle retter (undtagen drikkevarer & saucer)</div>
         </div>
         <!-- Preorder -->
         <div class="welcome-card welcome-card--preorder" onclick="selectOrderType('preorder')">
           <div class="welcome-card__icon">⏰</div>
           <div class="welcome-card__title" id="welcome-preorder-title">Forud bestilling <span>需预约</span></div>
-          <div class="welcome-card__desc" id="welcome-preorder-desc">Retter der skal bestilles 1–3 dage i forvejen</div>
+          <div class="welcome-card__desc" id="welcome-preorder-desc">Retter der skal bestilles 1–3 dage i forvejen · Betal ved afhentning / 取餐时付款</div>
           <div class="welcome-card__badge" id="welcome-preorder-badge">🐟 Hongshao fisk · 🍖 Lu-mødt</div>
         </div>
       </div>
@@ -89,6 +89,7 @@
       <h1 class="cart-page__title" id="cart-title">Din kurv</h1>
       <div id="cart-items"></div>
       <div id="cart-summary"></div>
+      <div id="cart-payment-hint" class="payment-hint" style="display:none"></div>
       <button class="submit-btn" id="cart-checkout-btn" onclick="showPage('checkout')">
         Bestil nu →
       </button>
