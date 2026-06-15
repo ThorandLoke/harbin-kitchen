@@ -250,7 +250,8 @@
         return;
       }
 
-      const client = window.supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const { createClient } = supabase;
+      const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       
       const { data, error } = await client
         .from('bookings')
@@ -325,7 +326,8 @@
   // 更新预订状态
   async function updateBookingStatus(bookingId, newStatus) {
     try {
-      const client = window.supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const { createClient } = supabase;
+      const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       
       const { error } = await client
         .from('bookings')

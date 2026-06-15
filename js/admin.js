@@ -37,7 +37,8 @@ async function initSupabase() {
   }
 
   try {
-    supabaseClient = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const { createClient } = supabase;
+    supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Load existing orders
     await loadOrders();
