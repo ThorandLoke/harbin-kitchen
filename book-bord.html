@@ -183,7 +183,7 @@
   <div class="booking-container">
     <div class="booking-header">
       <h1>🍜 Harbin Kitchen</h1>
-      <p>Book et bord / 预订餐桌</p>
+      <p>Book et bord</p>
     </div>
 
     <!-- 订桌表单 -->
@@ -191,20 +191,20 @@
       <div class="error-message" id="error-message"></div>
 
       <div class="form-group">
-        <label>Navn / 姓名 <span class="required">*</span></label>
-        <input type="text" id="booking-name" required placeholder="Indtast dit navn / 请输入姓名">
+        <label>Navn <span class="required">*</span></label>
+        <input type="text" id="booking-name" required placeholder="Indtast dit navn">
       </div>
 
       <div class="form-group">
-        <label>Telefon / 手机号 <span class="required">*</span></label>
-        <input type="tel" id="booking-phone" required placeholder="f.eks. 12 34 56 78 / 例如 12 34 56 78">
+        <label>Telefon <span class="required">*</span></label>
+        <input type="tel" id="booking-phone" required placeholder="f.eks. 12 34 56 78">
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label>Antal gæster / 人数 <span class="required">*</span></label>
+          <label>Antal gæster <span class="required">*</span></label>
           <select id="booking-guests" required>
-            <option value="">Vælg / 选择</option>
+            <option value="">Vælg</option>
             <option value="1">1 person</option>
             <option value="2">2 personer</option>
             <option value="3">3 personer</option>
@@ -219,15 +219,15 @@
         </div>
 
         <div class="form-group">
-          <label>Dato / 日期 <span class="required">*</span></label>
+          <label>Dato <span class="required">*</span></label>
           <input type="date" id="booking-date" required>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Tid / 时间 <span class="required">*</span></label>
+        <label>Tid <span class="required">*</span></label>
         <select id="booking-time" required>
-          <option value="">Vælg tid / 选择时间</option>
+          <option value="">Vælg tid</option>
           <option value="11:30">11:30</option>
           <option value="12:00">12:00</option>
           <option value="12:30">12:30</option>
@@ -245,25 +245,24 @@
       </div>
 
       <div class="form-group">
-        <label>Besked / 备注</label>
-        <textarea id="booking-notes" placeholder="Allergi, særlige ønsker... / 过敏、特殊要求..."></textarea>
+        <label>Besked</label>
+        <textarea id="booking-notes" placeholder="Allergi, særlige ønsker..."></textarea>
       </div>
 
       <button type="submit" class="submit-btn" id="submit-btn">
-        Bekræft booking / 确认预订
+        Bekræft booking
       </button>
     </form>
 
     <!-- 成功消息 -->
     <div class="success-message" id="success-message">
       <div class="success-icon">✅</div>
-      <h2>Tak for din booking! / 预订成功！</h2>
+      <h2>Tak for din booking!</h2>
       <div class="success-details" id="confirmation-details"></div>
       <div class="success-warning">
-        ⚠️ Har du ikke modtaget SMS? Ring til os: <a href="tel:+4553335777" style="color:#F57F17;font-weight:700;">+45 53 33 57 77</a><br>
-        ⚠️ 如未收到短信，请致电：<a href="tel:+4553335777" style="color:#F57F17;font-weight:700;">+45 53 33 57 77</a>
+        ⚠️ Har du ikke modtaget SMS? Ring til os: <a href="tel:+4553335777" style="color:#F57F17;font-weight:700;">+45 53 33 57 77</a>
       </div>
-      <a href="index.html" class="back-btn">📋 Tilbage til menu / 返回菜单</a>
+      <a href="index.html" class="back-btn">📋 Tilbage til menu</a>
     </div>
   </div>
 
@@ -297,7 +296,7 @@
 
       // 验证
       if (!booking.name || !booking.phone || !booking.guests || !booking.date || !booking.time) {
-        errorMsg.textContent = '❌ Udfyld alle påkrævede felter / 请填写所有必填项';
+        errorMsg.textContent = '❌ Udfyld alle påkrævede felter';
         errorMsg.classList.add('show');
         return;
       }
@@ -305,14 +304,14 @@
       // 验证手机号格式（丹麦手机号：8位数字）
       const phoneClean = booking.phone.replace(/\s/g, '');
       if (!/^\d{8}$/.test(phoneClean)) {
-        errorMsg.textContent = '❌ Indtast et gyldigt telefonnummer (8 cifre) / 请输入有效的8位手机号码';
+        errorMsg.textContent = '❌ Indtast et gyldigt telefonnummer (8 cifre)';
         errorMsg.classList.add('show');
         return;
       }
 
       // 禁用按钮
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Sender... / 提交中...';
+      submitBtn.textContent = 'Sender...';
 
       try {
         // 调用 Edge Function（存预订 + 发短信）
@@ -349,12 +348,12 @@
         document.getElementById('confirmation-details').innerHTML = details;
 
       } catch (error) {
-        errorMsg.textContent = '❌ ' + error.message + ' / 提交失败，请重试。';
+        errorMsg.textContent = '❌ ' + error.message;
         errorMsg.classList.add('show');
         console.error('Booking error:', error);
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Bekræft booking / 确认预订';
+        submitBtn.textContent = 'Bekræft booking';
       }
     });
   </script>
