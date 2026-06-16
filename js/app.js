@@ -459,15 +459,18 @@ function optionQtyChange(delta) {
 function confirmOptionAndAddToCart() {
   if (!pendingOptionItem || !selectedOptionId) return;
 
+  // Use localStorage-backed cart (consistent with cart.js)
+  let currentCart = loadCart();
+
   // Check if same item + same option already in cart
-  const existingIdx = cart.findIndex(c =>
+  const existingIdx = currentCart.findIndex(c =>
     c.itemId === pendingOptionItem.id && c.selectedOption === selectedOptionId
   );
 
   if (existingIdx >= 0) {
-    cart[existingIdx].qty += optionQty;
+    currentCart[existingIdx].qty += optionQty;
   } else {
-    cart.push({
+    currentCart.push({
       itemId: pendingOptionItem.id,
       categoryId: pendingOptionCategoryId,
       selectedOption: selectedOptionId,
@@ -475,7 +478,8 @@ function confirmOptionAndAddToCart() {
     });
   }
 
-  saveCart();
+  saveCart(currentCart);
+  cart = currentCart;
   updateCartBar();
   syncCartToDraft();
 
@@ -791,7 +795,7 @@ function handleQtyChangeByIndex(idx, delta) {
       cart.splice(idx, 1);
     }
   }
-  saveCart();
+  saveCart(cart);
   updateCartBar();
   renderCartPage();
   syncCartToDraft();
