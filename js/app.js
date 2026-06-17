@@ -788,16 +788,19 @@ function handleQtyChange(itemId, delta) {
 }
 
 function handleQtyChangeByIndex(idx, delta) {
-  if (idx < 0 || idx >= cart.length) return;
+  // Use localStorage-backed cart (consistent with cart.js)
+  // Must use loadCart() - the global 'cart' variable is not reliably initialized
+  let currentCart = loadCart();
+  if (idx < 0 || idx >= currentCart.length) return;
   if (delta > 0) {
-    cart[idx].qty += 1;
+    currentCart[idx].qty += 1;
   } else {
-    cart[idx].qty -= 1;
-    if (cart[idx].qty <= 0) {
-      cart.splice(idx, 1);
+    currentCart[idx].qty -= 1;
+    if (currentCart[idx].qty <= 0) {
+      currentCart.splice(idx, 1);
     }
   }
-  saveCart(cart);
+  saveCart(currentCart);
   updateCartBar();
   renderCartPage();
   syncCartToDraft();
