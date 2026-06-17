@@ -1101,3 +1101,55 @@ body {
   font-size: var(--font-size-lg);
   font-weight: 600;
 }
+
+/* ── Image Zoom Modal ── */
+.image-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 24px;
+  animation: imageModalFadeIn 0.25s ease;
+}
+@keyframes imageModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.image-modal__img {
+  max-width: 90vw;
+  max-height: 75vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  animation: imageModalZoomIn 0.3s ease;
+}
+@keyframes imageModalZoomIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.image-modal__hint {
+  margin-top: 16px;
+  font-size: var(--font-size-sm);
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+  animation: imageModalFadeIn 0.4s ease 0.15s both;
+}
+
+/* ── Danish language font size boost ── */
+body[data-lang="da"] .menu-item__desc {
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+body[data-lang="da"] .menu-item__name {
+  font-size: var(--font-size-md);
+  line-height: 1.35;
+}
+body[data-lang="da"] .menu-section__title {
+  font-size: var(--font-size-lg);
+}

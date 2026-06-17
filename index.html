@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
-<body>
+<body data-lang="da">
 
 <div id="app">
 
@@ -203,6 +203,12 @@
         <button class="modal-box__btn modal-box__btn--confirm" id="merge-modal-add" onclick="mergeChooseAdd()"></button>
       </div>
     </div>
+  </div>
+
+  <!-- ═══ Image Zoom Modal ═══ -->
+  <div class="image-modal" id="image-modal" onclick="closeImageModal()">
+    <img class="image-modal__img" id="image-modal-img" src="" alt="">
+    <div class="image-modal__hint" id="image-modal-hint">Klik for at lukke</div>
   </div>
 
 </div>

@@ -21,6 +21,7 @@ let syncCartTimer = null;        // debounce timer for syncing
 
 // ── Init ──
 document.addEventListener('DOMContentLoaded', async () => {
+  document.body.dataset.lang = currentLang;
   await loadMenuData();
 
   // Check URL params for QR code scan (e.g. ?type=dinein&table=5)
@@ -299,6 +300,7 @@ function renderApp() {
 function toggleLang(lang) {
   currentLang = lang;
   localStorage.setItem('harbin_lang', lang);
+  document.body.dataset.lang = lang;
   renderApp();
 }
 
@@ -459,15 +461,18 @@ function optionQtyChange(delta) {
 function confirmOptionAndAddToCart() {
   if (!pendingOptionItem || !selectedOptionId) return;
 
+  // Use localStorage-backed cart (consistent with cart.js)
+  let currentCart = loadCart();
+
   // Check if same item + same option already in cart
-  const existingIdx = cart.findIndex(c =>
+  const existingIdx = currentCart.findIndex(c =>
     c.itemId === pendingOptionItem.id && c.selectedOption === selectedOptionId
   );
 
   if (existingIdx >= 0) {
-    cart[existingIdx].qty += optionQty;
+    currentCart[existingIdx].qty += optionQty;
   } else {
-    cart.push({
+    currentCart.push({
       itemId: pendingOptionItem.id,
       categoryId: pendingOptionCategoryId,
       selectedOption: selectedOptionId,
@@ -475,7 +480,8 @@ function confirmOptionAndAddToCart() {
     });
   }
 
-  saveCart();
+  saveCart(currentCart);
+  cart = currentCart;
   updateCartBar();
   syncCartToDraft();
 
@@ -791,7 +797,7 @@ function handleQtyChangeByIndex(idx, delta) {
       cart.splice(idx, 1);
     }
   }
-  saveCart();
+  saveCart(cart);
   updateCartBar();
   renderCartPage();
   syncCartToDraft();
@@ -1388,4 +1394,25 @@ function syncCartToDraft() {
 
 // Also export for cart.js to call
 window.syncCartToDraft = syncCartToDraft;
+
+// ═════════════════════════════════════
+// Image Zoom Modal
+// ═════════════════════════════════════
+function openImageModal(src, lang) {
+  const modal = document.getElementById('image-modal');
+  const img = document.getElementById('image-modal-img');
+  const hint = document.getElementById('image-modal-hint');
+  if (!modal || !img) return;
+  img.src = src;
+  img.alt = '';
+  hint.textContent = lang === 'da' ? 'Klik for at lukke' : '点击关闭';
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeImageModal() {
+  const modal = document.getElementById('image-modal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
 

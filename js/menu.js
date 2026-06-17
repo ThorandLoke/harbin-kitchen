@@ -67,7 +67,7 @@ function renderMenuItem(item, cat, lang) {
 
   // Image thumbnail
   const imageHtml = item.image
-    ? `<div class="menu-item__img-wrap"><img class="menu-item__img" src="${item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
+    ? `<div class="menu-item__img-wrap"><img class="menu-item__img" src="${item.image}" alt="${name}" loading="lazy" onerror="this.parentElement.style.display='none'" onclick="openImageModal(this.src, '${lang}')"></div>`
     : '';
 
   return `
