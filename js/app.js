@@ -25,9 +25,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadMenuData();
 
   // Check URL params for QR code scan (e.g. ?type=dinein&table=5)
+  // Also support ?orderType=takeaway or ?orderType=dinein to skip welcome page
   const params = new URLSearchParams(window.location.search);
   const urlType = params.get('type');
   const urlTable = params.get('table');
+  const urlOrderType = params.get('orderType');
 
   // Try to rejoin saved draft order (page refresh without QR scan)
   const savedDraftId = localStorage.getItem('harbin_draft_order_id');
@@ -960,6 +962,15 @@ function showOrderConfirmation(order) {
       details += (da ? i.name_da : i.name_zh) + ' — ' + (da ? `${i.lead_days} dag${i.lead_days > 1 ? 'e' : ''} i forvejen` : `需提前${i.lead_days}天`) + '<br>';
     });
   }
+
+  // Order items list (with options)
+  let itemsList = '<br><strong>' + (da ? 'Bestilt:' : '已点菜品：') + '</strong><br>';
+  order.items.forEach(i => {
+    const name = da ? i.name_da : i.name_zh;
+    const opt = da ? i.optionName_da : i.optionName_zh;
+    itemsList += `${i.qty}x ${name}${opt ? ' (' + opt + ')' : ''} — ${i.lineTotal} kr.<br>`;
+  });
+  details += itemsList;
 
   page.innerHTML = `
     <div class="order-confirm">

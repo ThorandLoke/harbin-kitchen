@@ -153,6 +153,12 @@ const Printer = (function () {
         pushLine(`      ${nameDa}`);
       }
 
+      // Line 3: option (e.g. 面/饭/乌冬)
+      const optName = item.optionName_zh || item.optionName_da || '';
+      if (optName) {
+        pushLine(`      (${optName})`);
+      }
+
       // Notes
       if (item.notes) {
         push(CMD.BOLD_ON);
@@ -278,6 +284,12 @@ const Printer = (function () {
       pushLine(`  ${qty}x  ${name}`);
       push(CMD.BOLD_OFF);
 
+      // Option (e.g. 面/饭/乌冬)
+      const optName = item.optionName_zh || item.optionName_da || '';
+      if (optName) {
+        pushLine(`      (${optName})`);
+      }
+
       if (item.notes) {
         pushLine(`      >> ${item.notes}`);
       }
@@ -398,11 +410,13 @@ const Printer = (function () {
       const nameZh = item.name_zh || '';
       const nameDa = item.name_da || '';
       const price = (item.lineTotal || (item.unitPrice * qty) || 0).toFixed(2);
+      const optName = item.optionName_zh || item.optionName_da || '';
       itemsHtml += `
         <tr>
           <td class="qty">${qty}x</td>
           <td class="name">
             ${nameZh}${nameDa && nameDa !== nameZh ? `<br><small>${nameDa}</small>` : ''}
+            ${optName ? `<br><small style="color:#C41E3A;">(${optName})</small>` : ''}
             ${item.notes ? `<br><em class="note">>> ${item.notes}</em>` : ''}
             ${item.lead_days ? `<br><em class="lead">⏰ 需提前${item.lead_days}天</em>` : ''}
           </td>
@@ -478,10 +492,11 @@ const Printer = (function () {
     items.forEach(item => {
       const qty = item.qty || 1;
       const name = item.name_zh || item.name_da || item.name;
+      const optName = item.optionName_zh || item.optionName_da || '';
       itemsHtml += `
         <tr>
           <td class="qty">${qty}x</td>
-          <td class="name">${name}${item.notes ? `<br><em class="note">>> ${item.notes}</em>` : ''}</td>
+          <td class="name">${name}${optName ? ` <span style="color:#C41E3A;">(${optName})</span>` : ''}${item.notes ? `<br><em class="note">>> ${item.notes}</em>` : ''}</td>
         </tr>`;
     });
 

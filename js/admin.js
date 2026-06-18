@@ -214,7 +214,10 @@ function renderOrderCard(order) {
     itemsHTML += dishItems.map(item => {
       const name = da ? item.name_da : item.name_zh;
       const code = item.code ? `<span class="order-card__item-code">${item.code}</span> ` : '';
-      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>`;
+      const option = item.optionName_da || item.optionName_zh
+        ? ` <span style="color:var(--color-primary);font-size:12px;">(${da ? item.optionName_da : item.optionName_zh})</span>`
+        : '';
+      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}${option}</span><span>${item.lineTotal} kr.</span></div>`;
     }).join('');
   }
   if (drinkItems.length > 0) {
@@ -222,7 +225,10 @@ function renderOrderCard(order) {
     itemsHTML += drinkItems.map(item => {
       const name = da ? item.name_da : item.name_zh;
       const code = item.code ? `<span class="order-card__item-code">${item.code}</span> ` : '';
-      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>`;
+      const option = item.optionName_da || item.optionName_zh
+        ? ` <span style="color:var(--color-primary);font-size:12px;">(${da ? item.optionName_da : item.optionName_zh})</span>`
+        : '';
+      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}${option}</span><span>${item.lineTotal} kr.</span></div>`;
     }).join('');
   }
 
@@ -436,7 +442,9 @@ function formatOrderForPrinter(order) {
       unitPrice: i.unitPrice || 0,
       lineTotal: i.lineTotal || 0,
       notes: i.notes || '',
-      lead_days: i.lead_days || 0
+      lead_days: i.lead_days || 0,
+      optionName_da: i.optionName_da || '',
+      optionName_zh: i.optionName_zh || ''
     })),
     totals: {
       subtotal: order.subtotal || 0,
