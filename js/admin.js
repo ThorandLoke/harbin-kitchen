@@ -8,8 +8,82 @@ let allOrders = [];
 let currentFilter = 'all';
 let soundEnabled = true;
 let passwordVerified = true; // 密码已移除，后期再加
+let audioCtx = null; // AudioContext，需要用户交互后才能初始化
+let notificationPermission = 'default'; // 桌面通知权限
+let titleFlashInterval = null; // 标题闪烁定时器
 
 const ADMIN_PASSWORD = 'harbin2026'; // 保留常量，后期加密用
+
+// ── 初始化音频上下文（需要用户交互） ──
+function initAudioContext() {
+  if (audioCtx) return;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  } catch (e) {
+    console.warn('AudioContext not supported');
+  }
+}
+
+// ── 请求桌面通知权限 ──
+function requestNotificationPermission() {
+  if (!('Notification' in window)) return;
+  if (Notification.permission === 'granted') {
+    notificationPermission = 'granted';
+    return;
+  }
+  if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(perm => {
+      notificationPermission = perm;
+    });
+  }
+}
+
+// ── 显示桌面通知 ──
+function showDesktopNotification(order) {
+  if (notificationPermission !== 'granted') return;
+  try {
+    const notif = new Notification('🔔 新订单！', {
+      body: `${order.order_number} · ${order.customer_name} · ${order.total} kr.`,
+      icon: '/icon-192.png',
+      tag: order.order_number,
+      requireInteraction: true
+    });
+    notif.onclick = () => {
+      window.focus();
+      notif.close();
+    };
+  } catch (e) {
+    console.warn('Desktop notification failed:', e);
+  }
+}
+
+// ── 页面标题闪烁 ──
+function startTitleFlash(orderNumber) {
+  if (titleFlashInterval) return;
+  const originalTitle = document.title;
+  let flashing = false;
+  titleFlashInterval = setInterval(() => {
+    document.title = flashing ? originalTitle : `🔔 新订单 ${orderNumber}！`;
+    flashing = !flashing;
+  }, 800);
+
+  // 30 秒后自动停止
+  setTimeout(() => stopTitleFlash(originalTitle), 30000);
+}
+
+function stopTitleFlash(originalTitle) {
+  if (titleFlashInterval) {
+    clearInterval(titleFlashInterval);
+    titleFlashInterval = null;
+  }
+  document.title = originalTitle || '东北小炒 · 管理后台';
+}
+
+// 用户点击页面时停止标题闪烁
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) stopTitleFlash();
+});
+window.addEventListener('focus', () => stopTitleFlash());
 // ── Password Check ──
 function checkPassword() {
   const input = document.getElementById('admin-password').value;
@@ -26,6 +100,28 @@ function checkPassword() {
 
 // ── Auto-init (password removed, will re-add later) ──
 document.addEventListener('DOMContentLoaded', () => {
+  // 请求桌面通知权限
+  requestNotificationPermission();
+
+  // 用户首次点击页面时初始化 AudioContext（绕过浏览器自动播放限制）
+  const initAudioOnClick = () => {
+    initAudioContext();
+    // 播放一个静音来"激活"音频上下文
+    if (audioCtx) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      gain.gain.value = 0; // 静音
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + 0.01);
+    }
+    document.removeEventListener('click', initAudioOnClick);
+    document.removeEventListener('touchstart', initAudioOnClick);
+  };
+  document.addEventListener('click', initAudioOnClick);
+  document.addEventListener('touchstart', initAudioOnClick);
+
   initSupabase();
 });
 
@@ -110,7 +206,12 @@ function subscribeToOrders() {
           allOrders.unshift(newOrder);
           updateStats();
           renderOrders();
+
+          // 新订单提示（声音 + 视觉）
           if (soundEnabled) playNotificationSound();
+          startTitleFlash(newOrder.order_number);
+          showDesktopNotification(newOrder);
+
           // Auto-print receipt + kitchen ticket
           autoPrintOrder(formatOrderForPrinter(newOrder));
         }
@@ -301,23 +402,52 @@ function setFilter(filter) {
 
 // ── Sound Notification ──
 function playNotificationSound() {
+  if (!soundEnabled) return;
+
+  // 方法 1：使用预初始化的 AudioContext（更可靠）
+  if (audioCtx) {
+    try {
+      // 恢复 AudioContext（有些浏览器会 suspends 它）
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      // 播放三音调通知（更明显）
+      [880, 1100, 880].forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value = freq;
+        osc.type = 'sine';
+        gain.gain.value = 0.4;
+        const startTime = audioCtx.currentTime + i * 0.2;
+        osc.start(startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+        osc.stop(startTime + 0.35);
+      });
+      return;
+    } catch (e) {
+      console.warn('AudioContext play failed:', e);
+    }
+  }
+
+  // 方法 2：降级方案 - 使用 Web Audio API 重新尝试
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    // Play a two-tone notification
-    [800, 1000].forEach((freq, i) => {
+    [880, 1100, 880].forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.frequency.value = freq;
       osc.type = 'sine';
-      gain.gain.value = 0.3;
-      osc.start(ctx.currentTime + i * 0.15);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.3);
-      osc.stop(ctx.currentTime + i * 0.15 + 0.3);
+      gain.gain.value = 0.4;
+      const startTime = ctx.currentTime + i * 0.2;
+      osc.start(startTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+      osc.stop(startTime + 0.35);
     });
   } catch (e) {
-    // Audio not supported, fail silently
+    console.warn('Notification sound failed:', e);
   }
 }
 
