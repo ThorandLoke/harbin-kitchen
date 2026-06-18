@@ -294,6 +294,7 @@ function renderApp() {
   updateOrderTypeIndicator();
   updateWelcomeText();
   updateCheckoutForm();
+  updateStaticText();
 }
 
 // ── Language ──
@@ -302,6 +303,25 @@ function toggleLang(lang) {
   localStorage.setItem('harbin_lang', lang);
   document.body.dataset.lang = lang;
   renderApp();
+  updateStaticText();
+}
+
+// Update static UI text based on current language
+function updateStaticText() {
+  const da = currentLang === 'da';
+  // Cart page
+  const backCart = document.getElementById('back-cart-label');
+  if (backCart) backCart.textContent = da ? 'Tilbage' : '返回';
+  const cartTitle = document.getElementById('cart-title');
+  if (cartTitle) cartTitle.textContent = da ? 'Din kurv' : '购物车';
+  // Checkout page
+  const backCheckout = document.getElementById('back-checkout-label');
+  if (backCheckout) backCheckout.textContent = da ? 'Tilbage til kurv' : '返回购物车';
+  const checkoutTitle = document.getElementById('checkout-title');
+  if (checkoutTitle) checkoutTitle.textContent = da ? 'Bestilling' : '下单';
+  // Checkout submit button
+  const checkoutBtn = document.getElementById('checkout-submit-btn');
+  if (checkoutBtn) checkoutBtn.textContent = da ? 'Bekræft bestilling' : '确认下单';
 }
 
 function updateLangToggle() {
@@ -313,6 +333,12 @@ function updateLangToggle() {
 // ── Category ──
 function selectCategory(catId) {
   currentCategory = catId;
+
+  // If not on menu page, switch to it first
+  if (currentPage !== 'menu') {
+    showPage('menu');
+  }
+
   renderCategoryNav(menuData, currentCategory, currentLang);
   renderMenu(menuData, currentCategory, currentLang);
 
