@@ -369,15 +369,17 @@
     const date = booking.date || '';
     const time = booking.time || '';
     const guests = booking.guests || '';
-
+    
     if (booking.status === 'confirmed') {
       return `Hej ${name}! Din booking hos Harbin Kitchen er BEKRAFTET. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi ses! Tlf: 33 29 46 46`;
     } else if (booking.status === 'cancelled') {
       return `Hej ${name}! Din booking hos Harbin Kitchen er DESVAERRE AFVIST. Ring 33 29 46 46 hvis du har spoergsmaal.`;
     } else if (booking.status === 'pending') {
-      return `（未发送 - 点击"确认"后会自动发送确认短信）`;
+      return `Hej ${name}! Vi har modtaget din booking hos Harbin Kitchen. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi vender tilbage med bekræftelse. Tlf: 33 29 46 46`;
+    } else if (booking.status === 'completed') {
+      return `Hej ${name}! Tak for dit besøg hos Harbin Kitchen. Vi håber du nød maden! Velkommen tilbage. Tlf: 33 29 46 46`;
     } else {
-      return `（已完成状态无需发送短信）`;
+      return `（未知状态）`;
     }
   }
 
