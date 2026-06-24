@@ -323,14 +323,40 @@
     }
   }
 
-  // 更新预订状态（调用 Edge Function，自动发短信通知客人）
+  // 更新预订状态：先更新数据库，再调用 Edge Function 发短信
   async function updateBookingStatus(bookingId, newStatus) {
     const statusTextMap = { confirmed: '已确认', cancelled: '已取消', completed: '已完成' };
     const statusText = statusTextMap[newStatus] || newStatus;
     if (!confirm(`确认将预订状态改为"${statusText}"？\n客人将收到短信通知。`)) return;
 
     try {
-      const resp = await fetch(
+      // 第 1 步：直接更新数据库
+      const { createClient } = supabase;
+      const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const { error: updateError } = await client
+        .from('bookings')
+        .update({ status: newStatus, updated_at: new Date().toISOString() })
+        .eq('id', bookingId);
+
+      if (updateError) {
+        alert('数据库更新失败：' + updateError.message);
+        return;
+      }
+
+      // 第 2 步：获取预订详情，调用 Edge Function 发短信
+      const { data: booking, error: fetchError } = await client
+        .from('bookings')
+        .select('*')
+        .eq('id', bookingId)
+        .single();
+
+      if (fetchError || !booking) {
+        alert(`✅ 状态已更新为"${statusText}"\n（短信发送失败：无法获取预订详情）`);
+        loadBookings();
+        return;
+      }
+
+      const smsResp = await fetch(
         `${SUPABASE_URL}/functions/v1/update-booking-status`,
         {
           method: 'POST',
@@ -338,24 +364,31 @@
             'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ bookingId, newStatus }),
+          body: JSON.stringify({
+            phone: booking.phone,
+            status: newStatus,
+            name: booking.name,
+            date: booking.date,
+            time: booking.time,
+            guests: booking.guests,
+          }),
         }
       );
 
-      const result = await resp.json();
+      const smsResult = await smsResp.json();
 
-      if (!resp.ok) {
-        console.error('Edge function error:', result);
-        alert('更新失败：' + (result.error || '未知错误'));
-        return;
+      if (!smsResp.ok) {
+        console.error('短信发送失败:', smsResult);
+        alert(`✅ 状态已更新为"${statusText}"\n（短信发送失败：${smsResult.error || '未知错误'}）`);
+      } else {
+        alert(`✅ 状态已更新为"${statusText}"\n✅ 短信已发送给客人`);
       }
 
-      alert(`✅ 状态已更新为"${statusText}"\n短信已发送给客人`);
       loadBookings();
 
     } catch (error) {
       console.error('Update booking error:', error);
-      alert('更新失败 / Update failed：' + error.message);
+      alert('操作失败 / Update failed：' + error.message);
     }
   }
 
