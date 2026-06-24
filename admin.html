@@ -323,29 +323,39 @@
     }
   }
 
-  // 更新预订状态
+  // 更新预订状态（调用 Edge Function，自动发短信通知客人）
   async function updateBookingStatus(bookingId, newStatus) {
-    try {
-      const { createClient } = supabase;
-      const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      
-      const { error } = await client
-        .from('bookings')
-        .update({ status: newStatus, updated_at: new Date().toISOString() })
-        .eq('id', bookingId);
+    const statusTextMap = { confirmed: '已确认', cancelled: '已取消', completed: '已完成' };
+    const statusText = statusTextMap[newStatus] || newStatus;
+    if (!confirm(`确认将预订状态改为"${statusText}"？\n客人将收到短信通知。`)) return;
 
-      if (error) {
-        console.error('Failed to update booking:', error);
-        alert('更新失败 / Opdatering mislykkedes:\n' + error.message + '\n\n请检查 bookings 表的 RLS 策略');
+    try {
+      const resp = await fetch(
+        `${SUPABASE_URL}/functions/v1/update-booking-status`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ bookingId, newStatus }),
+        }
+      );
+
+      const result = await resp.json();
+
+      if (!resp.ok) {
+        console.error('Edge function error:', result);
+        alert('更新失败：' + (result.error || '未知错误'));
         return;
       }
 
-      // 重新加载列表
+      alert(`✅ 状态已更新为"${statusText}"\n短信已发送给客人`);
       loadBookings();
 
     } catch (error) {
       console.error('Update booking error:', error);
-      alert('更新失败 / Opdatering mislykkedes:\n' + (error.message || error));
+      alert('更新失败 / Update failed：' + error.message);
     }
   }
 
