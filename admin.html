@@ -372,12 +372,10 @@
     
     if (booking.status === 'pending') {
       return `Hej ${name}! Vi har modtaget din booking hos Harbin Kitchen. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi vender tilbage med bekræftelse. Tlf: 53 33 57 77`;
-    } else if (booking.status === 'confirmed') {
+    } else if (booking.status === 'confirmed' || booking.status === 'completed') {
       return `Hej ${name}! Din booking hos Harbin Kitchen er BEKRAFTET. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi ses! Tlf: 53 33 57 77`;
     } else if (booking.status === 'cancelled') {
-      return `Hej ${name}! Din booking hos Harbin Kitchen er DESVAERRE AFVIST. Ring 53 33 57 77 hvis du har spoergsmaal.`;
-    } else if (booking.status === 'completed') {
-      return `（已完成状态无需发送短信）`;
+      return `Hej ${name}! Din booking hos Harbin Kitchen er DESVAERRE AFVIST. Ring 53 33 57 77 hvis du har spørgsmål.`;
     } else {
       return `（未知状态）`;
     }
