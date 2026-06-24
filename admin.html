@@ -336,7 +336,7 @@
 
       if (error) {
         console.error('Failed to update booking:', error);
-        alert('更新失败 / Update failed');
+        alert('更新失败 / Opdatering mislykkedes:\n' + error.message + '\n\n请检查 bookings 表的 RLS 策略');
         return;
       }
 
@@ -345,7 +345,7 @@
 
     } catch (error) {
       console.error('Update booking error:', error);
-      alert('更新失败 / Update failed');
+      alert('更新失败 / Opdatering mislykkedes:\n' + (error.message || error));
     }
   }
 

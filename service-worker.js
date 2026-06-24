@@ -1,4 +1,4 @@
-const CACHE_NAME = 'harbin-kitchen-v9';
+const CACHE_NAME = 'harbin-kitchen-v10';
 const ASSETS = [
   '/',
   '/index.html',
