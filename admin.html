@@ -130,6 +130,22 @@
       color: var(--text-light);
       margin-top: 12px;
     }
+    .booking-card__sms-info {
+      background: #E8F5E9;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #2E7D32;
+      margin-top: 8px;
+      display: none;
+    }
+    .booking-card__sms-info.show {
+      display: block;
+    }
+    .booking-card__sms-info--failed {
+      background: #FFEBEE;
+      color: #C62828;
+    }
   </style>
 </head>
 <body>
@@ -225,6 +241,9 @@
 <script src="js/printer.js"></script>
 <script src="js/admin.js"></script>
 <script>
+  // 全局变量：缓存所有预订数据
+  let allBookings = [];
+
   // 标签页切换
   function switchTab(tab) {
     const tabs = document.querySelectorAll('.admin-tab');
@@ -263,10 +282,13 @@
         return;
       }
 
+      // 缓存到全局变量
+      allBookings = data || [];
+
       const listEl = document.getElementById('bookings-list');
       const emptyEl = document.getElementById('bookings-empty');
 
-      if (!data || data.length === 0) {
+      if (!allBookings || allBookings.length === 0) {
         emptyEl.style.display = 'block';
         listEl.innerHTML = '';
         listEl.appendChild(emptyEl);
@@ -276,7 +298,7 @@
       emptyEl.style.display = 'none';
 
       let html = '';
-      data.forEach(booking => {
+      allBookings.forEach(booking => {
         const statusClass = `booking-card__status--${booking.status}`;
         const statusText = {
           'pending': '待确认',
@@ -287,6 +309,10 @@
 
         const dateStr = new Date(booking.date).toLocaleDateString('da-DK');
         const createdStr = new Date(booking.created_at).toLocaleString('da-DK');
+        const updatedStr = booking.updated_at ? new Date(booking.updated_at).toLocaleString('da-DK') : '';
+
+        // 生成短信预览内容
+        const smsPreview = getSmsPreview(booking);
 
         html += `
           <div class="booking-card" id="booking-${booking.id}">
@@ -301,7 +327,21 @@
               <div class="booking-card__detail">🕐 ${booking.time}</div>
             </div>
             ${booking.notes ? `<div class="booking-card__notes">📝 ${booking.notes}</div>` : ''}
+            
+            <!-- 短信内容预览（默认隐藏） -->
+            <div class="booking-card__sms-info" id="sms-preview-${booking.id}">
+              <div style="font-weight:600;margin-bottom:6px;">📱 短信预览：</div>
+              <div style="background:white;padding:8px 12px;border-radius:6px;font-size:12px;line-height:1.5;">${smsPreview}</div>
+              ${updatedStr ? `<div style="font-size:11px;color:#999;margin-top:6px;">最后更新：${updatedStr}</div>` : ''}
+            </div>
+
             <div class="booking-card__actions">
+              <!-- 查看短信按钮 -->
+              <button class="booking-card__btn" style="background:#6C757D;color:white;" onclick="toggleSmsPreview('${booking.id}')">📱 查看短信</button>
+              
+              <!-- 重新发送短信按钮 -->
+              <button class="booking-card__btn" style="background:#17A2B8;color:white;" onclick="resendBookingSms('${booking.id}')">📤 重发短信</button>
+              
               ${booking.status === 'pending' ? `
                 <button class="booking-card__btn booking-card__btn--confirm" onclick="updateBookingStatus('${booking.id}', 'confirmed')">✅ 确认</button>
                 <button class="booking-card__btn booking-card__btn--cancel" onclick="updateBookingStatus('${booking.id}', 'cancelled')">❌ 取消</button>
@@ -320,6 +360,85 @@
 
     } catch (error) {
       console.error('Load bookings error:', error);
+    }
+  }
+
+  // 生成短信预览内容
+  function getSmsPreview(booking) {
+    const name = booking.name || 'Kunde';
+    const date = booking.date || '';
+    const time = booking.time || '';
+    const guests = booking.guests || '';
+
+    if (booking.status === 'confirmed') {
+      return `Hej ${name}! Din booking hos Harbin Kitchen er BEKRAFTET. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi ses! Tlf: 33 29 46 46`;
+    } else if (booking.status === 'cancelled') {
+      return `Hej ${name}! Din booking hos Harbin Kitchen er DESVAERRE AFVIST. Ring 33 29 46 46 hvis du har spoergsmaal.`;
+    } else if (booking.status === 'pending') {
+      return `（未发送 - 需要确认预订后才会发送短信）`;
+    } else {
+      return `（已完成状态无需发送短信）`;
+    }
+  }
+
+  // 切换短信预览显示/隐藏
+  function toggleSmsPreview(bookingId) {
+    const el = document.getElementById(`sms-preview-${bookingId}`);
+    if (el) {
+      el.classList.toggle('show');
+    }
+  }
+
+  // 重新发送短信
+  async function resendBookingSms(bookingId) {
+    const booking = allBookings.find(b => b.id === bookingId);
+    if (!booking) {
+      alert('找不到预订信息');
+      return;
+    }
+
+    if (booking.status !== 'confirmed' && booking.status !== 'cancelled') {
+      alert('只有"已确认"或"已取消"状态的预订才能重发短信');
+      return;
+    }
+
+    if (!confirm(`确认重新发送短信给 ${booking.name}（${booking.phone}）？`)) {
+      return;
+    }
+
+    try {
+      const resp = await fetch(
+        `${SUPABASE_URL}/functions/v1/update-booking-status`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            phone: booking.phone,
+            status: booking.status,
+            name: booking.name,
+            date: booking.date,
+            time: booking.time,
+            guests: booking.guests
+          }),
+        }
+      );
+
+      const result = await resp.json();
+
+      if (!resp.ok) {
+        alert(`❌ 短信发送失败：${result.error || '未知错误'}`);
+      } else {
+        alert(`✅ 短信已重新发送给客人`);
+        // 刷新列表以更新时间
+        loadBookings();
+      }
+
+    } catch (error) {
+      console.error('Resend SMS error:', error);
+      alert('❌ 短信发送失败：' + error.message);
     }
   }
 
@@ -343,47 +462,49 @@
         return;
       }
 
-      // 第 2 步：获取预订详情，调用 Edge Function 发短信
-      const { data: booking, error: fetchError } = await client
-        .from('bookings')
-        .select('*')
-        .eq('id', bookingId)
-        .single();
-
-      if (fetchError || !booking) {
-        alert(`✅ 状态已更新为"${statusText}"\n（短信发送失败：无法获取预订详情）`);
-        loadBookings();
-        return;
+      // 第 2 步：更新本地缓存
+      const bookingIndex = allBookings.findIndex(b => b.id === bookingId);
+      if (bookingIndex !== -1) {
+        allBookings[bookingIndex].status = newStatus;
+        allBookings[bookingIndex].updated_at = new Date().toISOString();
       }
 
-      const smsResp = await fetch(
-        `${SUPABASE_URL}/functions/v1/update-booking-status`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            phone: booking.phone,
-            status: newStatus,
-            name: booking.name,
-            date: booking.date,
-            time: booking.time,
-            guests: booking.guests,
-          }),
+      // 第 3 步：调用 Edge Function 发短信
+      const booking = allBookings.find(b => b.id === bookingId);
+      
+      if (booking && booking.phone) {
+        const resp = await fetch(
+          `${SUPABASE_URL}/functions/v1/update-booking-status`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              phone: booking.phone,
+              status: newStatus,
+              name: booking.name,
+              date: booking.date,
+              time: booking.time,
+              guests: booking.guests,
+            }),
+          }
+        );
+
+        const smsResult = await resp.json();
+
+        if (!resp.ok) {
+          console.error('短信发送失败:', smsResult);
+          alert(`✅ 状态已更新为"${statusText}"\n（短信发送失败：${smsResult.error || '未知错误'}）`);
+        } else {
+          alert(`✅ 状态已更新为"${statusText}"\n✅ 短信已发送给客人`);
         }
-      );
-
-      const smsResult = await smsResp.json();
-
-      if (!smsResp.ok) {
-        console.error('短信发送失败:', smsResult);
-        alert(`✅ 状态已更新为"${statusText}"\n（短信发送失败：${smsResult.error || '未知错误'}）`);
       } else {
-        alert(`✅ 状态已更新为"${statusText}"\n✅ 短信已发送给客人`);
+        alert(`✅ 状态已更新为"${statusText}"\n（未发送短信：找不到客人电话）`);
       }
 
+      // 重新加载列表以刷新 UI
       loadBookings();
 
     } catch (error) {
