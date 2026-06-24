@@ -370,14 +370,14 @@
     const time = booking.time || '';
     const guests = booking.guests || '';
     
-    if (booking.status === 'confirmed') {
-      return `Hej ${name}! Din booking hos Harbin Kitchen er BEKRAFTET. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi ses! Tlf: 33 29 46 46`;
+    if (booking.status === 'pending') {
+      return `Hej ${name}! Vi har modtaget din booking hos Harbin Kitchen. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi vender tilbage med bekræftelse. Tlf: 53 33 57 77`;
+    } else if (booking.status === 'confirmed') {
+      return `Hej ${name}! Din booking hos Harbin Kitchen er BEKRAFTET. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi ses! Tlf: 53 33 57 77`;
     } else if (booking.status === 'cancelled') {
-      return `Hej ${name}! Din booking hos Harbin Kitchen er DESVAERRE AFVIST. Ring 33 29 46 46 hvis du har spoergsmaal.`;
-    } else if (booking.status === 'pending') {
-      return `Hej ${name}! Vi har modtaget din booking hos Harbin Kitchen. Dato: ${date}, Tid: ${time}, Antal: ${guests} personer. Vi vender tilbage med bekræftelse. Tlf: 33 29 46 46`;
+      return `Hej ${name}! Din booking hos Harbin Kitchen er DESVAERRE AFVIST. Ring 53 33 57 77 hvis du har spoergsmaal.`;
     } else if (booking.status === 'completed') {
-      return `Hej ${name}! Tak for dit besøg hos Harbin Kitchen. Vi håber du nød maden! Velkommen tilbage. Tlf: 33 29 46 46`;
+      return `（已完成状态无需发送短信）`;
     } else {
       return `（未知状态）`;
     }
@@ -478,7 +478,13 @@
         allBookings[bookingIndex].updated_at = new Date().toISOString();
       }
 
-      // 第 3 步：调用 Edge Function 发短信
+      // 第 3 步：调用 Edge Function 发短信（completed 状态不发短信）
+      if (newStatus === 'completed') {
+        alert(`✅ 状态已更新为"${statusText}"\n（已完成状态不发送短信）`);
+        loadBookings();
+        return;
+      }
+
       const booking = allBookings.find(b => b.id === bookingId);
       
       if (booking && booking.phone) {
