@@ -375,7 +375,7 @@
     } else if (booking.status === 'cancelled') {
       return `Hej ${name}! Din booking hos Harbin Kitchen er DESVAERRE AFVIST. Ring 33 29 46 46 hvis du har spoergsmaal.`;
     } else if (booking.status === 'pending') {
-      return `（未发送 - 需要确认预订后才会发送短信）`;
+      return `（未发送 - 点击"确认"后会自动发送确认短信）`;
     } else {
       return `（已完成状态无需发送短信）`;
     }
@@ -397,12 +397,19 @@
       return;
     }
 
-    if (booking.status !== 'confirmed' && booking.status !== 'cancelled') {
-      alert('只有"已确认"或"已取消"状态的预订才能重发短信');
+    if (!booking.phone) {
+      alert('该预订没有电话号码，无法发送短信');
       return;
     }
 
-    if (!confirm(`确认重新发送短信给 ${booking.name}（${booking.phone}）？`)) {
+    const statusText = {
+      'pending': '待确认',
+      'confirmed': '已确认',
+      'cancelled': '已取消',
+      'completed': '已完成'
+    }[booking.status] || booking.status;
+
+    if (!confirm(`确认重新发送短信给 ${booking.name}（${booking.phone}）？\n当前状态：${statusText}`)) {
       return;
     }
 
