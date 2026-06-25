@@ -14,6 +14,7 @@ let titleFlashInterval = null; // 标题闪烁定时器
 let shopboxAutoSync = false; // 是否自动推送到 Shopbox
 let shopboxMapping = {}; // PWA id → Shopbox id 映射表
 let shopboxEnabled = false; // Shopbox 功能是否启用（有映射时自动启用）
+let shopboxEmergencyStop = true; // 紧急停用：收银机锁定问题
 
 const ADMIN_PASSWORD = 'harbin2026'; // 保留常量，后期加密用
 
@@ -715,7 +716,20 @@ function formatOrderForPrinter(order) {
 function updateShopboxUI() {
   const statusEl = document.getElementById('shopbox-status');
   const autoBtnEl = document.getElementById('shopbox-auto-btn');
+  const bannerEl = document.getElementById('emergency-banner');
   if (!statusEl || !autoBtnEl) return;
+
+  // 紧急停用状态
+  if (shopboxEmergencyStop) {
+    if (bannerEl) bannerEl.style.display = 'block';
+    statusEl.style.display = 'inline';
+    autoBtnEl.style.display = 'none';
+    statusEl.textContent = '🚫 Shopbox 已停用';
+    statusEl.style.color = '#DC3545';
+    return;
+  }
+
+  if (bannerEl) bannerEl.style.display = 'none';
   if (shopboxEnabled) {
     statusEl.style.display = 'inline';
     autoBtnEl.style.display = 'inline-block';
@@ -729,6 +743,12 @@ function updateShopboxUI() {
 
 // ── 推送到 Shopbox ──
 async function syncToShopbox(orderNumber) {
+  // 紧急停用检查
+  if (shopboxEmergencyStop) {
+    alert('⚠️ Shopbox 同步已紧急停用\n\n原因：收银机被锁定，正在排查中。\n请不要点击推送按钮，等待修复通知。');
+    return;
+  }
+
   const order = allOrders.find(o => o.order_number === orderNumber);
   if (!order) {
     console.error('[Shopbox] Order not found:', orderNumber);
@@ -876,6 +896,11 @@ function getShopboxBadgeHTML(order) {
 function getShopboxButtonHTML(order) {
   if (!shopboxEnabled) return '';
   if (order.shopbox_sync_status === 'synced' && order.shopbox_basket_id) return '';
+
+  // 紧急停用：按钮显示为禁用状态
+  if (shopboxEmergencyStop) {
+    return `<button class="order-card__action-btn order-card__action-btn--shopbox" disabled style="opacity:0.5;cursor:not-allowed;" title="Shopbox 同步已紧急停用">🚫 Shopbox 已停用</button>`;
+  }
 
   return `<button class="order-card__action-btn order-card__action-btn--shopbox" onclick="syncToShopbox('${order.order_number}')">🔄 推送到 Shopbox</button>`;
 }
