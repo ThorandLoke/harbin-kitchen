@@ -415,13 +415,22 @@ function setFilter(filter) {
 }
 
 // ── Sound Notification ──
-function playNotificationSound() {
+async function playNotificationSound() {
   if (!soundEnabled) return;
+  console.log('[Sound] Attempting to play notification sound...');
 
-  // 方法 1：使用预初始化的 AudioContext（更可靠）
+  // 方法 1：使用预初始化的 AudioContext
   if (audioCtx) {
     try {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
+      // 如果音频上下文被挂起，先恢复（resume 是异步的）
+      if (audioCtx.state === 'suspended') {
+        await audioCtx.resume();
+        console.log('[Sound] AudioContext resumed');
+      }
+      if (audioCtx.state !== 'running') {
+        console.warn('[Sound] AudioContext not running, state:', audioCtx.state);
+        throw new Error('AudioContext not running');
+      }
 
       [880, 1100, 880].forEach((freq, i) => {
         const osc = audioCtx.createOscillator();
@@ -436,6 +445,7 @@ function playNotificationSound() {
         gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
         osc.stop(startTime + 0.35);
       });
+      console.log('[Sound] WebAudio (Method 1) played successfully');
       return;
     } catch (e) {
       console.warn('AudioContext play failed:', e);
@@ -445,7 +455,12 @@ function playNotificationSound() {
   // 方法 2：降级方案 - 新建 AudioContext
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    if (ctx.state === 'suspended') ctx.resume();
+    if (ctx.state === 'suspended') {
+      await ctx.resume();
+    }
+    if (ctx.state !== 'running') {
+      throw new Error('New AudioContext not running');
+    }
     [880, 1100, 880].forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -460,16 +475,20 @@ function playNotificationSound() {
       osc.stop(startTime + 0.35);
     });
     audioCtx = ctx;
+    console.log('[Sound] WebAudio (Method 2) played successfully');
     return;
   } catch (e) {
     console.warn('AudioContext fallback failed:', e);
   }
 
-  // 方法 3：HTML5 Audio beep (WAV data URI)
+  // 方法 3：HTML5 Audio beep (有效 WAV 数据)
   try {
-    var beep = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=');
-    beep.volume = 0.5;
+    const BEEP_DATA = 'data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAqL64l2xKQVV8pb65m3BNQVJ4ory7n3RPQU90n7u8onhSQU1wm7m+pXxVQUpsl7i+qIBYQkhplLa/q4RbQkdlkLO/roheREVhjLHAsYxhRUReiK6/s5BlR0JbhKu/tpRpSEJYgKi+uJdsSkFVfKW+uZtwTUFSeKK8u590T0FPdJ+7vKJ4UkFNcJu5vqV8VUFKbJe4vqiAWEJIaZS2v6uEW0JHZZCzv66IXkRFYYyxwLGMYUVEXoiuv7OQZUdCW4Srv7aUaUhCWICovriXbEpBVXylvrmbcE1BUniivLufdE9BT3Sfu7yieFJBTXCbub6lfFVBSmyXuL6ogFhCSGmUtr+rhFtCR2WQs7+uiF5ERWGMscCxjGFFRF6Irr+zkGVHQluEq7+2lGlIQliAqL64l2xKQVV8pb65m3BNQVJ4ory7n3RPQU90n7u8onhSQU1wm7m+pXxVQUpsl7i+qIBYQkhplLa/q4RbQkdlkLO/roheREVhjLHAsYxhRUReiK6/s5BlR0JbhKu/tpRpSEJYgKi+uJdsSkFVfKW+uZtwTUFSeKK8u590T0FPdJ+7vKJ4UkFNcJu5vqV8VUFKbJe4vqiAWEJIaZS2v6uEW0JHZZCzv66IXkRFYYyxwLGMYUVEXoiuv7OQZUdCW4Srv7aUaUhCWICovriXbEpBVXylvrmbcE1BUniivLufdE9BT3Sfu7yieFJBTXCbub6lfFVBSmyXuL6ogFhCSGmUtr+rhFtCR2WQs7+uiF5ERWGMscCxjGFFRF6Irr+zkGVHQluEq7+2lGlIQliAqL64l2xKQVV8pb65m3BNQVJ4ory7n3RPQU90n7u8onhSQU1wm7m+pXxVQUpsl7i+qIBYQkhplLa/q4RbQkdlkLO/roheREVhjLHAsYxhRUReiK6/s5BlR0JbhKu/tpRpSEJYgKi+uJdsSkFVfKW+uZtwTUFSeKK8u590T0FPdJ+7vKJ4UkFNcJu5vqV8VUFKbJe4vqiAWEJIaZS2v6uEW0JHZZCzv66IXkRFYYyxwLGMYUVEXoiuv7OQZUdCW4Srv7aUaUhCWA==';
+    const beep = new Audio(BEEP_DATA);
+    beep.volume = 0.8;
     beep.play().catch(function() {});
+    console.log('[Sound] HTML5 Audio beep played');
+    return;
   } catch (e) {
     console.warn('Audio beep failed:', e);
   }

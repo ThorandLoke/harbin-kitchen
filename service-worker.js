@@ -1,7 +1,8 @@
-const CACHE_NAME = 'harbin-kitchen-v18';
+const CACHE_NAME = 'harbin-kitchen-v19';
 const ASSETS = [
   '/',
   '/index.html',
+  '/admin.html',
   '/css/theme.css',
   '/css/app.css',
   '/js/menu.js',
@@ -9,6 +10,7 @@ const ASSETS = [
   '/js/prep-time.js',
   '/js/cart.js',
   '/js/app.js',
+  '/js/admin.js',
   '/data/menu.json',
   '/manifest.json'
 ];
