@@ -11,6 +11,9 @@ let passwordVerified = true; // 密码已移除，后期再加
 let audioCtx = null; // AudioContext，需要用户交互后才能初始化
 let notificationPermission = 'default'; // 桌面通知权限
 let titleFlashInterval = null; // 标题闪烁定时器
+let shopboxAutoSync = false; // 是否自动推送到 Shopbox
+let shopboxMapping = {}; // PWA id → Shopbox id 映射表
+let shopboxEnabled = false; // Shopbox 功能是否启用（有映射时自动启用）
 
 const ADMIN_PASSWORD = 'harbin2026'; // 保留常量，后期加密用
 
@@ -158,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', initAudioOnClick);
   document.addEventListener('touchstart', initAudioOnClick);
 
+  loadShopboxMapping();
   initSupabase();
 });
 
@@ -184,6 +188,22 @@ async function initSupabase() {
     console.error('Supabase init failed:', err);
     document.getElementById('live-dot').textContent = '⚠ 连接失败';
     document.getElementById('live-dot').style.color = 'var(--color-danger)';
+  }
+}
+
+// ── 加载 Shopbox 菜单映射表 ──
+async function loadShopboxMapping() {
+  try {
+    const res = await fetch('data/shopbox-mapping.json');
+    if (!res.ok) throw new Error('Failed to load mapping');
+    const data = await res.json();
+    shopboxMapping = data.mapping || {};
+    const hasMappings = Object.values(shopboxMapping).some(m => m.shopbox_id && m.shopbox_id.trim());
+    shopboxEnabled = hasMappings;
+    console.log('[Shopbox] Mapping loaded:', Object.keys(shopboxMapping).length, 'items, enabled:', shopboxEnabled);
+  } catch (e) {
+    console.warn('[Shopbox] Failed to load mapping:', e);
+    shopboxEnabled = false;
   }
 }
 
@@ -226,6 +246,7 @@ async function loadOrders() {
   allOrders = data || [];
   updateStats();
   renderOrders();
+  updateShopboxUI();
 }
 
 // ── Realtime Subscription ──
@@ -328,6 +349,7 @@ function renderOrderCard(order) {
 
   const statusClass = `order-card__status order-card__status--${order.status}`;
   const statusLabel = { new: '🆕 新订单', preparing: '🍳 制作中', ready: '✅ 待取餐', completed: '✔ 已完成', cancelled: '❌ 已取消' }[order.status] || order.status;
+  const shopboxBadge = getShopboxBadgeHTML(order);
 
   // Table number for dine-in (check both possible field names)
   const tableNum = order.table_number || order.table || '';
@@ -398,6 +420,9 @@ function renderOrderCard(order) {
   actionsHTML += `<button class="order-card__action-btn order-card__action-btn--print" onclick="reprintReceipt('${order.order_number}')" title="打印水单">🖨️ 水单</button>`;
   actionsHTML += `<button class="order-card__action-btn order-card__action-btn--print" onclick="reprintKitchen('${order.order_number}')" title="打印后厨单">🍳 后厨单</button>`;
 
+  // Shopbox sync button
+  actionsHTML += getShopboxButtonHTML(order);
+
   // Notes
   const notesHTML = order.notes
     ? `<div style="padding:6px 18px;font-size:var(--font-size-xs);color:var(--color-text-secondary);border-bottom:1px solid var(--color-border);">📝 ${escapeHTML(order.notes)}</div>`
@@ -407,7 +432,10 @@ function renderOrderCard(order) {
     <div class="order-card" id="order-${order.order_number}">
       <div class="order-card__header">
         <span class="order-card__id">${typeIcon} ${order.order_number} · ${typeLabel}${tableBadge}</span>
-        <span class="${statusClass}">${statusLabel}</span>
+        <span style="display:flex;align-items:center;gap:8px;">
+          ${shopboxBadge}
+          <span class="${statusClass}">${statusLabel}</span>
+        </span>
       </div>
       ${metaHTML ? `<div class="order-card__meta">${metaHTML}</div>` : ''}
       <div class="order-card__customer">
@@ -438,6 +466,10 @@ async function updateStatus(orderNumber, newStatus) {
     console.error('Failed to update status:', error);
     alert('状态更新失败，请重试');
     return;
+  }
+  // 如果接单（new → preparing）且开启了自动同步，推送到 Shopbox
+  if (newStatus === 'preparing' && shopboxAutoSync) {
+    syncToShopbox(orderNumber);
   }
   // 如果该订单之前在新订单闪烁列表中，移除它
   stopTitleFlash(orderNumber);
@@ -674,3 +706,163 @@ function formatOrderForPrinter(order) {
     createdAt: order.created_at || order.createdAt || new Date().toISOString()
   };
 }
+
+// ═══════════════════════════════════════════════════════
+// SHOPBOX POS INTEGRATION
+// ═══════════════════════════════════════════════════════
+
+// ── 更新 Shopbox 顶部 UI 状态 ──
+function updateShopboxUI() {
+  const statusEl = document.getElementById('shopbox-status');
+  const autoBtnEl = document.getElementById('shopbox-auto-btn');
+  if (!statusEl || !autoBtnEl) return;
+  if (shopboxEnabled) {
+    statusEl.style.display = 'inline';
+    autoBtnEl.style.display = 'inline-block';
+    statusEl.textContent = '🟢 Shopbox';
+    statusEl.style.color = '#28a745';
+  } else {
+    statusEl.style.display = 'none';
+    autoBtnEl.style.display = 'none';
+  }
+}
+
+// ── 推送到 Shopbox ──
+async function syncToShopbox(orderNumber) {
+  const order = allOrders.find(o => o.order_number === orderNumber);
+  if (!order) {
+    console.error('[Shopbox] Order not found:', orderNumber);
+    return;
+  }
+
+  // 检查是否已有 shopbox_basket_id（避免重复推送）
+  if (order.shopbox_basket_id) {
+    alert('该订单已同步到 Shopbox（Basket ID: ' + order.shopbox_basket_id + '）');
+    return;
+  }
+
+  // 准备 items（添加 shopbox_id）
+  const items = typeof order.items === 'string' ? JSON.parse(order.items) : (order.items || []);
+  const itemsWithShopboxId = items.map(item => {
+    const mapping = shopboxMapping[item.id];
+    return {
+      ...item,
+      shopbox_id: mapping ? mapping.shopbox_id : null,
+    };
+  });
+
+  // 检查未映射的菜品
+  const unmapped = itemsWithShopboxId.filter(item => !item.shopbox_id);
+  if (unmapped.length > 0) {
+    const names = unmapped.map(i => i.name_da || i.name_zh || i.id).join(', ');
+    if (!confirm(`以下 ${unmapped.length} 个菜品未映射到 Shopbox：\n${names}\n\n仍要推送吗？（未映射的菜品将以 PWA 编号发送，Shopbox 可能无法识别）`)) {
+      return;
+    }
+  }
+
+  // 更新 UI 状态为同步中
+  updateShopboxBadge(orderNumber, 'syncing');
+
+  try {
+    const resp = await fetch(
+      `${SUPABASE_URL}/functions/v1/sync-to-shopbox`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          order_number: order.order_number,
+          order_type: order.order_type,
+          customer_name: order.customer_name,
+          customer_phone: order.customer_phone,
+          table_number: order.table_number || order.table,
+          pickup_time: order.pickup_time,
+          notes: order.notes,
+          total: order.total,
+          discount: order.discount || 0,
+          items: itemsWithShopboxId,
+        }),
+      }
+    );
+
+    const result = await resp.json();
+
+    if (!resp.ok) {
+      console.error('[Shopbox] Sync failed:', result);
+      updateShopboxBadge(orderNumber, 'failed', result.error || '同步失败');
+      alert(`❌ Shopbox 同步失败：${result.error || '未知错误'}\n${result.detail || ''}`);
+    } else {
+      console.log('[Shopbox] Synced successfully:', result);
+      updateShopboxBadge(orderNumber, 'synced', result.shopbox_basket_id);
+      // 更新本地缓存
+      order.shopbox_basket_id = result.shopbox_basket_id;
+      order.shopbox_sale_id = result.shopbox_sale_id;
+      order.shopbox_sync_status = 'synced';
+      alert(`✅ 已同步到 Shopbox！\nBasket ID: ${result.shopbox_basket_id || 'N/A'}\nSale ID: ${result.shopbox_sale_id || 'N/A'}`);
+    }
+  } catch (error) {
+    console.error('[Shopbox] Network error:', error);
+    updateShopboxBadge(orderNumber, 'failed', error.message);
+    alert('❌ Shopbox 同步网络错误：' + error.message);
+  }
+}
+
+// ── 更新 Shopbox 状态 Badge（UI 反馈）───
+function updateShopboxBadge(orderNumber, status, detail) {
+  const badge = document.getElementById(`shopbox-badge-${orderNumber}`);
+  if (!badge) return;
+
+  const styles = {
+    pending:  { bg: '#E0E0E0', color: '#666', text: '⏳ 未同步' },
+    syncing:  { bg: '#FFF3CD', color: '#856404', text: '⏳ 同步中...' },
+    synced:   { bg: '#D4EDDA', color: '#155724', text: `✅ 已同步${detail ? ' (' + detail + ')' : ''}` },
+    failed:   { bg: '#F8D7DA', color: '#721C24', text: `❌ 失败${detail ? ': ' + detail : ''}` },
+  };
+
+  const style = styles[status] || styles.pending;
+  badge.style.background = style.bg;
+  badge.style.color = style.color;
+  badge.textContent = style.text;
+}
+
+// ── 切换自动同步 ──
+function toggleShopboxAutoSync() {
+  shopboxAutoSync = !shopboxAutoSync;
+  const btn = document.getElementById('shopbox-auto-btn');
+  if (btn) {
+    btn.textContent = shopboxAutoSync ? '✅ 自动同步 ON' : '⏸️ 自动同步 OFF';
+    btn.classList.toggle('active', shopboxAutoSync);
+  }
+}
+
+// ── 获取 Shopbox 同步状态 HTML（用于订单卡片）───
+function getShopboxBadgeHTML(order) {
+  if (!shopboxEnabled) return ''; // 未启用时不显示
+
+  const status = order.shopbox_sync_status || 'pending';
+  const basketId = order.shopbox_basket_id || '';
+
+  const styles = {
+    pending:  { bg: '#E0E0E0', color: '#666', text: '⏳ 未同步' },
+    syncing:  { bg: '#FFF3CD', color: '#856404', text: '⏳ 同步中...' },
+    synced:   { bg: '#D4EDDA', color: '#155724', text: '✅ 已同步' },
+    failed:   { bg: '#F8D7DA', color: '#721C24', text: '❌ 同步失败' },
+    skipped:  { bg: '#E2E3E5', color: '#383D41', text: '⏭️ 已跳过' },
+  };
+
+  const style = styles[status] || styles.pending;
+  const tooltip = basketId ? `Shopbox Basket: ${basketId}` : '点击"推送到 Shopbox"按钮同步';
+
+  return `<span id="shopbox-badge-${order.order_number}" class="shopbox-badge" style="background:${style.bg};color:${style.color};padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;cursor:help;" title="${tooltip}">${style.text}</span>`;
+}
+
+// ── 生成"推送到 Shopbox"按钮 HTML ──
+function getShopboxButtonHTML(order) {
+  if (!shopboxEnabled) return '';
+  if (order.shopbox_sync_status === 'synced' && order.shopbox_basket_id) return '';
+
+  return `<button class="order-card__action-btn order-card__action-btn--shopbox" onclick="syncToShopbox('${order.order_number}')">🔄 推送到 Shopbox</button>`;
+}
+

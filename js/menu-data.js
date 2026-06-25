@@ -261,14 +261,6 @@ const MENU_DATA = [
         "description_da": "",
         "price": 148,
         "image": "images/kold_6.jpg"
-      },
-      {
-        "code": "K7",
-        "id": "kold_7",
-        "name_da": "Kylling med citron sauce",
-        "name_zh": "柠檬鸡",
-        "description_da": "",
-        "price": 138
       }
     ]
   },
@@ -503,16 +495,6 @@ const MENU_DATA = [
         "description_zh": "炸猪肉块搭配绿甜椒"
       },
       {
-        "code": "H22",
-        "id": "h_svine_8",
-        "name_da": "Salt & Pepper svinekød",
-        "name_zh": "椒盐猪柳",
-        "description_da": "Wokstegte strimler af svinekødsmørbrad",
-        "price": 178,
-        "image": "images/h_svine_8.jpg",
-        "description_zh": "炒猪里脊肉条"
-      },
-      {
         "code": "H23",
         "id": "h_svine_9",
         "name_da": "Harbin-style braiseret svinekød",
@@ -642,16 +624,6 @@ const MENU_DATA = [
         "description_da": "Rejer med skal i stærk chilisauce",
         "price": 198,
         "description_zh": "带壳大虾用重辣酱汁炒制"
-      },
-      {
-        "code": "H34",
-        "id": "h_rejer_4",
-        "name_da": "Lynstegte rejer i lys sauce",
-        "name_zh": "清炒虾仁",
-        "description_da": "Lynstegte pilte rejer med gulerod og agurk",
-        "price": 198,
-        "image": "images/h_rejer_4.jpg",
-        "description_zh": "手剥虾仁快炒，搭配胡萝卜和黄瓜"
       },
       {
         "code": "H35",
@@ -1039,26 +1011,6 @@ const MENU_DATA = [
         "price": 15,
         "image": "images/sauce_3.jpg",
         "description_zh": "饺子专用蘸醋，适合搭配各类饺子、蒸饺"
-      },
-      {
-        "code": "S58",
-        "id": "sauce_4",
-        "name_da": "Chilimayo",
-        "name_zh": "辣味蛋黄酱",
-        "description_da": "Chili og mayonnaise blanding, velegnet til friturestegt kylling og burgere",
-        "price": 15,
-        "image": "images/sauce_4.jpg",
-        "description_zh": "辣味与蛋黄酱融合的酱料，适合搭配炸鸡、汉堡等"
-      },
-      {
-        "code": "S59",
-        "id": "sauce_5",
-        "name_da": "Mayo",
-        "name_zh": "标准蛋黄酱",
-        "description_da": "Klassisk mayonnaise, alsidig dipsauce",
-        "price": 15,
-        "image": "images/sauce_5.jpg",
-        "description_zh": "原味经典蛋黄酱，通用蘸酱/抹酱"
       },
       {
         "code": "S60",

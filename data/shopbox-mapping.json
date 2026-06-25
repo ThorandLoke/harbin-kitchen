@@ -1,0 +1,592 @@
+{
+  "_meta": {
+    "description": "PWA 菜品编号 ↔ Shopbox 产品 ID 映射表",
+    "notes": "97 个菜品已自动匹配，4 个过时菜品已删除",
+    "updated_at": "2026-06-25",
+    "total_items": 97
+  },
+  "mapping": {
+    "forretter_1": {
+      "shopbox_id": "11694252",
+      "name_da": "Snackkurv (til 2 personer)",
+      "name_zh": "前餐拼盘",
+      "price": 128
+    },
+    "forretter_2": {
+      "shopbox_id": "11694253",
+      "name_da": "Mini forårsruller 6stk.",
+      "name_zh": "小春卷",
+      "price": 48
+    },
+    "forretter_3": {
+      "shopbox_id": "11694254",
+      "name_da": "Hjemmelavede forårsruller med oksekød 4 stk.",
+      "name_zh": "牛肉春卷",
+      "price": 58
+    },
+    "forretter_4": {
+      "shopbox_id": "11694255",
+      "name_da": "Hjemmelavede forårsruller med and 3 stk.",
+      "name_zh": "鸭春卷",
+      "price": 58
+    },
+    "forretter_5": {
+      "shopbox_id": "11694256",
+      "name_da": "Dybstegte Tempura Rejer 4stk.",
+      "name_zh": "日本炸虾",
+      "price": 58
+    },
+    "forretter_6": {
+      "shopbox_id": "11694257",
+      "name_da": "Kyllinge nuggets 6 stk",
+      "name_zh": "炸鸡块",
+      "price": 58
+    },
+    "forretter_7": {
+      "shopbox_id": "11694258",
+      "name_da": "Dybstegte dumplings med kylling 5stk",
+      "name_zh": "炸鸡肉饺子",
+      "price": 58
+    },
+    "forretter_8": {
+      "shopbox_id": "12103492",
+      "name_da": "Hjemmelavede dumplings i chiliolie",
+      "name_zh": "红油水饺",
+      "price": 58
+    },
+    "forretter_9": {
+      "shopbox_id": "12103493",
+      "name_da": "Kogte Harbin-dumplings 10stk.",
+      "name_zh": "东北水饺",
+      "price": 128
+    },
+    "forretter_10": {
+      "shopbox_id": "12103494",
+      "name_da": "Rejer Chips",
+      "name_zh": "虾片",
+      "price": 18
+    },
+    "suppe_1": {
+      "shopbox_id": "11694242",
+      "name_da": "Peking suppe",
+      "name_zh": "北京汤",
+      "price": 58
+    },
+    "suppe_2": {
+      "shopbox_id": "11694243",
+      "name_da": "Kylling suppe",
+      "name_zh": "鸡丝汤",
+      "price": 58
+    },
+    "suppe_3": {
+      "shopbox_id": "11694244",
+      "name_da": "Wonton suppe",
+      "name_zh": "云吞汤",
+      "price": 58
+    },
+    "suppe_4": {
+      "shopbox_id": "11694251",
+      "name_da": "Majssuppe med kylling stykker",
+      "name_zh": "鸡蛋玉米羹",
+      "price": 58
+    },
+    "dum_1": {
+      "shopbox_id": "12103496",
+      "name_da": "Char Siu Bao 3stk.",
+      "name_zh": "叉烧包",
+      "price": 58
+    },
+    "dum_2": {
+      "shopbox_id": "12103637",
+      "name_da": "Siu Mai 4stk.",
+      "name_zh": "烧卖",
+      "price": 58
+    },
+    "dum_3": {
+      "shopbox_id": "12103648",
+      "name_da": "Har Gow 4stk.",
+      "name_zh": "虾饺",
+      "price": 58
+    },
+    "dum_4": {
+      "shopbox_id": "12103650",
+      "name_da": "Sesamboller 5stk.",
+      "name_zh": "芝麻球",
+      "price": 58
+    },
+    "kold_1": {
+      "shopbox_id": "12103653",
+      "name_da": "Special edamame",
+      "name_zh": "醉香毛豆",
+      "price": 38
+    },
+    "kold_2": {
+      "shopbox_id": "12103654",
+      "name_da": "Kimchi kinakål",
+      "name_zh": "辣白菜",
+      "price": 58
+    },
+    "kold_3": {
+      "shopbox_id": "12103655",
+      "name_da": "Agurk strimler med citron sauce",
+      "name_zh": "柠檬黄瓜条",
+      "price": 58
+    },
+    "kold_4": {
+      "shopbox_id": "12103656",
+      "name_da": "Fuqi Feipian",
+      "name_zh": "夫妻肺片",
+      "price": 148
+    },
+    "kold_5": {
+      "shopbox_id": "12103661",
+      "name_da": "Oksemave salad i chilioil",
+      "name_zh": "红油牛肚",
+      "price": 148
+    },
+    "kold_6": {
+      "shopbox_id": "12103663",
+      "name_da": "Okse-tripe salat i chili sauce",
+      "name_zh": "凉拌牛百叶",
+      "price": 148
+    },
+    "h_kylling_1": {
+      "shopbox_id": "11694271",
+      "name_da": "Dry wok med kylling",
+      "name_zh": "干锅鸡",
+      "price": 168
+    },
+    "h_kylling_2": {
+      "shopbox_id": "12103757",
+      "name_da": "Gong Bao Kylling",
+      "name_zh": "宫保鸡丁",
+      "price": 168
+    },
+    "h_kylling_3": {
+      "shopbox_id": "12103761",
+      "name_da": "Kylling i sur sød sauce",
+      "name_zh": "甜酸鸡",
+      "price": 168
+    },
+    "h_kylling_4": {
+      "shopbox_id": "12103769",
+      "name_da": "Kylling a la Harbin",
+      "name_zh": "哈尔滨辣子鸡",
+      "price": 168
+    },
+    "h_kylling_5": {
+      "shopbox_id": "12103771",
+      "name_da": "Lynstegt kylling i østerssauce",
+      "name_zh": "蚝油鸡片",
+      "price": 168
+    },
+    "h_kylling_6": {
+      "shopbox_id": "12103772",
+      "name_da": "Kylling i rød Karry",
+      "name_zh": "红咖喱鸡",
+      "price": 168
+    },
+    "h_okse_1": {
+      "shopbox_id": "12103776",
+      "name_da": "Dry wok med oksekød",
+      "name_zh": "干锅牛肉",
+      "price": 188
+    },
+    "h_okse_2": {
+      "shopbox_id": "12103777",
+      "name_da": "Oksekød i sort peber sauce på jernfad",
+      "name_zh": "铁板黑椒牛肉",
+      "price": 188
+    },
+    "h_okse_3": {
+      "shopbox_id": "12103780",
+      "name_da": "Braiseret oksekød",
+      "name_zh": "红烧牛肉",
+      "price": 188
+    },
+    "h_okse_4": {
+      "shopbox_id": "12103798",
+      "name_da": "Oksekød i gylden suppe",
+      "name_zh": "金汤肥牛",
+      "price": 208
+    },
+    "h_okse_5": {
+      "shopbox_id": "12103799",
+      "name_da": "Oksekød i stærk Szechuan-sauce",
+      "name_zh": "水煮牛肉",
+      "price": 188
+    },
+    "h_okse_6": {
+      "shopbox_id": "12103802",
+      "name_da": "Oksekød med to slags chili",
+      "name_zh": "双椒牛肉",
+      "price": 188
+    },
+    "h_okse_7": {
+      "shopbox_id": "12103804",
+      "name_da": "Oksekød i østerssauce",
+      "name_zh": "蚝油牛肉",
+      "price": 188
+    },
+    "h_okse_8": {
+      "shopbox_id": "12103807",
+      "name_da": "Oksekød i rød karry",
+      "name_zh": "红咖喱牛肉",
+      "price": 198
+    },
+    "h_svine_1": {
+      "shopbox_id": "12103811",
+      "name_da": "Dry wok med Spareribs",
+      "name_zh": "干锅排骨",
+      "price": 188
+    },
+    "h_svine_2": {
+      "shopbox_id": "12103814",
+      "name_da": "Dry wok med Svinetarm",
+      "name_zh": "干锅肥肠",
+      "price": 188
+    },
+    "h_svine_3": {
+      "shopbox_id": "12103818",
+      "name_da": "Guo Bao med svinekød",
+      "name_zh": "锅包肉",
+      "price": 188
+    },
+    "h_svine_4": {
+      "shopbox_id": "12103819",
+      "name_da": "Svinekød i sur sød sauce",
+      "name_zh": "菠萝咕咾肉",
+      "price": 188
+    },
+    "h_svine_5": {
+      "shopbox_id": "12103821",
+      "name_da": "Yuxiang svinekød",
+      "name_zh": "鱼香肉丝",
+      "price": 188
+    },
+    "h_svine_6": {
+      "shopbox_id": "12103823",
+      "name_da": "Harbin-style dobbeltstegt svinekød",
+      "name_zh": "哈香回锅肉",
+      "price": 188
+    },
+    "h_svine_7": {
+      "shopbox_id": "12103825",
+      "name_da": "Sprødt fristurestegt svinekød",
+      "name_zh": "溜肉段",
+      "price": 178
+    },
+    "h_svine_9": {
+      "shopbox_id": "12103830",
+      "name_da": "Harbin-style braiseret svinekød",
+      "name_zh": "哈尔滨坛子红烧肉+鹌鹑蛋",
+      "price": 198
+    },
+    "h_svine_10": {
+      "shopbox_id": "12103838",
+      "name_da": "Máo Xûe Wàng",
+      "name_zh": "毛血旺",
+      "price": 258
+    },
+    "h_lam_1": {
+      "shopbox_id": "12103840",
+      "name_da": "Lammekød med spidskommen",
+      "name_zh": "孜然羊肉",
+      "price": 198
+    },
+    "h_lam_2": {
+      "shopbox_id": "12103841",
+      "name_da": "Hu Nan Lam",
+      "name_zh": "湘西羊肉",
+      "price": 198
+    },
+    "h_lam_3": {
+      "shopbox_id": "12103842",
+      "name_da": "Lynstegt lam med forårsløg",
+      "name_zh": "葱爆羊肉",
+      "price": 198
+    },
+    "h_and_1": {
+      "shopbox_id": "12103843",
+      "name_da": "Dry Pot Boneless Duck",
+      "name_zh": "干锅去骨鸭",
+      "price": 188
+    },
+    "h_and_2": {
+      "shopbox_id": "12103844",
+      "name_da": "Yuiang-sauce på jernpande",
+      "name_zh": "鱼香铁板鸭",
+      "price": 188
+    },
+    "h_and_3": {
+      "shopbox_id": "12103846",
+      "name_da": "Sprødstegt and",
+      "name_zh": "香酥鸭",
+      "price": 178
+    },
+    "h_rejer_1": {
+      "shopbox_id": "12103849",
+      "name_da": "Wokstegte rejer med skal",
+      "name_zh": "干锅大虾",
+      "price": 198
+    },
+    "h_rejer_2": {
+      "shopbox_id": "12103852",
+      "name_da": "Sprødstegte te-rejer med skal",
+      "name_zh": "茶香虾",
+      "price": 198
+    },
+    "h_rejer_3": {
+      "shopbox_id": "12103853",
+      "name_da": "Stærk og krydret rejer med skal",
+      "name_zh": "香辣一品虾",
+      "price": 198
+    },
+    "h_rejer_5": {
+      "shopbox_id": "12103855",
+      "name_da": "Rejer i rød karry",
+      "name_zh": "咖喱虾",
+      "price": 198
+    },
+    "h_fisk_1": {
+      "shopbox_id": "12103861",
+      "name_da": "Harbin grillet fisk (hel fisk med ben)",
+      "name_zh": "哈尔滨烤鱼",
+      "price": 288
+    },
+    "h_fisk_2": {
+      "shopbox_id": "12103863",
+      "name_da": "Chongqing-stil fiskefilet i sennepkålssuppe (uden ben)",
+      "name_zh": "重庆酸菜鱼",
+      "price": 228
+    },
+    "h_fisk_3": {
+      "shopbox_id": "12103864",
+      "name_da": "Sichuan-stil pocheret fisk (uden ben)",
+      "name_zh": "沸腾鱼",
+      "price": 238
+    },
+    "h_fisk_4": {
+      "shopbox_id": "12103866",
+      "name_da": "Fiskefilet i gylden suppe (uden ben)",
+      "name_zh": "金汤鱼片",
+      "price": 238
+    },
+    "h_fisk_5": {
+      "shopbox_id": "12103869",
+      "name_da": "Sprødstegt fisk med sur-sød sauce (hel fisk med ben)",
+      "name_zh": "松鼠鱼",
+      "price": 268
+    },
+    "h_groent_1": {
+      "shopbox_id": "12103872",
+      "name_da": "Tørstegt blomkål (Vegetar)",
+      "name_zh": "干锅菜花",
+      "price": 138
+    },
+    "h_groent_2": {
+      "shopbox_id": "12103873",
+      "name_da": "Tørstegt marineret lotusrod (Vegetar)",
+      "name_zh": "干锅卤藕",
+      "price": 158
+    },
+    "h_groent_3": {
+      "shopbox_id": "12103875",
+      "name_da": "Lynstegte grøntsager med lotusrod og svampe (Vegetar)",
+      "name_zh": "荷塘小炒",
+      "price": 158
+    },
+    "h_groent_4": {
+      "shopbox_id": "12103878",
+      "name_da": "Di San Xian (Earth's Three Delights)",
+      "name_zh": "地三鲜",
+      "price": 158
+    },
+    "h_groent_5": {
+      "shopbox_id": "12103879",
+      "name_da": "Sichuan-braiseret aubergine med hvidløgssauce (Vegetar)",
+      "name_zh": "鱼香茄子",
+      "price": 158
+    },
+    "h_groent_6": {
+      "shopbox_id": "12103880",
+      "name_da": "Mapo Tofu (med oksekød)",
+      "name_zh": "麻婆豆腐",
+      "price": 158
+    },
+    "h_groent_7": {
+      "shopbox_id": "12103881",
+      "name_da": "Rød braised Tofu (Vegetar)",
+      "name_zh": "红烧豆腐",
+      "price": 158
+    },
+    "h_groent_8": {
+      "shopbox_id": "12103882",
+      "name_da": "Tørstegte grønne bønner (Vegetar)",
+      "name_zh": "干煸四季豆",
+      "price": 158
+    },
+    "h_groent_9": {
+      "shopbox_id": "12103883",
+      "name_da": "Wokstegte hvidkål (Vegetar)",
+      "name_zh": "手撕包菜",
+      "price": 138
+    },
+    "h_groent_10": {
+      "shopbox_id": "12103884",
+      "name_da": "Kinakål i gylden suppe (Vegetar)",
+      "name_zh": "金汤奶白菜",
+      "price": 158
+    },
+    "h_groent_11": {
+      "shopbox_id": "12103885",
+      "name_da": "Lynstegte hvidløgsstængler med fast tofu (Vegetar)",
+      "name_zh": "蒜苔炒香干",
+      "price": 158
+    },
+    "h_groent_12": {
+      "shopbox_id": "12103886",
+      "name_da": "Stegt vandspinat med fermenteret rød bønnepasta og tofu (Vegetar)",
+      "name_zh": "南乳空心菜",
+      "price": 148
+    },
+    "h_groent_13": {
+      "shopbox_id": "12103888",
+      "name_da": "Stegte pak choi med shiitake-svampe (Vegetar)",
+      "name_zh": "香菇扒菜胆",
+      "price": 148
+    },
+    "h_groent_14": {
+      "shopbox_id": "12103889",
+      "name_da": "Lynstegt Pak Choi (Vegetar)",
+      "name_zh": "清炒油菜",
+      "price": 98
+    },
+    "h_nudler_1": {
+      "shopbox_id": "12103902",
+      "name_da": "Stegte nudler / ris / udon nudler / risnudler med oksekød",
+      "name_zh": "牛肉炒面/饭/乌冬/河粉",
+      "price": 138
+    },
+    "h_nudler_2": {
+      "shopbox_id": "12103903",
+      "name_da": "Stegte nudler / ris / udon nudler / ris nudler med kylling",
+      "name_zh": "鸡肉炒面/饭/乌冬/河粉",
+      "price": 138
+    },
+    "h_nudler_3": {
+      "shopbox_id": "12103904",
+      "name_da": "Stegte nudler / ris / udon nudler / ris nudler med rejer",
+      "name_zh": "大虾炒面/饭/乌冬/河粉",
+      "price": 138
+    },
+    "h_nudler_4": {
+      "shopbox_id": "12103905",
+      "name_da": "Vegetar stegte nudler / ris / udon nudler / ris nudler",
+      "name_zh": "素炒面/饭/乌冬/河粉",
+      "price": 128
+    },
+    "sauce_1": {
+      "shopbox_id": "11694296",
+      "name_da": "Chili olie",
+      "name_zh": "油泼辣椒",
+      "price": 25
+    },
+    "sauce_2": {
+      "shopbox_id": "11694297",
+      "name_da": "Sød og sur sauce",
+      "name_zh": "酸甜酱",
+      "price": 25
+    },
+    "sauce_3": {
+      "shopbox_id": "11694298",
+      "name_da": "Dumpling dip",
+      "name_zh": "饺子醋",
+      "price": 15
+    },
+    "sauce_6": {
+      "shopbox_id": "11694301",
+      "name_da": "Sriracha",
+      "name_zh": "泰式是拉差辣酱",
+      "price": 15
+    },
+    "drikke_1": {
+      "shopbox_id": "11694302",
+      "name_da": "Kinesisk drik",
+      "name_zh": "茶派",
+      "price": 49
+    },
+    "drikke_3": {
+      "shopbox_id": "11694304",
+      "name_da": "Still water",
+      "name_zh": "无泡矿泉水",
+      "price": 25
+    },
+    "drikke_4": {
+      "shopbox_id": "11694305",
+      "name_da": "San Pellegrino",
+      "name_zh": "巴黎水",
+      "price": 60
+    },
+    "drikke_5": {
+      "shopbox_id": "11694306",
+      "name_da": "Dansk øl",
+      "name_zh": "嘉士伯啤酒",
+      "price": 39
+    },
+    "drikke_6": {
+      "shopbox_id": "11694307",
+      "name_da": "Kinesisk øl Tsingtao",
+      "name_zh": "青岛啤酒",
+      "price": 49
+    },
+    "drikke_7": {
+      "shopbox_id": "11694308",
+      "name_da": "Japansk øl Sapporo",
+      "name_zh": "日本三宝乐啤酒",
+      "price": 49
+    },
+    "drikke_8": {
+      "shopbox_id": "11694309",
+      "name_da": "Koreansk Soju Peach/grape 13,0%",
+      "name_zh": "韩国烧酒",
+      "price": 129
+    },
+    "drikke_9": {
+      "shopbox_id": "11694310",
+      "name_da": "Rødvin (glas)",
+      "name_zh": "红酒 (杯)",
+      "price": 69
+    },
+    "drikke_10": {
+      "shopbox_id": "11694311",
+      "name_da": "Rødvin (flaske)",
+      "name_zh": "红酒 (瓶)",
+      "price": 219
+    },
+    "drikke_11": {
+      "shopbox_id": "11694312",
+      "name_da": "Hvidvin (glas)",
+      "name_zh": "白葡萄酒 (杯)",
+      "price": 69
+    },
+    "drikke_12": {
+      "shopbox_id": "11694313",
+      "name_da": "Hvidvin (flaske)",
+      "name_zh": "白葡萄酒 (瓶)",
+      "price": 219
+    },
+    "drikke_13": {
+      "shopbox_id": "12168946",
+      "name_da": "Danskvand 50cl",
+      "name_zh": "气泡水",
+      "price": 49
+    },
+    "drikke_14": {
+      "shopbox_id": "12168948",
+      "name_da": "Lemonade 50cl",
+      "name_zh": "柠檬水",
+      "price": 59
+    }
+  }
+}

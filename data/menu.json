@@ -209,13 +209,6 @@
           "name_zh": "凉拌牛百叶",
           "description_da": "",
           "price": 148
-        },
-        {
-          "id": "kold_7",
-          "name_da": "Kylling med citron sauce",
-          "name_zh": "柠檬鸡",
-          "description_da": "",
-          "price": 138
         }
       ]
     },
@@ -389,13 +382,6 @@
           "price": 178
         },
         {
-          "id": "h_svine_8",
-          "name_da": "Salt & Pepper svinekød",
-          "name_zh": "椒盐猪柳",
-          "description_da": "炒猪里脊肉条",
-          "price": 178
-        },
-        {
           "id": "h_svine_9",
           "name_da": "Harbin-style braiseret svinekød",
           "name_zh": "哈尔滨坛子红烧肉+鹌鹑蛋",
@@ -494,13 +480,6 @@
           "name_da": "Stærk og krydret rejer med skal",
           "name_zh": "香辣一品虾",
           "description_da": "带壳大虾用重辣酱汁炒制",
-          "price": 198
-        },
-        {
-          "id": "h_rejer_4",
-          "name_da": "Lynstegte rejer i lys sauce",
-          "name_zh": "清炒虾仁",
-          "description_da": "手剥虾仁快炒，搭配胡萝卜和黄瓜",
           "price": 198
         },
         {
@@ -725,20 +704,6 @@
           "price": 15
         },
         {
-          "id": "sauce_4",
-          "name_da": "Chilimayo",
-          "name_zh": "辣味蛋黄酱",
-          "description_da": "辣味与蛋黄酱融合的酱料，适合搭配炸鸡、汉堡等",
-          "price": 15
-        },
-        {
-          "id": "sauce_5",
-          "name_da": "Mayo",
-          "name_zh": "标准蛋黄酱",
-          "description_da": "原味经典蛋黄酱，通用蘸酱/抹酱",
-          "price": 15
-        },
-        {
           "id": "sauce_6",
           "name_da": "Sriracha",
           "name_zh": "泰式是拉差辣酱",
@@ -759,13 +724,6 @@
           "name_zh": "茶派",
           "description_da": "中国饮品",
           "price": 49
-        },
-        {
-          "id": "drikke_2",
-          "name_da": "Sodavand",
-          "name_zh": "碳酸饮料",
-          "description_da": "碳酸类饮料",
-          "price": 29
         },
         {
           "id": "drikke_3",
