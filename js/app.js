@@ -278,9 +278,18 @@ function updateCheckoutForm() {
     pickupGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '取餐时间' : 'Afhentningstid';
     document.getElementById('pickup-time').type = 'time';
     guestCountGroup.style.display = 'none';
+    
+    // Calculate dynamic prep time
+    const enrichedCart = getEnrichedCart(menuData);
+    const prepTime = calculatePrepTime(enrichedCart);
+    const prepTimeText = prepTime.minutes + ' min';
+    const phoneConfirmText = prepTime.needsPhoneConfirm 
+      ? (da ? '<br>⚠️ Bestillingen er stor — vi ringer for at bekræfte tiden' : '<br>⚠️ 订单较大，我们将电话确认取餐时间')
+      : '';
+    
     paymentHint.innerHTML = da
-      ? '💳 Betal ved kassen når du afhenter — ikke online<br>⏱️ Forventet tilberedningstid: 20-30 minutter'
-      : '💳 取餐时在收银台付款 — 本页面不支持在线支付<br>⏱️ 本单预计制作时间 20-30 分钟';
+      ? '💳 Betal ved kassen når du afhenter — ikke online<br>⏱️ Forventet tilberedningstid: ca. ' + prepTimeText + phoneConfirmText
+      : '💳 取餐时在收银台付款 — 本页面不支持在线支付<br>⏱️ 本单预计制作时间约 ' + prepTimeText + phoneConfirmText;
   }
 }
 
@@ -870,6 +879,9 @@ async function submitOrder(e) {
   const enriched = getEnrichedCart(menuData);
   const totals = calculateCartTotals(enriched);
   const orderNumber = currentOrderNumber || ('HK-' + Date.now().toString(36).toUpperCase());
+  
+  // Calculate prep time for takeaway orders
+  const prepTime = type === 'takeaway' ? calculatePrepTime(enriched) : null;
 
   const order = {
     orderNumber,
@@ -897,6 +909,7 @@ async function submitOrder(e) {
       };
     }),
     totals,
+    prepTime: prepTime ? { minutes: prepTime.minutes, needsPhoneConfirm: prepTime.needsPhoneConfirm } : null,
     status: 'new',
     createdAt: new Date().toISOString()
   };
@@ -908,6 +921,11 @@ async function submitOrder(e) {
 
   // Submit to Supabase (if configured)
   await submitOrderToSupabase(order);
+  
+  // Send SMS receipt for takeaway orders
+  if (type === 'takeaway' && phone && typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL && !SUPABASE_URL.includes('YOUR_')) {
+    sendTakeawaySmsReceipt(order).catch(err => console.error('SMS send failed:', err));
+  }
 
   clearCart();
   currentOrderId = null;
@@ -949,6 +967,14 @@ function showOrderConfirmation(order) {
   if (type === 'takeaway') {
     const pickupVal = order.customer.pickupTime || (da ? 'Så hurtigt som muligt' : '尽快');
     details += (da ? `Afhentningstid: ${pickupVal}` : `取餐时间：${pickupVal}`) + '<br>';
+    // Show prep time for takeaway
+    if (order.prepTime) {
+      const prepTimeText = order.prepTime.minutes + (da ? ' min' : ' 分钟');
+      const phoneConfirmText = order.prepTime.needsPhoneConfirm
+        ? (da ? '<br>⚠️ Vi ringer for at bekræfte tiden' : '<br>⚠️ 我们将电话确认取餐时间')
+        : '';
+      details += (da ? `⏱️ Forventet klar: ca. ${prepTimeText}${phoneConfirmText}` : `⏱️ 预计制作时间：约 ${prepTimeText}${phoneConfirmText}`) + '<br>';
+    }
   }
   if (type === 'preorder' && order.customer.pickupTime) {
     details += (da ? `Afhentningsdato: ${order.customer.pickupTime}` : `预约日期：${order.customer.pickupTime}`) + '<br>';
@@ -1076,6 +1102,58 @@ async function submitOrderToSupabase(order) {
   };
   const { error } = await client.from('orders').insert(payload);
   if (error) throw error;
+}
+
+// ── Send SMS receipt for takeaway orders ──
+async function sendTakeawaySmsReceipt(order) {
+  if (!order || !order.customer || !order.customer.phone) return;
+  
+  const phone = order.customer.phone;
+  const name = order.customer.name || 'Kunde';
+  const orderNumber = order.orderNumber;
+  const total = order.totals.total;
+  const prepTime = order.prepTime;
+  
+  // Build item summary (first 3 items)
+  const itemSummary = order.items.slice(0, 3).map(i => i.name_da).join(', ');
+  const moreItems = order.items.length > 3 ? ' ...' : '';
+  
+  // Build SMS text
+  let smsText = 'Harbin Kitchen\n';
+  smsText += 'Bestilling modtaget: ' + orderNumber + '\n';
+  smsText += 'Total: ' + total + ' kr\n';
+  if (prepTime) {
+    smsText += 'Ca. klar om ' + prepTime.minutes + ' min\n';
+  }
+  smsText += '\n';
+  smsText += 'Denne SMS er sendt fra et virtuelt nr. - svar venligst ikke direkte.\n';
+  smsText += 'Spørgsmål? Ring +45 53 33 57 77';
+  
+  try {
+    const resp = await fetch(
+      SUPABASE_URL + '/functions/v1/send-takeaway-sms',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: phone,
+          message: smsText
+        }),
+      }
+    );
+    
+    const result = await resp.json();
+    if (!resp.ok) {
+      console.error('SMS sending failed:', result);
+    } else {
+      console.log('SMS receipt sent successfully');
+    }
+  } catch (err) {
+    console.error('SMS sending error:', err);
+  }
 }
 
 function updateHeader() {

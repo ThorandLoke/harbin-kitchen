@@ -222,7 +222,13 @@ function subscribeToOrders() {
       { event: 'UPDATE', schema: 'public', table: 'orders' },
       (payload) => {
         const updated = payload.new;
+        const oldRecord = payload.old || {};
         const idx = allOrders.findIndex(o => o.order_number === updated.order_number);
+
+        // 检测 draft → new 转换（堂食共享购物车提交时）
+        var wasDraft = (oldRecord.status === 'draft') || (idx !== -1 && allOrders[idx].status === 'draft');
+        var isNowNew = (updated.status === 'new');
+
         if (idx !== -1) {
           allOrders[idx] = updated;
         } else {
@@ -230,6 +236,14 @@ function subscribeToOrders() {
         }
         updateStats();
         renderOrders();
+
+        // draft → new: 触发新订单提示（和 INSERT 一样）
+        if (wasDraft && isNowNew) {
+          if (soundEnabled) playNotificationSound();
+          startTitleFlash(updated.order_number);
+          showDesktopNotification(updated);
+          autoPrintOrder(formatOrderForPrinter(updated));
+        }
       }
     )
     .subscribe();
@@ -407,10 +421,8 @@ function playNotificationSound() {
   // 方法 1：使用预初始化的 AudioContext（更可靠）
   if (audioCtx) {
     try {
-      // 恢复 AudioContext（有些浏览器会 suspends 它）
       if (audioCtx.state === 'suspended') audioCtx.resume();
 
-      // 播放三音调通知（更明显）
       [880, 1100, 880].forEach((freq, i) => {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
@@ -430,9 +442,10 @@ function playNotificationSound() {
     }
   }
 
-  // 方法 2：降级方案 - 使用 Web Audio API 重新尝试
+  // 方法 2：降级方案 - 新建 AudioContext
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === 'suspended') ctx.resume();
     [880, 1100, 880].forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -446,8 +459,19 @@ function playNotificationSound() {
       gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
       osc.stop(startTime + 0.35);
     });
+    audioCtx = ctx;
+    return;
   } catch (e) {
-    console.warn('Notification sound failed:', e);
+    console.warn('AudioContext fallback failed:', e);
+  }
+
+  // 方法 3：HTML5 Audio beep (WAV data URI)
+  try {
+    var beep = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=');
+    beep.volume = 0.5;
+    beep.play().catch(function() {});
+  } catch (e) {
+    console.warn('Audio beep failed:', e);
   }
 }
 
