@@ -57,33 +57,69 @@ function showDesktopNotification(order) {
   }
 }
 
-// ── 页面标题闪烁 ──
-function startTitleFlash(orderNumber) {
-  if (titleFlashInterval) return;
-  const originalTitle = document.title;
-  let flashing = false;
-  titleFlashInterval = setInterval(() => {
-    document.title = flashing ? originalTitle : `🔔 新订单 ${orderNumber}！`;
-    flashing = !flashing;
-  }, 800);
-
-  // 30 秒后自动停止
-  setTimeout(() => stopTitleFlash(originalTitle), 30000);
+// ── 新订单通知横幅 ──
+function showNewOrderAlert() {
+  const alertEl = document.getElementById('new-order-alert');
+  const countEl = document.getElementById('alert-count');
+  const textEl = document.getElementById('alert-text');
+  if (!alertEl) return;
+  const newCount = allOrders.filter(o => o.status === 'new').length;
+  if (newCount > 0) {
+    countEl.textContent = newCount;
+    textEl.textContent = newCount > 1 ? '个新订单待处理！' : '新订单待处理！';
+    alertEl.classList.add('show');
+  } else {
+    alertEl.classList.remove('show');
+  }
 }
 
-function stopTitleFlash(originalTitle) {
+function hideNewOrderAlert() {
+  const alertEl = document.getElementById('new-order-alert');
+  if (alertEl) alertEl.classList.remove('show');
+}
+
+// ── 页面标题闪烁 ──
+let flashingOrderNumbers = new Set();
+let titleFlashOriginalTitle = '东北小炒 · 管理后台';
+
+function startTitleFlash(orderNumber) {
+  if (orderNumber) flashingOrderNumbers.add(orderNumber);
+  showNewOrderAlert();
+  if (titleFlashInterval) return;
+  titleFlashOriginalTitle = document.title;
+  let flashing = false;
+  titleFlashInterval = setInterval(() => {
+    const count = flashingOrderNumbers.size;
+    const prefix = count > 1 ? `🔔 ${count}个新订单` : '🔔 新订单';
+    document.title = flashing ? titleFlashOriginalTitle : prefix + '！';
+    flashing = !flashing;
+  }, 800);
+}
+
+function stopTitleFlash(orderNumber) {
+  if (orderNumber) flashingOrderNumbers.delete(orderNumber);
+  // 只有所有新订单都被处理后才停止闪烁
+  const hasNewOrders = allOrders.some(o => o.status === 'new');
+  if (!hasNewOrders) hideNewOrderAlert();
+  else showNewOrderAlert();
+  if (hasNewOrders || flashingOrderNumbers.size > 0) return;
+  
   if (titleFlashInterval) {
     clearInterval(titleFlashInterval);
     titleFlashInterval = null;
   }
-  document.title = originalTitle || '东北小炒 · 管理后台';
+  document.title = titleFlashOriginalTitle || '东北小炒 · 管理后台';
 }
 
-// 用户点击页面时停止标题闪烁
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden) stopTitleFlash();
-});
-window.addEventListener('focus', () => stopTitleFlash());
+function stopAllTitleFlash() {
+  flashingOrderNumbers.clear();
+  hideNewOrderAlert();
+  if (titleFlashInterval) {
+    clearInterval(titleFlashInterval);
+    titleFlashInterval = null;
+  }
+  document.title = titleFlashOriginalTitle || '东北小炒 · 管理后台';
+}
 // ── Password Check ──
 function checkPassword() {
   const input = document.getElementById('admin-password').value;
@@ -401,8 +437,10 @@ async function updateStatus(orderNumber, newStatus) {
   if (error) {
     console.error('Failed to update status:', error);
     alert('状态更新失败，请重试');
+    return;
   }
-  // Realtime subscription will handle the UI update
+  // 如果该订单之前在新订单闪烁列表中，移除它
+  stopTitleFlash(orderNumber);
 }
 
 // ── Filter ──
@@ -481,16 +519,25 @@ async function playNotificationSound() {
     console.warn('AudioContext fallback failed:', e);
   }
 
-  // 方法 3：HTML5 Audio beep (有效 WAV 数据)
+  // 方法 3：HTML5 Audio beep (有效 WAV 数据) + 震动
   try {
     const BEEP_DATA = 'data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAqL64l2xKQVV8pb65m3BNQVJ4ory7n3RPQU90n7u8onhSQU1wm7m+pXxVQUpsl7i+qIBYQkhplLa/q4RbQkdlkLO/roheREVhjLHAsYxhRUReiK6/s5BlR0JbhKu/tpRpSEJYgKi+uJdsSkFVfKW+uZtwTUFSeKK8u590T0FPdJ+7vKJ4UkFNcJu5vqV8VUFKbJe4vqiAWEJIaZS2v6uEW0JHZZCzv66IXkRFYYyxwLGMYUVEXoiuv7OQZUdCW4Srv7aUaUhCWICovriXbEpBVXylvrmbcE1BUniivLufdE9BT3Sfu7yieFJBTXCbub6lfFVBSmyXuL6ogFhCSGmUtr+rhFtCR2WQs7+uiF5ERWGMscCxjGFFRF6Irr+zkGVHQluEq7+2lGlIQliAqL64l2xKQVV8pb65m3BNQVJ4ory7n3RPQU90n7u8onhSQU1wm7m+pXxVQUpsl7i+qIBYQkhplLa/q4RbQkdlkLO/roheREVhjLHAsYxhRUReiK6/s5BlR0JbhKu/tpRpSEJYgKi+uJdsSkFVfKW+uZtwTUFSeKK8u590T0FPdJ+7vKJ4UkFNcJu5vqV8VUFKbJe4vqiAWEJIaZS2v6uEW0JHZZCzv66IXkRFYYyxwLGMYUVEXoiuv7OQZUdCW4Srv7aUaUhCWICovriXbEpBVXylvrmbcE1BUniivLufdE9BT3Sfu7yieFJBTXCbub6lfFVBSmyXuL6ogFhCSGmUtr+rhFtCR2WQs7+uiF5ERWGMscCxjGFFRF6Irr+zkGVHQluEq7+2lGlIQliAqL64l2xKQVV8pb65m3BNQVJ4ory7n3RPQU90n7u8onhSQU1wm7m+pXxVQUpsl7i+qIBYQkhplLa/q4RbQkdlkLO/roheREVhjLHAsYxhRUReiK6/s5BlR0JbhKu/tpRpSEJYgKi+uJdsSkFVfKW+uZtwTUFSeKK8u590T0FPdJ+7vKJ4UkFNcJu5vqV8VUFKbJe4vqiAWEJIaZS2v6uEW0JHZZCzv66IXkRFYYyxwLGMYUVEXoiuv7OQZUdCW4Srv7aUaUhCWA==';
     const beep = new Audio(BEEP_DATA);
     beep.volume = 0.8;
     beep.play().catch(function() {});
     console.log('[Sound] HTML5 Audio beep played');
-    return;
   } catch (e) {
     console.warn('Audio beep failed:', e);
+  }
+
+  // 方法 4：设备震动（iPad/iPhone 支持）
+  try {
+    if (navigator.vibrate) {
+      navigator.vibrate([300, 100, 300, 100, 300]);
+      console.log('[Sound] Vibration triggered');
+    }
+  } catch (e) {
+    console.warn('Vibration failed:', e);
   }
 }
 

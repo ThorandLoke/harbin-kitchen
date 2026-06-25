@@ -146,9 +146,74 @@
       background: #FFEBEE;
       color: #C62828;
     }
+
+    /* 新订单醒目提示 */
+    .new-order-alert {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      background: #C41E3A;
+      color: white;
+      text-align: center;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 700;
+      display: none;
+      animation: alertPulse 1s ease-in-out infinite;
+      box-shadow: 0 4px 20px rgba(196, 30, 58, 0.4);
+    }
+    .new-order-alert.show {
+      display: block;
+    }
+    @keyframes alertPulse {
+      0%, 100% { background: #C41E3A; }
+      50% { background: #E84A5F; }
+    }
+    .new-order-alert__count {
+      display: inline-block;
+      background: white;
+      color: #C41E3A;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      font-size: 16px;
+      margin-right: 8px;
+      font-weight: 700;
+    }
+    .new-order-alert__btn {
+      margin-left: 16px;
+      padding: 6px 16px;
+      background: white;
+      color: #C41E3A;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .new-order-alert__btn:hover {
+      background: #FFF5F5;
+    }
+    /* 新订单卡片边框闪烁 */
+    .order-card--new-pulse {
+      animation: cardBorderPulse 1s ease-in-out infinite;
+    }
+    @keyframes cardBorderPulse {
+      0%, 100% { border-color: var(--color-border); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+      50% { border-color: #C41E3A; box-shadow: 0 0 12px rgba(196, 30, 58, 0.3); }
+    }
   </style>
 </head>
 <body>
+
+<!-- ═══ New Order Alert Banner ═══ -->
+<div id="new-order-alert" class="new-order-alert" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span class="new-order-alert__count" id="alert-count">1</span>
+  <span id="alert-text">新订单待处理！</span>
+</div>
 
 <!-- ═══ Main Admin UI ═══ -->
 <div id="admin-main" class="admin-main">
