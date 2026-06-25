@@ -742,7 +742,21 @@ async function syncToShopbox(orderNumber) {
   }
 
   // 准备 items（添加 shopbox_id）
-  const items = typeof order.items === 'string' ? JSON.parse(order.items) : (order.items || []);
+  console.log('[Shopbox] order.items type:', typeof order.items, 'value:', order.items ? order.items.toString().substring(0, 100) : 'null');
+  let items = [];
+  if (typeof order.items === 'string') {
+    try {
+      items = order.items.trim() ? JSON.parse(order.items) : [];
+    } catch (e) {
+      console.error('[Shopbox] JSON.parse items failed:', e);
+      items = [];
+    }
+  } else if (Array.isArray(order.items)) {
+    items = order.items;
+  } else {
+    items = order.items || [];
+  }
+  console.log('[Shopbox] Parsed items:', items.length, items);
   const itemsWithShopboxId = items.map(item => {
     const mapping = shopboxMapping[item.id];
     return {

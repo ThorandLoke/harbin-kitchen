@@ -97,10 +97,9 @@ type:          dine_in 或 takeaway
 
 ## 7. 测试流程
 
-1. 填入 Shopbox 凭证到 Supabase Secrets
-2. 在 Shopbox 后台添加缺失的 4 个产品（柠檬鸡、椒盐猪柳、清炒虾仁、辣味蛋黄酱、标准蛋黄酱）
-3. 重新运行 `node match-shopbox.js` 更新映射表
-4. 部署 Edge Function 和前端代码
-5. 在 PWA 下测试一个订单
-6. 在 Admin 后台点击"🔄 推送到 Shopbox"
-7. 检查 Shopbox 收银台是否出现该订单
+1. 部署 Edge Function 和设置 Secrets（见上方步骤 4.1 和 4.2）
+2. 在 Supabase SQL Editor 运行 Migration SQL（见上方步骤 4.3）
+3. 在 PWA 下测试一个订单
+4. 在 Admin 后台点击"🔄 推送到 Shopbox"
+5. 检查 Shopbox 收银台是否出现该订单
+6. 如一切正常，可开启"自动同步"开关，以后接单自动推送
