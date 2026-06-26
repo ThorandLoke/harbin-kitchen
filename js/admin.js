@@ -373,6 +373,10 @@ function renderOrderCard(order) {
       metaHTML += `<span class="order-card__meta-item">⏰ 取餐: ${order.pickup_time}</span>`;
     }
   }
+  // Shopbox 同步后的桌号（堂食=真实桌号，外卖=虚拟桌号）
+  if (order.shopbox_table_number) {
+    metaHTML += `<span class="order-card__meta-item" style="color:#28a745;">🖥️ Shopbox 桌号: <b>${order.shopbox_table_number}</b></span>`;
+  }
 
   // Time elapsed
   const elapsed = getTimeElapsed(order.created_at);
