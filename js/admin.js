@@ -832,11 +832,6 @@ async function syncToShopbox(orderNumber) {
       console.error('[Shopbox] Sync failed:', result);
       updateShopboxBadge(orderNumber, 'failed', result.error || '同步失败');
       alert(`❌ Shopbox 同步失败：${result.error || '未知错误'}\n${result.detail || ''}`);
-    } else if (result.paused) {
-      console.log('[Shopbox] Sync paused:', result);
-      updateShopboxBadge(orderNumber, 'paused', result.reason || '外卖暂停');
-      order.shopbox_sync_status = 'paused';
-      alert(`⏸️ 外卖同步已暂停\n原因：${result.reason || '当前暂停外卖订单同步，专注堂食测试'}`);
     } else {
       console.log('[Shopbox] Synced successfully:', result);
       updateShopboxBadge(orderNumber, 'synced', result.shopbox_basket_id);
@@ -863,7 +858,6 @@ function updateShopboxBadge(orderNumber, status, detail) {
     syncing:  { bg: '#FFF3CD', color: '#856404', text: '⏳ 同步中...' },
     synced:   { bg: '#D4EDDA', color: '#155724', text: `✅ 已同步${detail ? ' (' + detail + ')' : ''}` },
     failed:   { bg: '#F8D7DA', color: '#721C24', text: `❌ 失败${detail ? ': ' + detail : ''}` },
-    paused:   { bg: '#E2E3E5', color: '#383D41', text: '⏸️ 暂停同步' },
   };
 
   const style = styles[status] || styles.pending;
@@ -895,7 +889,6 @@ function getShopboxBadgeHTML(order) {
     synced:   { bg: '#D4EDDA', color: '#155724', text: '✅ 已同步' },
     failed:   { bg: '#F8D7DA', color: '#721C24', text: '❌ 同步失败' },
     skipped:  { bg: '#E2E3E5', color: '#383D41', text: '⏭️ 已跳过' },
-    paused:   { bg: '#E2E3E5', color: '#383D41', text: '⏸️ 暂停同步' },
   };
 
   const style = styles[status] || styles.pending;
@@ -912,11 +905,6 @@ function getShopboxButtonHTML(order) {
   // 紧急停用：按钮显示为禁用状态
   if (shopboxEmergencyStop) {
     return `<button class="order-card__action-btn order-card__action-btn--shopbox" disabled style="opacity:0.5;cursor:not-allowed;" title="Shopbox 同步已紧急停用">🚫 Shopbox 已停用</button>`;
-  }
-
-  // 外卖订单：暂停同步
-  if (order.order_type === 'takeaway') {
-    return `<button class="order-card__action-btn order-card__action-btn--shopbox" disabled style="opacity:0.5;cursor:not-allowed;" title="外卖同步已暂停">⏸️ 外卖同步暂停</button>`;
   }
 
   return `<button class="order-card__action-btn order-card__action-btn--shopbox" onclick="syncToShopbox('${order.order_number}')">🔄 推送到 Shopbox</button>`;
