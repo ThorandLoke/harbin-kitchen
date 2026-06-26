@@ -130,6 +130,8 @@ function updateWelcomeText() {
   document.getElementById('welcome-preorder-title').textContent = da ? 'Forud bestilling' : '需预约';
   document.getElementById('welcome-preorder-desc').textContent = da ? 'Retter der skal bestilles 1–3 dage i forvejen · Betal ved afhentning' : '需要提前1-3天预约的菜品 · 取餐时付款';
   document.getElementById('welcome-preorder-badge').textContent = da ? '🐟 Hongshao fisk · 🍖 Lu-kød' : '🐟 红烧全鱼 · 🍖 卤味拼盘';
+  const hint = document.getElementById('welcome-lang-hint');
+  if (hint) hint.textContent = da ? 'Vælg sprog · 选择语言' : '选择语言 · Vælg sprog';
   // Update welcome page lang toggle active state
   document.querySelectorAll('.welcome-page__lang .lang-toggle__btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.wlang === currentLang);

@@ -43,9 +43,10 @@
       <div class="welcome-page__logo" id="welcome-logo">Harbin Kitchen</div>
       <div class="welcome-page__sub" id="welcome-sub">Hvordan vil du spise?</div>
       <div class="welcome-page__lang">
-        <button class="lang-toggle__btn active" data-wlang="da" onclick="toggleWelcomeLang('da')">DA</button>
-        <button class="lang-toggle__btn" data-wlang="zh" onclick="toggleWelcomeLang('zh')">中文</button>
+        <button class="lang-toggle__btn active" data-wlang="da" onclick="toggleWelcomeLang('da')">🇩🇰 Dansk</button>
+        <button class="lang-toggle__btn" data-wlang="zh" onclick="toggleWelcomeLang('zh')">🇨🇳 中文</button>
       </div>
+      <div class="welcome-page__lang-hint" id="welcome-lang-hint">Vælg sprog · 选择语言</div>
       <div class="welcome-page__cards">
         <!-- Dine-in -->
         <div class="welcome-card" onclick="selectOrderType('dinein')">
@@ -78,6 +79,9 @@
     <span class="header__mode-tag" id="header-mode-tag"></span>
     <div class="header__spacer"></div>
     <div class="lang-toggle">
+      <button class="lang-toggle__btn active" data-lang="da" onclick="toggleLang('da')" title="Dansk">🇩🇰</button>
+      <button class="lang-toggle__btn" data-lang="zh" onclick="toggleLang('zh')" title="中文">🇨🇳</button>
+    </div>
       <button class="lang-toggle__btn active" data-lang="da" onclick="toggleLang('da')">DA</button>
       <button class="lang-toggle__btn" data-lang="zh" onclick="toggleLang('zh')">中文</button>
     </div>
