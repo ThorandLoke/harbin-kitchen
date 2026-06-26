@@ -215,6 +215,80 @@ function selectOrderTypeAndJump(type, categoryId, silent) {
   }, 300);
 }
 
+// ── Pickup time helpers for takeaway ──
+function getMinutesFromTime(timeStr) {
+  if (!timeStr) return null;
+  const [hh, mm] = timeStr.split(':').map(Number);
+  if (isNaN(hh) || isNaN(mm)) return null;
+  return hh * 60 + mm;
+}
+
+function getNowMinutes() {
+  const now = new Date();
+  return now.getHours() * 60 + now.getMinutes();
+}
+
+function formatTime(minutes) {
+  const hh = Math.floor(minutes / 60) % 24;
+  const mm = minutes % 60;
+  return String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0');
+}
+
+function getDefaultPickupTime(prepMinutes) {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + prepMinutes);
+  // Round up to next 5 minutes for convenience
+  const remainder = now.getMinutes() % 5;
+  if (remainder > 0) {
+    now.setMinutes(now.getMinutes() + (5 - remainder));
+  }
+  // Add small buffer and zero seconds
+  now.setSeconds(0, 0);
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  return hh + ':' + mm;
+}
+
+function getMinimumPickupTime(prepMinutes) {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + prepMinutes);
+  now.setSeconds(0, 0);
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  return hh + ':' + mm;
+}
+
+function validatePickupTime() {
+  const pickupInput = document.getElementById('pickup-time');
+  const hint = document.getElementById('pickup-time-hint');
+  if (!pickupInput || !hint) return true;
+
+  const selectedTime = pickupInput.value;
+  if (!selectedTime) return true;
+
+  const enrichedCart = getEnrichedCart(menuData);
+  const prepTime = calculatePrepTime(enrichedCart);
+  const prepMinutes = prepTime.minutes;
+
+  const selectedMinutes = getMinutesFromTime(selectedTime);
+  const nowMinutes = getNowMinutes();
+  const diffMinutes = selectedMinutes - nowMinutes;
+
+  if (diffMinutes < prepMinutes) {
+    const da = currentLang === 'da';
+    const minTime = formatTime(nowMinutes + prepMinutes);
+    hint.textContent = da
+      ? `For at sikre kvaliteten kan vi desværre ikke have din bestilling klar før kl. ${minTime}. Vælg venligst et senere tidspunkt.`
+      : `为保证出餐质量，我们最早可在 ${minTime} 准备好，请选择一个更晚的时间。`;
+    hint.style.display = '';
+    return false;
+  } else {
+    hint.style.display = 'none';
+    hint.textContent = '';
+    return true;
+  }
+}
+
 function updateOrderTypeIndicator() {
   const homeBtn = document.getElementById('header-home-btn');
   homeBtn.innerHTML = '🏠';
@@ -278,15 +352,37 @@ function updateCheckoutForm() {
     pickupGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '取餐时间' : 'Afhentningstid';
     document.getElementById('pickup-time').type = 'time';
     guestCountGroup.style.display = 'none';
-    
+
     // Calculate dynamic prep time
     const enrichedCart = getEnrichedCart(menuData);
     const prepTime = calculatePrepTime(enrichedCart);
     const prepTimeText = prepTime.minutes + ' min';
-    const phoneConfirmText = prepTime.needsPhoneConfirm 
+    const phoneConfirmText = prepTime.needsPhoneConfirm
       ? (da ? '<br>⚠️ Bestillingen er stor — vi ringer for at bekræfte tiden' : '<br>⚠️ 订单较大，我们将电话确认取餐时间')
       : '';
-    
+
+    // Set default pickup time based on prep time
+    const pickupInput = document.getElementById('pickup-time');
+    if (pickupInput) {
+      if (!pickupInput.dataset.manuallySet) {
+        pickupInput.value = getDefaultPickupTime(prepTime.minutes);
+      }
+      // Bind validation listeners once
+      if (!pickupInput.dataset.validatedBound) {
+        pickupInput.addEventListener('change', () => {
+          pickupInput.dataset.manuallySet = '1';
+          validatePickupTime();
+        });
+        pickupInput.addEventListener('input', () => {
+          pickupInput.dataset.manuallySet = '1';
+          validatePickupTime();
+        });
+        pickupInput.dataset.validatedBound = '1';
+      }
+      // Re-validate in case cart changed
+      validatePickupTime();
+    }
+
     paymentHint.innerHTML = da
       ? '💳 Betal ved kassen når du afhenter — ikke online<br>⏱️ Forventet tilberedningstid: ca. ' + prepTimeText + phoneConfirmText
       : '💳 取餐时在收银台付款 — 本页面不支持在线支付<br>⏱️ 本单预计制作时间约 ' + prepTimeText + phoneConfirmText;
@@ -874,6 +970,22 @@ async function submitOrder(e) {
     document.getElementById('checkout-error').textContent =
       currentLang === 'zh' ? '外卖请填写电话' : 'Telefon er påkrævet ved afhentning';
     return;
+  }
+
+  // Validate takeaway pickup time against prep time
+  if (type === 'takeaway') {
+    const enrichedCart = getEnrichedCart(menuData);
+    const prepTime = calculatePrepTime(enrichedCart);
+    const pickupMinutes = getMinutesFromTime(pickupTime);
+    const nowMinutes = getNowMinutes();
+    if (!pickupTime || (pickupMinutes - nowMinutes) < prepTime.minutes) {
+      const da = currentLang === 'da';
+      const minTime = formatTime(nowMinutes + prepTime.minutes);
+      document.getElementById('checkout-error').textContent = da
+        ? `Vi kan først have din bestilling klar kl. ${minTime}. Vælg venligst et senere afhentningstidspunkt.`
+        : `我们最早可在 ${minTime} 准备好，请选择更晚的取餐时间。`;
+      return;
+    }
   }
 
   const enriched = getEnrichedCart(menuData);
