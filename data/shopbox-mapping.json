@@ -1,9 +1,9 @@
 {
   "_meta": {
     "description": "PWA 菜品编号 ↔ Shopbox 产品 ID 映射表",
-    "notes": "97 个菜品已自动匹配，4 个过时菜品已删除",
-    "updated_at": "2026-06-25",
-    "total_items": 97
+    "notes": "97 个原菜品已匹配，新增 26 个可乐/堂食饮品映射，8 个菜品在 Shopbox 中无对应产品（果汁、50cl 巴黎水、无酒精啤酒、冰淇淋、4 个预约菜）",
+    "updated_at": "2026-06-26",
+    "total_items": 123
   },
   "mapping": {
     "forretter_1": {
@@ -587,6 +587,162 @@
       "name_da": "Lemonade 50cl",
       "name_zh": "柠檬水",
       "price": 59
+    },
+    "drikke_2": {
+      "shopbox_id": "11694303",
+      "name_da": "Coca-Cola",
+      "name_zh": "可口可乐",
+      "price": 29
+    },
+    "drikke_2z": {
+      "shopbox_id": "11694303",
+      "name_da": "Coca-Cola Zero",
+      "name_zh": "零度可乐",
+      "price": 29
+    },
+    "din_1": {
+      "shopbox_id": "11694303",
+      "name_da": "Coca-Cola (lille)",
+      "name_zh": "可口可乐（小杯）",
+      "price": 39
+    },
+    "din_1z": {
+      "shopbox_id": "11694303",
+      "name_da": "Coca-Cola Zero (lille)",
+      "name_zh": "零度可乐（小杯）",
+      "price": 39
+    },
+    "din_2": {
+      "shopbox_id": "12259013",
+      "name_da": "Coca-Cola (mellem)",
+      "name_zh": "可口可乐（中杯）",
+      "price": 49
+    },
+    "din_2z": {
+      "shopbox_id": "12259013",
+      "name_da": "Coca-Cola Zero (mellem)",
+      "name_zh": "零度可乐（中杯）",
+      "price": 49
+    },
+    "din_3": {
+      "shopbox_id": "12259014",
+      "name_da": "Coca-Cola (stor)",
+      "name_zh": "可口可乐（大杯）",
+      "price": 59
+    },
+    "din_3z": {
+      "shopbox_id": "12259014",
+      "name_da": "Coca-Cola Zero (stor)",
+      "name_zh": "零度可乐（大杯）",
+      "price": 59
+    },
+    "din_4": {
+      "shopbox_id": "11694302",
+      "name_da": "Kinesiske drikkevarer",
+      "name_zh": "中国饮料",
+      "price": 49
+    },
+    "din_6": {
+      "shopbox_id": "12168946",
+      "name_da": "Limonade",
+      "name_zh": "柠檬水",
+      "price": 59
+    },
+    "din_7": {
+      "shopbox_id": "11694304",
+      "name_da": "Isvand (50 cl)",
+      "name_zh": "冰水（50cl）",
+      "price": 29
+    },
+    "din_9": {
+      "shopbox_id": "11694305",
+      "name_da": "San Pellegrino danskvand (1 L)",
+      "name_zh": "巴黎水气泡水（1L）",
+      "price": 69
+    },
+    "din_10": {
+      "shopbox_id": "12259016",
+      "name_da": "Bubble Tea / Frugt-te Medium (50 cl)",
+      "name_zh": "爆珠果茶中杯（50cl）",
+      "price": 49
+    },
+    "din_11": {
+      "shopbox_id": "12259017",
+      "name_da": "Bubble Tea / Frugt-te Large (75 cl)",
+      "name_zh": "爆珠果茶大杯（75cl）",
+      "price": 59
+    },
+    "din_12": {
+      "shopbox_id": "11694306",
+      "name_da": "Tuborg Classic (33 cl)",
+      "name_zh": "图堡经典啤酒",
+      "price": 39
+    },
+    "din_13": {
+      "shopbox_id": "11694306",
+      "name_da": "Tuborg Grøn (33 cl)",
+      "name_zh": "图堡绿标啤酒",
+      "price": 39
+    },
+    "din_14": {
+      "shopbox_id": "11694306",
+      "name_da": "Carlsberg (33 cl)",
+      "name_zh": "嘉士伯啤酒",
+      "price": 39
+    },
+    "din_16": {
+      "shopbox_id": "11694307",
+      "name_da": "Kinesisk Øl (33 cl)",
+      "name_zh": "青岛啤酒",
+      "price": 49
+    },
+    "din_17": {
+      "shopbox_id": "11694308",
+      "name_da": "Sapporo (65 cl)",
+      "name_zh": "三宝乐啤酒",
+      "price": 69
+    },
+    "din_18": {
+      "shopbox_id": "11694309",
+      "name_da": "Soju Peach/Grape (350 ml)",
+      "name_zh": "韩国果味烧酒（桃子/葡萄）",
+      "price": 129
+    },
+    "din_19": {
+      "shopbox_id": "11694310",
+      "name_da": "Rødvin (glas)",
+      "name_zh": "红酒（杯）",
+      "price": 69
+    },
+    "din_20": {
+      "shopbox_id": "11694311",
+      "name_da": "Rødvin (flaske)",
+      "name_zh": "红酒（瓶）",
+      "price": 249
+    },
+    "din_21": {
+      "shopbox_id": "11694312",
+      "name_da": "Hvidvin (glas)",
+      "name_zh": "白葡萄酒（杯）",
+      "price": 69
+    },
+    "din_22": {
+      "shopbox_id": "11694313",
+      "name_da": "Hvidvin (flaske)",
+      "name_zh": "白葡萄酒（瓶）",
+      "price": 249
+    },
+    "din_23": {
+      "shopbox_id": "12168945",
+      "name_da": "Kaffe",
+      "name_zh": "咖啡",
+      "price": 39
+    },
+    "din_24": {
+      "shopbox_id": "12168945",
+      "name_da": "Te",
+      "name_zh": "茶",
+      "price": 39
     }
   }
 }
