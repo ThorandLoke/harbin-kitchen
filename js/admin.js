@@ -14,7 +14,7 @@ let titleFlashInterval = null; // 标题闪烁定时器
 let shopboxAutoSync = false; // 是否自动推送到 Shopbox
 let shopboxMapping = {}; // PWA id → Shopbox id 映射表
 let shopboxEnabled = false; // Shopbox 功能是否启用（有映射时自动启用）
-let shopboxEmergencyStop = true; // 紧急停用：收银机锁定问题
+let shopboxEmergencyStop = false; // 紧急停用开关（默认关闭）
 
 const ADMIN_PASSWORD = 'harbin2026'; // 保留常量，后期加密用
 
@@ -812,6 +812,7 @@ async function syncToShopbox(orderNumber) {
           customer_name: order.customer_name,
           customer_phone: order.customer_phone,
           table_number: order.table_number || order.table,
+          guest_count: order.guest_count || order.guestCount,
           pickup_time: order.pickup_time,
           notes: order.notes,
           total: order.total,
