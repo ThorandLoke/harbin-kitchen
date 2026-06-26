@@ -47,7 +47,8 @@ body {
   background: var(--color-primary);
   color: var(--color-text-inverse);
   height: var(--header-height);
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 0 16px;
   gap: 12px;
@@ -59,6 +60,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.5px;
   white-space: nowrap;
+  justify-self: end;
 }
 
 .header__logo span {
@@ -78,10 +80,6 @@ body {
   padding: 2px 8px;
   border-radius: var(--radius-full);
   font-weight: 600;
-}
-
-.header__spacer {
-  flex: 1;
 }
 
 .header__btn {
@@ -1195,7 +1193,7 @@ body[data-lang="da"] .menu-section__title {
   font-weight: 500;
 }
 
-/* Header language switcher: flag + text buttons, high visibility on red header */
+/* Header language switcher: flag + text buttons, centered in header */
 .lang-toggle {
   display: flex;
   background: #fff;
@@ -1206,6 +1204,7 @@ body[data-lang="da"] .menu-section__title {
   border: 2px solid rgba(255,255,255,0.9);
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  justify-self: center;
 }
 
 .lang-toggle__btn {
@@ -1238,17 +1237,16 @@ body[data-lang="da"] .menu-section__title {
   }
 
   .header__logo {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     letter-spacing: 0;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .header__home-btn {
     padding: 4px 6px;
     font-size: 1rem;
-  }
-
-  .header__mode-tag {
-    display: none; /* Hide mode tag on very small screens to make room for language toggle */
   }
 
   .lang-toggle__btn {
@@ -1264,10 +1262,18 @@ body[data-lang="da"] .menu-section__title {
   }
 }
 
-/* Extra tiny screens */
+/* Extra tiny screens: hide logo to guarantee language toggle fits */
 @media (max-width: 360px) {
   .header__logo {
-    font-size: 0.85rem;
+    display: none;
+  }
+
+  .header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .lang-toggle {
+    justify-self: center;
   }
 
   .lang-toggle__btn {

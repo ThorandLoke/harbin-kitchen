@@ -297,6 +297,7 @@ function updateOrderTypeIndicator() {
   homeBtn.title = currentLang === 'zh' ? '返回主页' : 'Tilbage til start';
 
   const modeTag = document.getElementById('header-mode-tag');
+  if (!modeTag) return;
   const type = getOrderType();
   if (type === 'dinein') {
     modeTag.textContent = currentLang === 'zh' ? '🍽️ 堂食' : '🍽️ Spis her';
