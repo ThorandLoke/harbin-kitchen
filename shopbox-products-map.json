@@ -1,0 +1,522 @@
+{
+  "11694242": {
+    "name": "S1.Peking suppe 北京汤 🌶️",
+    "price": 58,
+    "sku": "S1"
+  },
+  "11694243": {
+    "name": "S2.Kylling suppe 鸡丝汤",
+    "price": 58,
+    "sku": "S2"
+  },
+  "11694244": {
+    "name": "S3.Wonton suppe 云吞汤",
+    "price": 58,
+    "sku": "S3"
+  },
+  "11694251": {
+    "name": "S4.Majssuppe med kylling stykker 鸡蛋玉米羹",
+    "price": 58,
+    "sku": "S4"
+  },
+  "11694252": {
+    "name": "F1.Snackkurv （til 2 personer) 前餐拼盘",
+    "price": 128,
+    "sku": "F1"
+  },
+  "11694253": {
+    "name": "F2.Mini forårsruller 6stk. 小春卷6个",
+    "price": 48,
+    "sku": "F2"
+  },
+  "11694254": {
+    "name": "F3.Hjemmelavede forårsruller med oksekød 4 stk. 牛肉春卷4个",
+    "price": 58,
+    "sku": "F3"
+  },
+  "11694255": {
+    "name": "F4.Hjemmelavede forårsruller med and 3 stk. 鸭春卷3个",
+    "price": 58,
+    "sku": "F4"
+  },
+  "11694256": {
+    "name": "F5.Dybstegte Tempura Rejer 4stk. 日本炸虾4个",
+    "price": 58,
+    "sku": "F5"
+  },
+  "11694257": {
+    "name": "F6.Kyllinge Karaage 6stk 炸鸡块6块",
+    "price": 58,
+    "sku": "F6"
+  },
+  "11694258": {
+    "name": "F7.Dybstegte dumplings med kylling 5stk. 炸鸡肉饺子5个",
+    "price": 58,
+    "sku": "F7"
+  },
+  "11694271": {
+    "name": "H1.Dry wok med kylling 干锅鸡 🌶️",
+    "price": 168,
+    "sku": "H01"
+  },
+  "11694296": {
+    "name": "Chili olie",
+    "price": 15,
+    "sku": "10004"
+  },
+  "11694297": {
+    "name": "Sød og sur sauce",
+    "price": 15,
+    "sku": "10005"
+  },
+  "11694298": {
+    "name": "Dumpling dip",
+    "price": 15,
+    "sku": "10006"
+  },
+  "11694301": {
+    "name": "Sriracha",
+    "price": 15,
+    "sku": "10009"
+  },
+  "11694302": {
+    "name": "Kinesisk drik 50cl",
+    "price": 49,
+    "sku": "10010"
+  },
+  "11694303": {
+    "name": "Sodavand Lille",
+    "price": 39,
+    "sku": "10011"
+  },
+  "11694304": {
+    "name": "Isvand",
+    "price": 29,
+    "sku": "10012"
+  },
+  "11694305": {
+    "name": "San Pellegrino 1L",
+    "price": 69,
+    "sku": "10013"
+  },
+  "11694306": {
+    "name": "Dansk øl 33cl",
+    "price": 39,
+    "sku": "10014"
+  },
+  "11694307": {
+    "name": "Tsingtao 33cl",
+    "price": 49,
+    "sku": "10015"
+  },
+  "11694308": {
+    "name": "Sapporo 65cl",
+    "price": 69,
+    "sku": "10016"
+  },
+  "11694309": {
+    "name": "Soju 35cl (Peach/grape 13,0%)",
+    "price": 129,
+    "sku": "10017"
+  },
+  "11694310": {
+    "name": "Rødvin glas",
+    "price": 69,
+    "sku": "10018"
+  },
+  "11694311": {
+    "name": "Rødvin flaske",
+    "price": 249,
+    "sku": "10019"
+  },
+  "11694312": {
+    "name": "Hvidvin glas",
+    "price": 69,
+    "sku": "10020"
+  },
+  "11694313": {
+    "name": "Hvidvin flaske",
+    "price": 249,
+    "sku": "10021"
+  },
+  "12103492": {
+    "name": "F8.Hjemmelavede dumplings i chiliolie 红油水饺 4个 🌶️",
+    "price": 58,
+    "sku": "F8"
+  },
+  "12103493": {
+    "name": "F9.Kogte Harbin-dumplings 10stk. 东北水饺10个",
+    "price": 128,
+    "sku": "F9"
+  },
+  "12103494": {
+    "name": "F10.Rejer Chips 虾片",
+    "price": 18,
+    "sku": "F10"
+  },
+  "12103496": {
+    "name": "D1.Char Siu Bao 3stk. 叉烧包",
+    "price": 58,
+    "sku": "D1"
+  },
+  "12103637": {
+    "name": "D2.Siu Mai 4stk. 烧卖4个",
+    "price": 58,
+    "sku": "D2"
+  },
+  "12103648": {
+    "name": "D3.Har Gow 4stk. 虾饺4个",
+    "price": 58,
+    "sku": "D3"
+  },
+  "12103650": {
+    "name": "D4.Sesamboller 5stk. 芝麻球5个",
+    "price": 58,
+    "sku": "D4"
+  },
+  "12103653": {
+    "name": "K1.Special edamame 醉香毛豆",
+    "price": 38,
+    "sku": "K1"
+  },
+  "12103654": {
+    "name": "K2.Kimchi kinakål 辣白菜 🌶️🌶️",
+    "price": 58,
+    "sku": "K2"
+  },
+  "12103655": {
+    "name": "K3.Agurk strimler med citron sauce 柠檬黄瓜条",
+    "price": 58,
+    "sku": "K3"
+  },
+  "12103656": {
+    "name": "K4.Fuqi Feipian 夫妻肺片 🌶️🌶️",
+    "price": 148,
+    "sku": "K4"
+  },
+  "12103661": {
+    "name": "K5.Oksemave salad i chilioil 红油牛肚 🌶️",
+    "price": 148,
+    "sku": "K5"
+  },
+  "12103663": {
+    "name": "K6.okse-tripe salat i chili sauce 凉拌牛百叶 🌶️",
+    "price": 148,
+    "sku": "K6"
+  },
+  "12103757": {
+    "name": "H2.Gong Bao Kylling 宫保鸡丁 🌶️",
+    "price": 168,
+    "sku": "H02"
+  },
+  "12103761": {
+    "name": "H3.Kylling i sur sød sauce 甜酸鸡",
+    "price": 168,
+    "sku": "H03"
+  },
+  "12103769": {
+    "name": "H4.Kylling a la Harbin 哈尔滨辣子鸡 🌶️🌶️",
+    "price": 168,
+    "sku": "H04"
+  },
+  "12103771": {
+    "name": "H5.Lynstegt kylling i østerssauce 蚝油鸡片",
+    "price": 168,
+    "sku": "H05"
+  },
+  "12103772": {
+    "name": "H6.Kylling i rød Karry 红咖喱鸡 🌶️",
+    "price": 168,
+    "sku": "H06"
+  },
+  "12103776": {
+    "name": "H7.Dry wok med oksekød 干锅牛肉 🌶️🌶️",
+    "price": 188,
+    "sku": "H07"
+  },
+  "12103777": {
+    "name": "H8.Oksekød i sort peber sauce 黑椒牛肉",
+    "price": 188,
+    "sku": "H08"
+  },
+  "12103780": {
+    "name": "H9.Braiseret oksekød 红烧牛肉",
+    "price": 188,
+    "sku": "H09"
+  },
+  "12103798": {
+    "name": "H10.Oksekød i gylden suppe 金汤肥牛 🌶️",
+    "price": 208,
+    "sku": "H10"
+  },
+  "12103799": {
+    "name": "H11.Oksekød i stærk Szechuan-sauce 水煮牛肉 🌶️🌶️🌶️",
+    "price": 198,
+    "sku": "H11"
+  },
+  "12103802": {
+    "name": "H12.Oksekød med to slags chili 双椒牛肉 🌶️🌶️",
+    "price": 188,
+    "sku": "H12"
+  },
+  "12103804": {
+    "name": "H13.Oksekød i østerssauce 蚝油牛肉",
+    "price": 188,
+    "sku": "H13"
+  },
+  "12103807": {
+    "name": "H14.Oksekød i rød karry 红咖喱牛 🌶️",
+    "price": 198,
+    "sku": "H14"
+  },
+  "12103811": {
+    "name": "H15.Dry wok med Spareribs 干锅排骨 🌶️",
+    "price": 188,
+    "sku": "H15"
+  },
+  "12103814": {
+    "name": "H16.Dry wok med Svinetarm 干锅肥肠 🌶️",
+    "price": 188,
+    "sku": "H16"
+  },
+  "12103818": {
+    "name": "H17.Guo Bao med svinekød 锅包肉",
+    "price": 188,
+    "sku": "H17"
+  },
+  "12103819": {
+    "name": "H18.Svinekød i sur sød sauce 菠萝咕咾肉",
+    "price": 188,
+    "sku": "H18"
+  },
+  "12103821": {
+    "name": "H19.Yuxiang svinekød 鱼香肉丝 🌶️",
+    "price": 188,
+    "sku": "H19"
+  },
+  "12103823": {
+    "name": "H20.Harbin-style dobbeltstegt svinekød 哈香回锅肉 🌶️",
+    "price": 178,
+    "sku": "H20"
+  },
+  "12103825": {
+    "name": "H21.Sprødt fristurestegt svinekød 溜肉段",
+    "price": 188,
+    "sku": "H21"
+  },
+  "12103830": {
+    "name": "H23.Harbin-style braiseret svinekød 哈尔滨坛子红烧肉+鹌鹑蛋",
+    "price": 198,
+    "sku": "H23"
+  },
+  "12103838": {
+    "name": "H24.Máo Xûe Wàng 毛血旺 🌶️🌶️🌶️",
+    "price": 258,
+    "sku": "H24"
+  },
+  "12103840": {
+    "name": "H25.Lammekød med spidskommen 孜然羊肉 🌶️",
+    "price": 198,
+    "sku": "H25"
+  },
+  "12103841": {
+    "name": "H26.Hu Nan Lam 湘西羊肉 🌶️🌶️",
+    "price": 198,
+    "sku": "H26"
+  },
+  "12103842": {
+    "name": "H27.Lynstegt lam med forårsløg 葱爆羊肉",
+    "price": 198,
+    "sku": "H27"
+  },
+  "12103843": {
+    "name": "H28.Dry Pot Boneless Duck 干锅去骨鸭 🌶️",
+    "price": 188,
+    "sku": "H28"
+  },
+  "12103844": {
+    "name": "H29.Yuiang-sauce med and 鱼香鸭",
+    "price": 188,
+    "sku": "H29"
+  },
+  "12103846": {
+    "name": "H30.Sprødstegt and 香酥鸭",
+    "price": 178,
+    "sku": "H30"
+  },
+  "12103849": {
+    "name": "H31.Wokstegte rejer med skal 干锅大虾（有壳） 🌶️",
+    "price": 198,
+    "sku": "H31"
+  },
+  "12103852": {
+    "name": "H32.Salt og peber-rejer 椒盐大虾（有壳）",
+    "price": 198,
+    "sku": "H32"
+  },
+  "12103853": {
+    "name": "H33.Stærk og krydret rejer med skal 香辣一品虾（有壳） 🌶️🌶️",
+    "price": 198,
+    "sku": "H33"
+  },
+  "12103855": {
+    "name": "H35.Rejeer i rød karry 咖喱虾 🌶️",
+    "price": 198,
+    "sku": "H35"
+  },
+  "12103861": {
+    "name": "H36.Harbin grillet fisk (hel fisk med ben) 哈尔滨烤鱼（有骨） 🌶️",
+    "price": 288,
+    "sku": "H36"
+  },
+  "12103863": {
+    "name": "H37.Chongqing-stil fiskefilet i sennepkålssuppe (uden ben) 重庆酸菜鱼（无骨）",
+    "price": 228,
+    "sku": "H37"
+  },
+  "12103864": {
+    "name": "H38.Sichuan-stil pocheret fisk (uden ben) 沸腾鱼（无骨） 🌶️🌶️🌶️",
+    "price": 238,
+    "sku": "H38"
+  },
+  "12103866": {
+    "name": "H39.Fiskefilet i gylden suppe (uden ben) 金汤鱼片（无骨） 🌶️",
+    "price": 238,
+    "sku": "H39"
+  },
+  "12103869": {
+    "name": "H40.Sprødstegt fisk med sur-sød sauce (hel fisk med ben) 松鼠鱼（有骨）",
+    "price": 268,
+    "sku": "H40"
+  },
+  "12103872": {
+    "name": "H41.Tørstegt blomkål (Vegetar) 干锅菜花 🌶️",
+    "price": 138,
+    "sku": "H41"
+  },
+  "12103873": {
+    "name": "H42.Tørstegt marineret lotusrod (Vegetar) 干锅卤藕 🌶️",
+    "price": 158,
+    "sku": "H42"
+  },
+  "12103875": {
+    "name": "H43.Lynstegte grøntsager med loturod og svampe (Vegetar) 荷塘小炒",
+    "price": 158,
+    "sku": "H43"
+  },
+  "12103878": {
+    "name": "H44.Di San Xian (Earth's Three Delights) 地三鲜",
+    "price": 158,
+    "sku": "H44"
+  },
+  "12103879": {
+    "name": "H45.Sihuan-braseret aubergine med hvidløgssauce (Vegetar) 鱼香茄子",
+    "price": 158,
+    "sku": "H45"
+  },
+  "12103880": {
+    "name": "H46.Mapo Tofu (med oksekød) 麻婆豆腐 🌶️🌶️",
+    "price": 158,
+    "sku": "H46"
+  },
+  "12103881": {
+    "name": "H47.Rød braised Tofu (Vegetar) 红烧豆腐",
+    "price": 158,
+    "sku": "H47"
+  },
+  "12103882": {
+    "name": "H48.Tørstegte grønne bønner (Vegetar) 干煸四季豆 🌶️",
+    "price": 158,
+    "sku": "H48"
+  },
+  "12103883": {
+    "name": "H49.Wokstegte hidkål (Vegetar) 手撕包菜 🌶️",
+    "price": 138,
+    "sku": "H49"
+  },
+  "12103884": {
+    "name": "H50.Kinakål i gylden suppe (Vegetar) 金汤奶白菜",
+    "price": 158,
+    "sku": "H50"
+  },
+  "12103885": {
+    "name": "H51.Lynstegte hvidløgsstængler med fast tofu (Vegetar) 蒜苔炒香干",
+    "price": 158,
+    "sku": "H51"
+  },
+  "12103886": {
+    "name": "H52.Stegt vandspinat med fermenteret rød bønnepasta og tofu (Vegetar) 南乳空心菜",
+    "price": 158,
+    "sku": "H52"
+  },
+  "12103888": {
+    "name": "H53.Stegte pak choi med shiitake-svampe (Vegetar) 香菇扒菜胆",
+    "price": 148,
+    "sku": "H53"
+  },
+  "12103889": {
+    "name": "H54.Lynstegt Pak Choi (Vegetar) 清炒油菜",
+    "price": 98,
+    "sku": "H54"
+  },
+  "12103902": {
+    "name": "N55.Stegte nudler / ris / udon nudler / risnudler med oksekød 牛肉炒面/饭/乌冬/河粉",
+    "price": 138,
+    "sku": "N55"
+  },
+  "12103903": {
+    "name": "N56.Stegte nudler / ris / udon nudler / ris nudler med kylling 鸡肉炒面/饭/乌冬",
+    "price": 138,
+    "sku": "N56"
+  },
+  "12103904": {
+    "name": "H57.Stegte nudler / ris / udon nudler / ris nudler med rejer 大虾炒面/饭/乌冬",
+    "price": 138,
+    "sku": "N57"
+  },
+  "12103905": {
+    "name": "H58.Vegetar stegte nudler / ris / udon nudler / ris nudler 素炒面/饭/乌冬",
+    "price": 128,
+    "sku": "N58"
+  },
+  "12168945": {
+    "name": "Te/ person",
+    "price": 39,
+    "sku": "10109"
+  },
+  "12168946": {
+    "name": "Lemonade 50cl",
+    "price": 59,
+    "sku": "10106"
+  },
+  "12168948": {
+    "name": "Danskvand 50cl",
+    "price": 49,
+    "sku": "10105"
+  },
+  "12259008": {
+    "name": "Snow",
+    "price": 39,
+    "sku": "10104"
+  },
+  "12259013": {
+    "name": "Sodavand Mellem",
+    "price": 49,
+    "sku": "10108"
+  },
+  "12259014": {
+    "name": "Sodavand Stor",
+    "price": 59,
+    "sku": "10111"
+  },
+  "12259016": {
+    "name": "Bubble tea Mellem",
+    "price": 49,
+    "sku": "10113"
+  },
+  "12259017": {
+    "name": "Bubble tea Stor",
+    "price": 59,
+    "sku": "10115"
+  }
+}
