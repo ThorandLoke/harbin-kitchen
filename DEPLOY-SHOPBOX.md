@@ -7,7 +7,12 @@
 
 ## 概述
 
-本指南包含 Shopbox POS 集成部署步骤。经过深度诊断，发现正确的 Shopbox API 端点是 `POST /takeaway/order`（不是 `/baskets`），且 `cash_register` 必须放在请求 body 中。
+本指南包含 Shopbox POS 集成部署步骤。经过深度诊断，发现正确的 Shopbox API 端点是 `POST /takeaway/order`（不是 `/baskets`），且必须：
+
+- 使用 `table` 字段传桌台 ID（不是 `table_number`）
+- 菜品价格字段用 `selling_price`（不是 `amount`）
+- 外卖/堂食统一用 `order_type: dinein`，这样订单才会出现在 POS 桌台视图里
+- 外卖使用虚拟桌号 20→1 循环，堂食使用真实桌号
 
 ---
 
@@ -20,9 +25,12 @@ supabase secrets set --project-ref glfmoqfevyeeuqbihjht SHOPBOX_EMAIL=susan@harb
 supabase secrets set --project-ref glfmoqfevyeeuqbihjht SHOPBOX_PASSWORD=susanzhu129B8585
 supabase secrets set --project-ref glfmoqfevyeeuqbihjht SHOPBOX_CLIENT_ID=11314
 supabase secrets set --project-ref glfmoqfevyeeuqbihjht SHOPBOX_CASH_REGISTER=16701
+# 可选：门店 Branch ID，未设置时默认使用 13444
+supabase secrets set --project-ref glfmoqfevyeeuqbihjht SHOPBOX_BRANCH_ID=13444
 ```
 
 > `SHOPBOX_CASH_REGISTER` 已有默认值 `16701`，但显式设置更安全。
+> `SHOPBOX_BRANCH_ID` 可选，未设置时默认 `13444`（Harbin Kitchen）。
 
 ---
 
@@ -35,7 +43,7 @@ supabase functions deploy sync-to-shopbox --project-ref glfmoqfevyeeuqbihjht
 > 部署成功后，函数 URL 为：
 > `https://glfmoqfevyeeuqbihjht.supabase.co/functions/v1/sync-to-shopbox`
 >
-> 本次修复后，函数内部调用 Shopbox 的 `POST /takeaway/order` 端点。
+> 本次修复后，函数内部调用 Shopbox 的 `POST /takeaway/order` 端点，并传入正确的 `table`（桌台 ID）和 `selling_price`。
 
 ---
 
@@ -149,7 +157,7 @@ supabase login
 
 ## 部署后检查清单
 
-- [ ] Supabase Secrets 已设置 4 个环境变量
+- [ ] Supabase Secrets 已设置 4 个环境变量（可选 `SHOPBOX_BRANCH_ID`）
 - [ ] Edge Function `sync-to-shopbox` 已重新部署
 - [ ] SQL Migration 已执行（orders 表新增 5 个字段）
 - [ ] GitHub Pages 构建完成（无痕窗口访问确认 v25）
