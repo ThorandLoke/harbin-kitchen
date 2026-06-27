@@ -113,6 +113,42 @@
       transform: none;
       box-shadow: none;
     }
+    /* 手机端底部悬浮按钮 */
+    .floating-submit {
+      display: none;
+    }
+    @media (max-width: 640px) {
+      .floating-submit {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 12px 20px;
+        background: white;
+        box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+        display: none; /* 默认隐藏，JS 控制显示 */
+      }
+      .floating-submit.show {
+        display: block;
+        animation: slideUp 0.3s ease;
+      }
+      .floating-submit .submit-btn {
+        margin-top: 0;
+        border-radius: 12px;
+        font-size: 18px;
+        padding: 16px 20px;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+      }
+      /* 给底部留出空间 */
+      .booking-container {
+        padding-bottom: 90px;
+      }
+    }
     .success-message {
       display: none;
       text-align: center;
@@ -277,6 +313,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </button>
     </form>
 
+    <!-- 手机端底部悬浮确认按钮 -->
+    <div class="floating-submit" id="floating-submit">
+      <button type="submit" class="submit-btn" id="floating-submit-btn">
+        ✓ Bekræft booking
+      </button>
+    </div>
+
     <!-- 成功消息 -->
     <div class="success-message" id="success-message">
       <div class="success-icon">✅</div>
@@ -299,13 +342,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     dateInput.setAttribute('min', today);
     dateInput.value = today;
 
+    // 手机端：始终显示底部悬浮按钮
+    const floatingSubmit = document.getElementById('floating-submit');
+    function checkMobileFloatingBtn() {
+      if (window.innerWidth <= 640) {
+        floatingSubmit.classList.add('show');
+      } else {
+        floatingSubmit.classList.remove('show');
+      }
+    }
+    checkMobileFloatingBtn();
+    window.addEventListener('resize', checkMobileFloatingBtn);
+
+    // 悬浮按钮点击 → 触发表单提交
+    document.getElementById('floating-submit-btn').addEventListener('click', () => {
+      document.getElementById('submit-btn').click();
+    });
+
     // 表单提交 — 通过 Supabase Edge Function（自动发短信）
     document.getElementById('booking-form').addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const submitBtn = document.getElementById('submit-btn');
+      const floatingBtn = document.getElementById('floating-submit-btn');
       const errorMsg = document.getElementById('error-message');
       errorMsg.classList.remove('show');
+
+      // 禁用两个按钮
+      submitBtn.disabled = true;
+      floatingBtn.disabled = true;
       
       // 收集表单数据
       const booking = {
@@ -335,6 +400,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       // 禁用按钮
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sender...';
+      floatingBtn.textContent = 'Sender...';
 
       try {
         // 调用 Edge Function（存预订 + 发短信）
@@ -361,6 +427,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         // 显示成功消息
         document.getElementById('booking-form').style.display = 'none';
+        floatingSubmit.classList.remove('show');
         document.getElementById('success-message').classList.add('show');
         
         const details = `
@@ -376,7 +443,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         console.error('Booking error:', error);
       } finally {
         submitBtn.disabled = false;
+        floatingBtn.disabled = false;
         submitBtn.textContent = '✓ Bekræft booking';
+        floatingBtn.textContent = '✓ Bekræft booking';
       }
     });
   </script>
