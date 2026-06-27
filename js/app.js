@@ -899,9 +899,14 @@ function renderCartPage() {
         ? '💳 请到收银台付款 — 暂不支持在线支付'
         : '💳 Betaling ved kassen — ingen online betaling';
     } else {
+      const prepTime = calculatePrepTime(enriched);
+      const prepTimeText = prepTime.minutes + (currentLang === 'zh' ? ' 分钟' : ' min');
+      const phoneConfirmText = prepTime.needsPhoneConfirm
+        ? (currentLang === 'zh' ? '<br>⚠️ 订单较大，我们将电话确认取餐时间' : '<br>⚠️ Bestillingen er stor — vi ringer for at bekræfte tiden')
+        : '';
       cartHint.innerHTML = currentLang === 'zh'
-        ? '💳 取餐时在收银台付款 — 暂不支持在线支付<br>⏱️ 本单预计制作时间 20-30 分钟'
-        : '💳 Betal ved kassen ved afhentning — ingen online betaling<br>⏱️ Forventet tilberedningstid: 20-30 minutter';
+        ? '💳 取餐时在收银台付款 — 暂不支持在线支付<br>⏱️ 本单预计制作时间约 ' + prepTimeText + phoneConfirmText
+        : '💳 Betal ved kassen ved afhentning — ingen online betaling<br>⏱️ Forventet tilberedningstid: ca. ' + prepTimeText + phoneConfirmText;
     }
   }
 }
