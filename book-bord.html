@@ -80,28 +80,38 @@
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
+    .submit-hint {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
     .submit-btn {
       width: 100%;
-      padding: 16px;
-      background: var(--primary);
+      padding: 20px 24px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, #A01830 100%);
       color: white;
       border: none;
-      border-radius: 12px;
-      font-size: 18px;
-      font-weight: 600;
+      border-radius: 14px;
+      font-size: 20px;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
-      margin-top: 10px;
+      margin-top: 6px;
+      box-shadow: 0 4px 16px rgba(196, 30, 58, 0.35);
+      letter-spacing: 0.5px;
     }
     .submit-btn:hover {
-      background: #A01830;
+      background: linear-gradient(135deg, #D41E3A 0%, #B01830 100%);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+      box-shadow: 0 6px 20px rgba(196, 30, 58, 0.45);
     }
     .submit-btn:disabled {
-      opacity: 0.6;
+      opacity: 0.55;
       cursor: not-allowed;
       transform: none;
+      box-shadow: none;
     }
     .success-message {
       display: none;
@@ -260,8 +270,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <textarea id="booking-notes" placeholder="Allergi, særlige ønsker..."></textarea>
       </div>
 
+      <p class="submit-hint">✅ Når du har udfyldt alle felter, klik nedenfor for at bekræfte</p>
+
       <button type="submit" class="submit-btn" id="submit-btn">
-        Bekræft booking
+        ✓ Bekræft booking
       </button>
     </form>
 
@@ -364,7 +376,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         console.error('Booking error:', error);
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Bekræft booking';
+        submitBtn.textContent = '✓ Bekræft booking';
       }
     });
   </script>
