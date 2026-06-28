@@ -392,10 +392,11 @@ function renderOrderCard(order) {
     itemsHTML += dishItems.map(item => {
       const name = da ? item.name_da : item.name_zh;
       const code = item.code ? `<span class="order-card__item-code">${item.code}</span> ` : '';
-      const option = item.optionName_da || item.optionName_zh
-        ? ` <span style="color:var(--color-primary);font-size:12px;">(${da ? item.optionName_da : item.optionName_zh})</span>`
+      const optName = da ? item.optionName_da : item.optionName_zh;
+      const option = (item.optionName_da || item.optionName_zh)
+        ? `<div style="margin-left:28px;margin-top:1px;"><span style="background:var(--color-primary);color:white;padding:1px 8px;border-radius:4px;font-size:12px;font-weight:600;">${da ? 'Smag' : '口味'}: ${optName}</span></div>`
         : '';
-      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}${option}</span><span>${item.lineTotal} kr.</span></div>`;
+      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>${option}`;
     }).join('');
   }
   if (drinkItems.length > 0) {
@@ -403,10 +404,11 @@ function renderOrderCard(order) {
     itemsHTML += drinkItems.map(item => {
       const name = da ? item.name_da : item.name_zh;
       const code = item.code ? `<span class="order-card__item-code">${item.code}</span> ` : '';
-      const option = item.optionName_da || item.optionName_zh
-        ? ` <span style="color:var(--color-primary);font-size:12px;">(${da ? item.optionName_da : item.optionName_zh})</span>`
+      const optName = da ? item.optionName_da : item.optionName_zh;
+      const option = (item.optionName_da || item.optionName_zh)
+        ? `<div style="margin-left:28px;margin-top:1px;"><span style="background:var(--color-primary);color:white;padding:1px 8px;border-radius:4px;font-size:12px;font-weight:600;">${da ? 'Smag' : '口味'}: ${optName}</span></div>`
         : '';
-      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}${option}</span><span>${item.lineTotal} kr.</span></div>`;
+      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>${option}`;
     }).join('');
   }
 

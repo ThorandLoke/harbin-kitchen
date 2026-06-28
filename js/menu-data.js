@@ -1298,18 +1298,62 @@ const MENU_DATA = [
         "id": "din_10",
         "name_da": "Bubble Tea / Frugt-te Medium (50 cl)",
         "name_zh": "爆珠果茶中杯（50cl）",
-        "description_da": "Passionsfrugt, Jordbær, Æble eller Peach",
+        "description_da": "Vælg smag: Passionsfrugt, Jordbær, Æble eller Peach",
         "price": 49,
-        "image": "images/drikke_1.jpg"
+        "image": "images/drikke_1.jpg",
+        "options": [
+          {
+            "id": "passion",
+            "name_da": "Passionsfrugt",
+            "name_zh": "百香果"
+          },
+          {
+            "id": "jordboer",
+            "name_da": "Jordbær",
+            "name_zh": "草莓"
+          },
+          {
+            "id": "aeble",
+            "name_da": "Æble",
+            "name_zh": "苹果"
+          },
+          {
+            "id": "peach",
+            "name_da": "Peach",
+            "name_zh": "蜜桃"
+          }
+        ]
       },
       {
         "code": "V90",
         "id": "din_11",
         "name_da": "Bubble Tea / Frugt-te Large (75 cl)",
         "name_zh": "爆珠果茶大杯（75cl）",
-        "description_da": "Passionsfrugt, Jordbær, Æble eller Peach",
+        "description_da": "Vælg smag: Passionsfrugt, Jordbær, Æble eller Peach",
         "price": 59,
-        "image": "images/drikke_1.jpg"
+        "image": "images/drikke_1.jpg",
+        "options": [
+          {
+            "id": "passion",
+            "name_da": "Passionsfrugt",
+            "name_zh": "百香果"
+          },
+          {
+            "id": "jordboer",
+            "name_da": "Jordbær",
+            "name_zh": "草莓"
+          },
+          {
+            "id": "aeble",
+            "name_da": "Æble",
+            "name_zh": "苹果"
+          },
+          {
+            "id": "peach",
+            "name_da": "Peach",
+            "name_zh": "蜜桃"
+          }
+        ]
       },
       {
         "code": "V91",
