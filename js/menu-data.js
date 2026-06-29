@@ -703,8 +703,8 @@ const MENU_DATA = [
         "id": "h_fisk_6",
         "name_da": "Kinesisk Braiseret Fisk",
         "name_zh": "红烧鱼（有骨）",
-        "description_da": "Hel fisk. Skal bestilles 1 dag i forvejen",
-        "description_zh": "整鱼，需提前一天预订",
+        "description_da": "Hel fisk. Tilberedelse tager lang tid - forudbestilling anbefales",
+        "description_zh": "整鱼，制作时间较长，建议提前预定",
         "price": 0,
         "price_text": {
           "da": "Dagspris",
@@ -1732,8 +1732,8 @@ const MENU_DATA = [
         "id": "preorder_1",
         "name_da": "Hongshao hel fisk (braiseret fisk)",
         "name_zh": "红烧全鱼",
-        "description_da": "Hel fisk braiseret i sojasauce og krydderier. Skal bestilles 1 dag i forvejen.",
-        "description_zh": "整条鱼红烧做法，酱香浓郁。需提前1天预约。",
+        "description_da": "Hel fisk braiseret i sojasauce og krydderier. Tilberedelse tager lang tid - forudbestilling anbefales.",
+        "description_zh": "整条鱼红烧做法，酱香浓郁。制作时间较长，建议提前预约。",
         "price": 368,
         "image": "images/preorder_1.jpg",
         "lead_days": 1
