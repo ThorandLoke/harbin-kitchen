@@ -1,9 +1,9 @@
 {
   "_meta": {
     "description": "PWA 菜品编号 ↔ Shopbox 产品 ID 映射表",
-    "notes": "97 个原菜品已匹配，新增 26 个可乐/堂食饮品映射，8 个菜品在 Shopbox 中无对应产品（果汁、50cl 巴黎水、无酒精啤酒、冰淇淋、4 个预约菜）",
-    "updated_at": "2026-06-26",
-    "total_items": 123
+    "notes": "97 个原菜品已匹配，新增 23 个可乐/堂食饮品映射（堂食可乐/零度合并为 Sodavand 并按大中小映射），8 个菜品在 Shopbox 中无对应产品（果汁、50cl 巴黎水、无酒精啤酒、冰淇淋、4 个预约菜）",
+    "updated_at": "2026-06-29",
+    "total_items": 120
   },
   "mapping": {
     "forretter_1": {
@@ -602,38 +602,20 @@
     },
     "din_1": {
       "shopbox_id": "11694303",
-      "name_da": "Coca-Cola (lille)",
-      "name_zh": "可口可乐（小杯）",
-      "price": 39
-    },
-    "din_1z": {
-      "shopbox_id": "11694303",
-      "name_da": "Coca-Cola Zero (lille)",
-      "name_zh": "零度可乐（小杯）",
+      "name_da": "Sodavand (lille)",
+      "name_zh": "苏打水（小杯）",
       "price": 39
     },
     "din_2": {
       "shopbox_id": "12259013",
-      "name_da": "Coca-Cola (mellem)",
-      "name_zh": "可口可乐（中杯）",
-      "price": 49
-    },
-    "din_2z": {
-      "shopbox_id": "12259013",
-      "name_da": "Coca-Cola Zero (mellem)",
-      "name_zh": "零度可乐（中杯）",
+      "name_da": "Sodavand (mellem)",
+      "name_zh": "苏打水（中杯）",
       "price": 49
     },
     "din_3": {
       "shopbox_id": "12259014",
-      "name_da": "Coca-Cola (stor)",
-      "name_zh": "可口可乐（大杯）",
-      "price": 59
-    },
-    "din_3z": {
-      "shopbox_id": "12259014",
-      "name_da": "Coca-Cola Zero (stor)",
-      "name_zh": "零度可乐（大杯）",
+      "name_da": "Sodavand (stor)",
+      "name_zh": "苏打水（大杯）",
       "price": 59
     },
     "din_4": {

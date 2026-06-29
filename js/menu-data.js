@@ -1193,56 +1193,113 @@ const MENU_DATA = [
       {
         "code": "V80",
         "id": "din_1",
-        "name_da": "Coca-Cola (lille)",
-        "name_zh": "可口可乐（小杯）",
-        "description_da": "Klassisk Coca-Cola med sukker",
+        "name_da": "Sodavand (lille)",
+        "name_zh": "苏打水（小杯）",
+        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi",
+        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事可乐",
         "price": 39,
-        "image": "images/drikke_2.png"
-      },
-      {
-        "code": "V80Z",
-        "id": "din_1z",
-        "name_da": "Coca-Cola Zero (lille)",
-        "name_zh": "零度可乐（小杯）",
-        "description_da": "Coca-Cola uden sukker",
-        "price": 39,
-        "image": "images/drikke_2.png"
+        "image": "images/drikke_2.png",
+        "options": [
+          {
+            "id": "cola",
+            "name_da": "Coca-Cola",
+            "name_zh": "可口可乐"
+          },
+          {
+            "id": "colazero",
+            "name_da": "Coca-Cola Zero",
+            "name_zh": "零度可乐"
+          },
+          {
+            "id": "faxekondi",
+            "name_da": "Faxe Kondi",
+            "name_zh": "Faxe Kondi"
+          },
+          {
+            "id": "fanta",
+            "name_da": "Fanta",
+            "name_zh": "芬达"
+          },
+          {
+            "id": "pepsi",
+            "name_da": "Pepsi",
+            "name_zh": "百事可乐"
+          }
+        ]
       },
       {
         "code": "V81",
         "id": "din_2",
-        "name_da": "Coca-Cola (mellem)",
-        "name_zh": "可口可乐（中杯）",
-        "description_da": "Klassisk Coca-Cola med sukker",
+        "name_da": "Sodavand (mellem)",
+        "name_zh": "苏打水（中杯）",
+        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi",
+        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事可乐",
         "price": 49,
-        "image": "images/drikke_2.png"
-      },
-      {
-        "code": "V81Z",
-        "id": "din_2z",
-        "name_da": "Coca-Cola Zero (mellem)",
-        "name_zh": "零度可乐（中杯）",
-        "description_da": "Coca-Cola uden sukker",
-        "price": 49,
-        "image": "images/drikke_2.png"
+        "image": "images/drikke_2.png",
+        "options": [
+          {
+            "id": "cola",
+            "name_da": "Coca-Cola",
+            "name_zh": "可口可乐"
+          },
+          {
+            "id": "colazero",
+            "name_da": "Coca-Cola Zero",
+            "name_zh": "零度可乐"
+          },
+          {
+            "id": "faxekondi",
+            "name_da": "Faxe Kondi",
+            "name_zh": "Faxe Kondi"
+          },
+          {
+            "id": "fanta",
+            "name_da": "Fanta",
+            "name_zh": "芬达"
+          },
+          {
+            "id": "pepsi",
+            "name_da": "Pepsi",
+            "name_zh": "百事可乐"
+          }
+        ]
       },
       {
         "code": "V82",
         "id": "din_3",
-        "name_da": "Coca-Cola (stor)",
-        "name_zh": "可口可乐（大杯）",
-        "description_da": "Klassisk Coca-Cola med sukker",
+        "name_da": "Sodavand (stor)",
+        "name_zh": "苏打水（大杯）",
+        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi",
+        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事可乐",
         "price": 59,
-        "image": "images/drikke_2.png"
-      },
-      {
-        "code": "V82Z",
-        "id": "din_3z",
-        "name_da": "Coca-Cola Zero (stor)",
-        "name_zh": "零度可乐（大杯）",
-        "description_da": "Coca-Cola uden sukker",
-        "price": 59,
-        "image": "images/drikke_2.png"
+        "image": "images/drikke_2.png",
+        "options": [
+          {
+            "id": "cola",
+            "name_da": "Coca-Cola",
+            "name_zh": "可口可乐"
+          },
+          {
+            "id": "colazero",
+            "name_da": "Coca-Cola Zero",
+            "name_zh": "零度可乐"
+          },
+          {
+            "id": "faxekondi",
+            "name_da": "Faxe Kondi",
+            "name_zh": "Faxe Kondi"
+          },
+          {
+            "id": "fanta",
+            "name_da": "Fanta",
+            "name_zh": "芬达"
+          },
+          {
+            "id": "pepsi",
+            "name_da": "Pepsi",
+            "name_zh": "百事可乐"
+          }
+        ]
       },
       {
         "code": "V83",
