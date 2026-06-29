@@ -1481,6 +1481,36 @@ const MENU_DATA = [
         ]
       },
       {
+        "code": "V105",
+        "id": "din_28",
+        "name_da": "Iste (lille)",
+        "name_zh": "冰红茶（小杯）",
+        "description_da": "Fersken-smag",
+        "description_zh": "桃子味",
+        "price": 39,
+        "image": "images/drikke_3.jpg"
+      },
+      {
+        "code": "V106",
+        "id": "din_29",
+        "name_da": "Iste (mellem)",
+        "name_zh": "冰红茶（中杯）",
+        "description_da": "Fersken-smag",
+        "description_zh": "桃子味",
+        "price": 49,
+        "image": "images/drikke_3.jpg"
+      },
+      {
+        "code": "V107",
+        "id": "din_30",
+        "name_da": "Iste (stor)",
+        "name_zh": "冰红茶（大杯）",
+        "description_da": "Fersken-smag",
+        "description_zh": "桃子味",
+        "price": 59,
+        "image": "images/drikke_3.jpg"
+      },
+      {
         "code": "V85",
         "id": "din_6",
         "name_da": "Limonade",
