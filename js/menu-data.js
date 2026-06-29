@@ -1537,9 +1537,25 @@ const MENU_DATA = [
       {
         "code": "V87",
         "id": "din_8",
-        "name_da": "San Pellegrino danskvand (50 cl)",
-        "name_zh": "巴黎水气泡水（50cl）",
+        "name_da": "Danskvand (lille)",
+        "name_zh": "气泡水（小杯）",
+        "price": 39,
+        "image": "images/drikke_4.webp"
+      },
+      {
+        "code": "V109",
+        "id": "din_32",
+        "name_da": "Danskvand (mellem)",
+        "name_zh": "气泡水（中杯）",
         "price": 49,
+        "image": "images/drikke_4.webp"
+      },
+      {
+        "code": "V110",
+        "id": "din_33",
+        "name_da": "Danskvand (stor)",
+        "name_zh": "气泡水（大杯）",
+        "price": 59,
         "image": "images/drikke_4.webp"
       },
       {
