@@ -1,9 +1,9 @@
 {
   "_meta": {
     "description": "PWA 菜品编号 ↔ Shopbox 产品 ID 映射表",
-    "notes": "97 个原菜品已匹配，新增 23 个可乐/堂食饮品映射（堂食可乐/零度合并为 Sodavand 并按大中小映射），8 个菜品在 Shopbox 中无对应产品（果汁、50cl 巴黎水、无酒精啤酒、冰淇淋、4 个预约菜）",
+    "notes": "97 个原菜品已匹配，新增 23 个可乐/堂食饮品映射（堂食/外卖可乐均合并为 Sodavand 并支持口味选择），8 个菜品在 Shopbox 中无对应产品（果汁、50cl 巴黎水、无酒精啤酒、冰淇淋、4 个预约菜）",
     "updated_at": "2026-06-29",
-    "total_items": 120
+    "total_items": 119
   },
   "mapping": {
     "forretter_1": {
@@ -590,14 +590,8 @@
     },
     "drikke_2": {
       "shopbox_id": "11694303",
-      "name_da": "Coca-Cola",
-      "name_zh": "可口可乐",
-      "price": 29
-    },
-    "drikke_2z": {
-      "shopbox_id": "11694303",
-      "name_da": "Coca-Cola Zero",
-      "name_zh": "零度可乐",
+      "name_da": "Sodavand",
+      "name_zh": "苏打水",
       "price": 29
     },
     "din_1": {
