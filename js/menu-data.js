@@ -1049,8 +1049,8 @@ const MENU_DATA = [
         "id": "drikke_2",
         "name_da": "Sodavand",
         "name_zh": "苏打水",
-        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi",
-        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事可乐",
+        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi Max",
+        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事极度",
         "price": 29,
         "image": "images/drikke_2.png",
         "options": [
@@ -1076,8 +1076,8 @@ const MENU_DATA = [
           },
           {
             "id": "pepsi",
-            "name_da": "Pepsi",
-            "name_zh": "百事可乐"
+            "name_da": "Pepsi Max",
+            "name_zh": "百事极度"
           }
         ]
       },
@@ -1214,8 +1214,8 @@ const MENU_DATA = [
         "id": "din_1",
         "name_da": "Sodavand (lille)",
         "name_zh": "苏打水（小杯）",
-        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi",
-        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事可乐",
+        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi Max",
+        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事极度",
         "price": 39,
         "image": "images/drikke_2.png",
         "options": [
@@ -1241,8 +1241,8 @@ const MENU_DATA = [
           },
           {
             "id": "pepsi",
-            "name_da": "Pepsi",
-            "name_zh": "百事可乐"
+            "name_da": "Pepsi Max",
+            "name_zh": "百事极度"
           }
         ]
       },
@@ -1251,8 +1251,8 @@ const MENU_DATA = [
         "id": "din_2",
         "name_da": "Sodavand (mellem)",
         "name_zh": "苏打水（中杯）",
-        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi",
-        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事可乐",
+        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi Max",
+        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事极度",
         "price": 49,
         "image": "images/drikke_2.png",
         "options": [
@@ -1278,8 +1278,8 @@ const MENU_DATA = [
           },
           {
             "id": "pepsi",
-            "name_da": "Pepsi",
-            "name_zh": "百事可乐"
+            "name_da": "Pepsi Max",
+            "name_zh": "百事极度"
           }
         ]
       },
@@ -1288,8 +1288,8 @@ const MENU_DATA = [
         "id": "din_3",
         "name_da": "Sodavand (stor)",
         "name_zh": "苏打水（大杯）",
-        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi",
-        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事可乐",
+        "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi Max",
+        "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事极度",
         "price": 59,
         "image": "images/drikke_2.png",
         "options": [
@@ -1315,8 +1315,8 @@ const MENU_DATA = [
           },
           {
             "id": "pepsi",
-            "name_da": "Pepsi",
-            "name_zh": "百事可乐"
+            "name_da": "Pepsi Max",
+            "name_zh": "百事极度"
           }
         ]
       },
