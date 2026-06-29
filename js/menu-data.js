@@ -217,12 +217,12 @@ const MENU_DATA = [
       {
         "code": "K2",
         "id": "kold_2",
-        "name_da": "Kimchi kinakål",
-        "name_zh": "辣白菜",
-        "description_da": "Stærkt krydret kinakål",
-        "price": 58,
-        "image": "images/kold_2.jpg",
-        "description_zh": "辣味，中国圆白菜"
+        "name_da": "Harbin Mix Salat",
+        "name_zh": "东北家常凉菜",
+        "description_da": "Sæsonens grøntsager og strimlet svinekød i sauce",
+        "description_zh": "时令蔬菜和肉丝拌凉菜",
+        "price": 148,
+        "image": "images/kold_2.jpg"
       },
       {
         "code": "K3",
@@ -252,15 +252,6 @@ const MENU_DATA = [
         "description_da": "",
         "price": 148,
         "image": "images/kold_5.jpg"
-      },
-      {
-        "code": "K6",
-        "id": "kold_6",
-        "name_da": "Okse-tripe salat i chili sauce",
-        "name_zh": "凉拌牛百叶",
-        "description_da": "",
-        "price": 148,
-        "image": "images/kold_6.jpg"
       }
     ]
   },
@@ -415,6 +406,16 @@ const MENU_DATA = [
         "price": 198,
         "image": "images/h_okse_8.jpg",
         "description_zh": "红咖喱汤底配椰奶、西兰花、甜椒，搭配牛肉"
+      },
+      {
+        "code": "H46",
+        "id": "h_okse_9",
+        "name_da": "Mapo Tofu (med oksekød)",
+        "name_zh": "麻婆豆腐",
+        "description_da": "Tofu med hakket oksekød i Szechuan-sauce",
+        "price": 158,
+        "image": "images/h_groent_6.jpg",
+        "description_zh": "豆腐配碎牛肉，四川风味酱"
       }
     ]
   },
@@ -619,11 +620,11 @@ const MENU_DATA = [
       {
         "code": "H33",
         "id": "h_rejer_3",
-        "name_da": "Stærk og krydret rejer med skal",
-        "name_zh": "香辣一品虾（有壳）",
-        "description_da": "Rejer med skal i stærk chilisauce",
-        "price": 198,
-        "description_zh": "带壳大虾用重辣酱汁炒制"
+        "name_da": "Sursøde Tigerrejer med Tomatsauce",
+        "name_zh": "番茄大虾（有壳）",
+        "description_da": "Tigerrejer med skal i sød-syrlig tomatsauce",
+        "description_zh": "带壳大虾搭配酸甜番茄酱",
+        "price": 198
       },
       {
         "code": "H35",
@@ -688,10 +689,29 @@ const MENU_DATA = [
         "id": "h_fisk_5",
         "name_da": "Sprødstegt fisk med sur-sød sauce (hel fisk med ben)",
         "name_zh": "松鼠鱼（有骨）",
-        "description_da": "Hel friturestegt fisk med klassisk sød-syrlig sauce",
-        "price": 268,
-        "image": "images/h_fisk_5.jpg",
-        "description_zh": "整条炸鱼，搭配经典酸甜酱汁"
+        "description_da": "Hel friturestegt fisk med klassisk sød-syrlig sauce. Dagspris",
+        "description_zh": "整条炸鱼，搭配经典酸甜酱汁。时令价格",
+        "price": 0,
+        "price_text": {
+          "da": "Dagspris",
+          "zh": "时令价格"
+        },
+        "image": "images/h_fisk_5.jpg"
+      },
+      {
+        "code": "H55",
+        "id": "h_fisk_6",
+        "name_da": "Kinesisk Braiseret Fisk",
+        "name_zh": "红烧鱼（有骨）",
+        "description_da": "Hel fisk. Skal bestilles 1 dag i forvejen",
+        "description_zh": "整鱼，需提前一天预订",
+        "price": 0,
+        "price_text": {
+          "da": "Dagspris",
+          "zh": "时令价格"
+        },
+        "lead_days": 1,
+        "image": "images/h_fisk_6.jpg"
       }
     ]
   },
@@ -701,6 +721,16 @@ const MENU_DATA = [
     "name_zh": "主菜 - 青菜",
     "discount": true,
     "items": [
+      {
+        "code": "H56",
+        "id": "h_groent_6",
+        "name_da": "Mapo Tofu (Vegetar)",
+        "name_zh": "麻婆豆腐（素食）",
+        "description_da": "Tofu i Szechuan-sauce uden kød. Vegetar",
+        "description_zh": "不含肉的四川风味豆腐，素食",
+        "price": 158,
+        "image": "images/h_groent_6.jpg"
+      },
       {
         "code": "H41",
         "id": "h_groent_1",
@@ -750,16 +780,6 @@ const MENU_DATA = [
         "price": 158,
         "image": "images/h_groent_5.jpg",
         "description_zh": "茄子配蒜香酸辣酱"
-      },
-      {
-        "code": "H46",
-        "id": "h_groent_6",
-        "name_da": "Mapo Tofu (med oksekød)",
-        "name_zh": "麻婆豆腐",
-        "description_da": "Tofu med hakket oksekød i Szechuan-sauce",
-        "price": 158,
-        "image": "images/h_groent_6.jpg",
-        "description_zh": "豆腐配碎牛肉，四川风味酱"
       },
       {
         "code": "H47",
@@ -1196,6 +1216,72 @@ const MENU_DATA = [
         "description_da": "Citronvand 50cl",
         "price": 59,
         "description_zh": "50cl装柠檬味饮料"
+      },
+      {
+        "code": "V73",
+        "id": "drikke_15",
+        "name_da": "Juice (lille)",
+        "name_zh": "果汁（小杯）",
+        "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
+        "description_zh": "请选择口味：苹果汁或橙汁",
+        "price": 39,
+        "image": "images/drikke_3.jpg",
+        "options": [
+          {
+            "id": "aeble",
+            "name_da": "Æblejuice",
+            "name_zh": "苹果汁"
+          },
+          {
+            "id": "appelsin",
+            "name_da": "Appelsinjuice",
+            "name_zh": "橙汁"
+          }
+        ]
+      },
+      {
+        "code": "V74",
+        "id": "drikke_16",
+        "name_da": "Juice (mellem)",
+        "name_zh": "果汁（中杯）",
+        "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
+        "description_zh": "请选择口味：苹果汁或橙汁",
+        "price": 49,
+        "image": "images/drikke_3.jpg",
+        "options": [
+          {
+            "id": "aeble",
+            "name_da": "Æblejuice",
+            "name_zh": "苹果汁"
+          },
+          {
+            "id": "appelsin",
+            "name_da": "Appelsinjuice",
+            "name_zh": "橙汁"
+          }
+        ]
+      },
+      {
+        "code": "V75",
+        "id": "drikke_17",
+        "name_da": "Juice (stor)",
+        "name_zh": "果汁（大杯）",
+        "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
+        "description_zh": "请选择口味：苹果汁或橙汁",
+        "price": 59,
+        "image": "images/drikke_3.jpg",
+        "options": [
+          {
+            "id": "aeble",
+            "name_da": "Æblejuice",
+            "name_zh": "苹果汁"
+          },
+          {
+            "id": "appelsin",
+            "name_da": "Appelsinjuice",
+            "name_zh": "橙汁"
+          }
+        ]
       }
     ]
   },
@@ -1331,11 +1417,68 @@ const MENU_DATA = [
       {
         "code": "V84",
         "id": "din_5",
-        "name_da": "Juice (50 cl)",
-        "name_zh": "果汁（50cl）",
-        "description_da": "Æblejuice eller appelsinjuice",
+        "name_da": "Juice (lille)",
+        "name_zh": "果汁（小杯）",
+        "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
+        "description_zh": "请选择口味：苹果汁或橙汁",
+        "price": 39,
+        "image": "images/drikke_3.jpg",
+        "options": [
+          {
+            "id": "aeble",
+            "name_da": "Æblejuice",
+            "name_zh": "苹果汁"
+          },
+          {
+            "id": "appelsin",
+            "name_da": "Appelsinjuice",
+            "name_zh": "橙汁"
+          }
+        ]
+      },
+      {
+        "code": "V103",
+        "id": "din_26",
+        "name_da": "Juice (mellem)",
+        "name_zh": "果汁（中杯）",
+        "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
+        "description_zh": "请选择口味：苹果汁或橙汁",
         "price": 49,
-        "image": "images/drikke_3.jpg"
+        "image": "images/drikke_3.jpg",
+        "options": [
+          {
+            "id": "aeble",
+            "name_da": "Æblejuice",
+            "name_zh": "苹果汁"
+          },
+          {
+            "id": "appelsin",
+            "name_da": "Appelsinjuice",
+            "name_zh": "橙汁"
+          }
+        ]
+      },
+      {
+        "code": "V104",
+        "id": "din_27",
+        "name_da": "Juice (stor)",
+        "name_zh": "果汁（大杯）",
+        "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
+        "description_zh": "请选择口味：苹果汁或橙汁",
+        "price": 59,
+        "image": "images/drikke_3.jpg",
+        "options": [
+          {
+            "id": "aeble",
+            "name_da": "Æblejuice",
+            "name_zh": "苹果汁"
+          },
+          {
+            "id": "appelsin",
+            "name_da": "Appelsinjuice",
+            "name_zh": "橙汁"
+          }
+        ]
       },
       {
         "code": "V85",

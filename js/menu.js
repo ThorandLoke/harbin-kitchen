@@ -57,11 +57,19 @@ function renderMenuItem(item, cat, lang) {
     ? `<div class="menu-item__preorder-badge">⏰ ${lang === 'zh' ? '需提前' + item.lead_days + '天' : item.lead_days + ' dag' + (item.lead_days > 1 ? 'e' : '') + ' i forvejen'}</div>`
     : '';
 
-  const priceHtml = discounted
-    ? `<span class="menu-item__price">${finalPrice} kr.</span>
-       <span class="menu-item__price-original">${item.price} kr.</span>
-       <span class="menu-item__discount-badge">-${discount} kr</span>`
-    : `<span class="menu-item__price">${item.price} kr.</span>`;
+  // Price display (supports fixed price_text, e.g. "Dagspris")
+  const priceLabel = item.price_text && item.price_text[lang]
+    ? item.price_text[lang]
+    : (item.price_text && item.price_text.da ? item.price_text.da : null);
+  const showPriceText = priceLabel && (item.price === 0 || item.price === null || item.price === undefined);
+
+  const priceHtml = showPriceText
+    ? `<span class="menu-item__price">${priceLabel}</span>`
+    : (discounted
+        ? `<span class="menu-item__price">${finalPrice} kr.</span>
+           <span class="menu-item__price-original">${item.price} kr.</span>
+           <span class="menu-item__discount-badge">-${discount} kr</span>`
+        : `<span class="menu-item__price">${item.price} kr.</span>`);
 
   const btnClass = discounted ? 'add-btn' : 'add-btn add-btn--outline';
 

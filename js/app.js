@@ -789,6 +789,12 @@ function renderCartItem(c, idx = -1) {
     : '';
   const codeTag = c.item.code ? `<span class="cart-item__code">${c.item.code}</span> ` : '';
 
+  // Price display (supports fixed price_text, e.g. "Dagspris")
+  const priceText = c.item.price_text && c.item.price_text[currentLang]
+    ? c.item.price_text[currentLang]
+    : (c.item.price_text && c.item.price_text.da ? c.item.price_text.da : null);
+  const showPriceText = priceText && (c.item.price === 0 || c.item.price === null || c.item.price === undefined);
+
   // Choose qty change handler
   const qtyHandler = (idx >= 0)
     ? `handleQtyChangeByIndex(${idx},`
@@ -801,9 +807,11 @@ function renderCartItem(c, idx = -1) {
         <div class="cart-item__name">${codeTag}${preorderTag}${name} ${optionTag}</div>
         <div class="cart-item__name-zh">${nameAlt}</div>
         <div>
-          ${discounted
-              ? `<span class="cart-item__price">${finalPrice} kr.</span><span class="cart-item__price-original">${c.item.price} kr.</span>`
-              : `<span class="cart-item__price">${c.item.price} kr.</span>`
+          ${showPriceText
+              ? `<span class="cart-item__price">${priceText}</span>`
+              : (discounted
+                  ? `<span class="cart-item__price">${finalPrice} kr.</span><span class="cart-item__price-original">${c.item.price} kr.</span>`
+                  : `<span class="cart-item__price">${c.item.price} kr.</span>`)
             }
         </div>
       </div>
@@ -812,7 +820,7 @@ function renderCartItem(c, idx = -1) {
         <span class="cart-item__qty-num">${c.qty}</span>
         <button class="qty-btn qty-btn--plus" onclick="${qtyHandler}+1)">+</button>
       </div>
-      <div class="cart-item__line-total">${lineTotal} kr.</div>
+      <div class="cart-item__line-total">${showPriceText ? priceText : lineTotal + ' kr.'}</div>
     </div>
   `;
 }
@@ -1013,14 +1021,18 @@ async function submitOrder(e) {
       const opt = c.selectedOption && c.item && c.item.options 
         ? c.item.options.find(o => o.id === c.selectedOption) 
         : null;
+      const priceInfo = calculatePrice(c.item.price, c.categoryId);
+      const hasPriceText = c.item.price_text && (c.item.price === 0 || c.item.price === null || c.item.price === undefined);
       return {
         id: c.itemId,
         code: c.item.code || '',
         name_da: c.item.name_da,
         name_zh: c.item.name_zh,
         qty: c.qty,
-        unitPrice: calculatePrice(c.item.price, c.categoryId).finalPrice,
-        lineTotal: calculatePrice(c.item.price, c.categoryId).finalPrice * c.qty,
+        unitPrice: priceInfo.finalPrice,
+        lineTotal: priceInfo.finalPrice * c.qty,
+        priceText_da: hasPriceText ? c.item.price_text.da : null,
+        priceText_zh: hasPriceText ? c.item.price_text.zh : null,
         lead_days: c.item.lead_days || 0,
         categoryType: c.category ? c.category.categoryType || 'dish' : 'dish',
         selectedOption: c.selectedOption || null,
@@ -1114,7 +1126,9 @@ function showOrderConfirmation(order) {
   order.items.forEach(i => {
     const name = da ? i.name_da : i.name_zh;
     const opt = da ? i.optionName_da : i.optionName_zh;
-    itemsList += `${i.qty}x ${name}${opt ? ' (' + opt + ')' : ''} — ${i.lineTotal} kr.<br>`;
+    const priceText = da ? i.priceText_da : i.priceText_zh;
+    const priceDisplay = priceText ? priceText : `${i.lineTotal} kr.`;
+    itemsList += `${i.qty}x ${name}${opt ? ' (' + opt + ')' : ''} — ${priceDisplay}<br>`;
   });
   details += itemsList;
 

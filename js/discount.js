@@ -37,6 +37,9 @@ function hasDiscount(categoryId) {
  * @returns {{ finalPrice: number, discount: number, hasDiscount: boolean }}
  */
 function calculatePrice(originalPrice, categoryId) {
+  if (!originalPrice && originalPrice !== 0) {
+    return { finalPrice: 0, discount: 0, hasDiscount: false };
+  }
   const discounted = hasDiscount(categoryId);
   const discount = discounted ? Math.round(originalPrice * DISCOUNT_RATE) : 0;
   const finalPrice = originalPrice - discount;

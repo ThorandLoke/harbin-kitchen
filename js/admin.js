@@ -396,7 +396,9 @@ function renderOrderCard(order) {
       const option = (item.optionName_da || item.optionName_zh)
         ? `<div style="margin-left:28px;margin-top:1px;"><span style="background:var(--color-primary);color:white;padding:1px 8px;border-radius:4px;font-size:12px;font-weight:600;">${da ? 'Smag' : '口味'}: ${optName}</span></div>`
         : '';
-      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>${option}`;
+      const priceText = da ? item.priceText_da : item.priceText_zh;
+      const priceDisplay = priceText ? priceText : `${item.lineTotal} kr.`;
+      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${priceDisplay}</span></div>${option}`;
     }).join('');
   }
   if (drinkItems.length > 0) {
@@ -408,7 +410,9 @@ function renderOrderCard(order) {
       const option = (item.optionName_da || item.optionName_zh)
         ? `<div style="margin-left:28px;margin-top:1px;"><span style="background:var(--color-primary);color:white;padding:1px 8px;border-radius:4px;font-size:12px;font-weight:600;">${da ? 'Smag' : '口味'}: ${optName}</span></div>`
         : '';
-      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${item.lineTotal} kr.</span></div>${option}`;
+      const priceText = da ? item.priceText_da : item.priceText_zh;
+      const priceDisplay = priceText ? priceText : `${item.lineTotal} kr.`;
+      return `<div class="order-card__item"><span><span class="order-card__item-qty">${item.qty}x</span> ${code}${name}</span><span>${priceDisplay}</span></div>${option}`;
     }).join('');
   }
 
