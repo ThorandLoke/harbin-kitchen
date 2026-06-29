@@ -1513,8 +1513,16 @@ const MENU_DATA = [
       {
         "code": "V85",
         "id": "din_6",
-        "name_da": "Limonade",
-        "name_zh": "柠檬水",
+        "name_da": "Limonade (mellem)",
+        "name_zh": "柠檬水（中杯）",
+        "price": 49,
+        "image": "images/drikke_3.jpg"
+      },
+      {
+        "code": "V108",
+        "id": "din_31",
+        "name_da": "Limonade (stor)",
+        "name_zh": "柠檬水（大杯）",
         "price": 59,
         "image": "images/drikke_3.jpg"
       },

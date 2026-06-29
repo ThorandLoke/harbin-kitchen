@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "PWA 菜品编号 ↔ Shopbox 产品 ID 映射表",
-    "notes": "97 个原菜品已匹配，新增 23 个可乐/堂食饮品映射（堂食/外卖可乐均合并为 Sodavand 并支持口味选择），11 个菜品在 Shopbox 中无对应产品（果汁、Iste、50cl 巴黎水、无酒精啤酒、冰淇淋、4 个预约菜）",
+    "notes": "97 个原菜品已匹配，新增 23 个可乐/堂食饮品映射（堂食/外卖可乐均合并为 Sodavand 并支持口味选择），12 个菜品在 Shopbox 中无对应产品（果汁、Iste、Limonade stor、50cl 巴黎水、无酒精啤酒、冰淇淋、4 个预约菜）",
     "updated_at": "2026-06-29",
     "total_items": 119
   },
@@ -620,9 +620,9 @@
     },
     "din_6": {
       "shopbox_id": "12168946",
-      "name_da": "Limonade",
-      "name_zh": "柠檬水",
-      "price": 59
+      "name_da": "Limonade (mellem)",
+      "name_zh": "柠檬水（中杯）",
+      "price": 49
     },
     "din_7": {
       "shopbox_id": "11694304",
