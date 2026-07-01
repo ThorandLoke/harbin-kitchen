@@ -11,7 +11,7 @@ const MENU_DATA = [
         "name_da": "Snackkurv (til 2 personer)",
         "name_zh": "前餐拼盘",
         "description_da": "2 personer, inkl. 4 mini forårsruller, 4 tempura rejer, 4 dybstegte kyllingedumplings, rejechips",
-        "price": 128,
+        "price": 148,
         "description_zh": "2人份，包含4个迷你春卷、4个天妇罗虾、4个鸡肉炸饺、虾片"
       },
       {
@@ -573,11 +573,11 @@ const MENU_DATA = [
       {
         "code": "H29",
         "id": "h_and_2",
-        "name_da": "Yuiang-sauce på jernpande",
-        "name_zh": "鱼香铁板鸭",
-        "description_da": "Jernpande-stegt and med grøntsager i sød-syrlig Yuxiang-sauce",
+        "name_da": "And i Yuiang-sauce",
+        "name_zh": "鱼香鸭",
+        "description_da": "Stegt and med grøntsager i sød-syrlig Yuxiang-sauce",
         "price": 188,
-        "description_zh": "铁板煎鸭肉搭配蔬菜，淋上酸甜微辣的鱼香酱汁"
+        "description_zh": "煎鸭肉搭配蔬菜，淋上酸甜微辣的鱼香酱汁"
       },
       {
         "code": "H30",
