@@ -993,6 +993,15 @@ const MENU_DATA = [
           }
         ],
         "description_zh": "鸡蛋、额外时令蔬菜"
+      },
+      {
+        "code": "N59",
+        "id": "h_nudler_5",
+        "name_da": "Hvid ris (1 skål)",
+        "name_zh": "白米饭（一碗）",
+        "description_da": "Duftende jasminris",
+        "price": 10,
+        "description_zh": "香米饭"
       }
     ]
   },
