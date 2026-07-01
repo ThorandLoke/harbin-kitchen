@@ -3,7 +3,7 @@ const MENU_DATA = [
     "id": "forretter",
     "name_da": "Forretter",
     "name_zh": "前菜",
-    "discount": true,
+    "discount": false,
     "items": [
       {
         "code": "F1",
@@ -106,7 +106,7 @@ const MENU_DATA = [
     "id": "dagens_suppe",
     "name_da": "Dagens Suppe",
     "name_zh": "餐前汤",
-    "discount": true,
+    "discount": false,
     "items": [
       {
         "code": "S1",
@@ -154,7 +154,7 @@ const MENU_DATA = [
     "id": "dum",
     "name_da": "Dum",
     "name_zh": "点心",
-    "discount": true,
+    "discount": false,
     "items": [
       {
         "code": "D1",
@@ -202,7 +202,7 @@ const MENU_DATA = [
     "id": "kold_rette",
     "name_da": "Kold Rette",
     "name_zh": "冷盘",
-    "discount": true,
+    "discount": false,
     "items": [
       {
         "code": "K1",

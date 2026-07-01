@@ -1,12 +1,14 @@
 /* ============================================================
    Discount Engine — Harbin Kitchen
-   Rule: 10% off TAKEAWAY ONLY, for all categories EXCEPT
-         "Sauce" (id: sauce) and "Drikkekort" (id: drikkekort)
+   Rule: 10% off TAKEAWAY ONLY, for Hovedretter (main courses) and
+         pre-order items ONLY.
+         All other categories (appetizers, soups, dim sum, cold dishes,
+         sauces, drinks) are NOT discounted.
          Dine-in: NO discount on anything
    ============================================================ */
 
 const DISCOUNT_RATE = 0.10; // 10%
-const NO_DISCOUNT_IDS = ['sauce', 'drikkekort', 'drikkekort_dinein'];
+const NO_DISCOUNT_IDS = ['sauce', 'drikkekort', 'drikkekort_dinein', 'forretter', 'dagens_suppe', 'dum', 'kold_rette'];
 
 // Order type: 'takeaway' or 'dinein'
 let orderType = localStorage.getItem('harbin_order_type') || '';
