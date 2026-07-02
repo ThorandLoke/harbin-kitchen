@@ -237,18 +237,29 @@ function formatTime(minutes) {
 }
 
 function getDefaultPickupTime(prepMinutes) {
+  // 加入 30 分钟 buffer（首次客人需要时间阅读菜单）
   const now = new Date();
-  now.setMinutes(now.getMinutes() + prepMinutes);
+  let targetMinutes = now.getHours() * 60 + now.getMinutes() + prepMinutes + 30;
   // Round up to next 5 minutes for convenience
-  const remainder = now.getMinutes() % 5;
-  if (remainder > 0) {
-    now.setMinutes(now.getMinutes() + (5 - remainder));
+  targetMinutes = Math.ceil(targetMinutes / 5) * 5;
+
+  // 限制在今日营业时间内（最早开门，最晚关门 - 30 分钟）
+  const hours = getOpeningHours(now);
+  const earliest = hours.openMinutes;
+  const latest = hours.closeMinutes - 30; // 关门前 30 分钟停止接单
+  if (targetMinutes < earliest) targetMinutes = earliest;
+  if (targetMinutes > latest) targetMinutes = latest;
+
+  // 如果已超过营业时间（关门后），推到明天的开门时间
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  if (nowMinutes >= hours.closeMinutes) {
+    // 推到明天
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return formatTime(hours.openMinutes);
   }
-  // Add small buffer and zero seconds
-  now.setSeconds(0, 0);
-  const hh = String(now.getHours()).padStart(2, '0');
-  const mm = String(now.getMinutes()).padStart(2, '0');
-  return hh + ':' + mm;
+
+  return formatTime(targetMinutes);
 }
 
 function getMinimumPickupTime(prepMinutes) {
@@ -275,20 +286,34 @@ function validatePickupTime() {
   const selectedMinutes = getMinutesFromTime(selectedTime);
   const nowMinutes = getNowMinutes();
   const diffMinutes = selectedMinutes - nowMinutes;
+  const da = currentLang === 'da';
+
+  // 营业时间校验
+  const hours = getOpeningHours(new Date());
+  const earliest = hours.openMinutes;
+  const latest = hours.closeMinutes - 30; // 关门前 30 分钟停止接单
+  const inOpeningHours = (selectedMinutes >= earliest && selectedMinutes <= latest);
+
+  if (!inOpeningHours) {
+    hint.textContent = da
+      ? `Vi har åbent kl. ${hours.open}–${hours.close}. Vælg venligst et tidspunkt inden for åbningstiden.`
+      : `我们的营业时间是 ${hours.open}–${hours.close}。请选择营业时间内的时间。`;
+    hint.style.display = '';
+    return false;
+  }
 
   if (diffMinutes < prepMinutes) {
-    const da = currentLang === 'da';
     const minTime = formatTime(nowMinutes + prepMinutes);
     hint.textContent = da
       ? `For at sikre kvaliteten kan vi desværre ikke have din bestilling klar før kl. ${minTime}. Vælg venligst et senere tidspunkt.`
       : `为保证出餐质量，我们最早可在 ${minTime} 准备好，请选择一个更晚的时间。`;
     hint.style.display = '';
     return false;
-  } else {
-    hint.style.display = 'none';
-    hint.textContent = '';
-    return true;
   }
+
+  hint.style.display = 'none';
+  hint.textContent = '';
+  return true;
 }
 
 function updateOrderTypeIndicator() {
@@ -339,7 +364,14 @@ function updateCheckoutForm() {
     document.getElementById('cust-phone').setAttribute('required', '');
     pickupGroup.style.display = '';
     pickupGroup.querySelector('.order-form__label').textContent = currentLang === 'zh' ? '预约日期' : 'Dato for afhentning';
-    document.getElementById('pickup-time').type = 'date';
+    const pickupDateInput = document.getElementById('pickup-time');
+    pickupDateInput.type = 'date';
+    const dateRange = getDateRange();
+    pickupDateInput.setAttribute('min', dateRange.min);
+    pickupDateInput.setAttribute('max', dateRange.max);
+    if (!pickupDateInput.value) {
+      pickupDateInput.value = dateRange.min;
+    }
     guestCountGroup.style.display = 'none';
     paymentHint.innerHTML = da
       ? '💳 Betal ved kassen når du afhenter — ikke online'
@@ -994,12 +1026,36 @@ async function submitOrder(e) {
     const prepTime = calculatePrepTime(enrichedCart);
     const pickupMinutes = getMinutesFromTime(pickupTime);
     const nowMinutes = getNowMinutes();
-    if (!pickupTime || (pickupMinutes - nowMinutes) < prepTime.minutes) {
-      const da = currentLang === 'da';
+    const da = currentLang === 'da';
+
+    // 营业时间校验
+    const hours = getOpeningHours(new Date());
+    const earliest = hours.openMinutes;
+    const latest = hours.closeMinutes - 30; // 关门前 30 分钟停止接单
+    if (!pickupTime || pickupMinutes < earliest || pickupMinutes > latest) {
+      document.getElementById('checkout-error').textContent = da
+        ? `Vi har åbent kl. ${hours.open}–${hours.close}. Vælg venligst et tidspunkt inden for åbningstiden.`
+        : `我们的营业时间是 ${hours.open}–${hours.close}。请选择营业时间内的时间。`;
+      return;
+    }
+
+    if ((pickupMinutes - nowMinutes) < prepTime.minutes) {
       const minTime = formatTime(nowMinutes + prepTime.minutes);
       document.getElementById('checkout-error').textContent = da
         ? `Vi kan først have din bestilling klar kl. ${minTime}. Vælg venligst et senere afhentningstidspunkt.`
         : `我们最早可在 ${minTime} 准备好，请选择更晚的取餐时间。`;
+      return;
+    }
+  }
+
+  // Validate preorder date
+  if (type === 'preorder' && pickupTime) {
+    const dateRange = getDateRange();
+    const da = currentLang === 'da';
+    if (pickupTime < dateRange.min || pickupTime > dateRange.max) {
+      document.getElementById('checkout-error').textContent = da
+        ? `Vælg en dato mellem ${dateRange.min} og ${dateRange.max}.`
+        : `请选择 ${dateRange.min} 到 ${dateRange.max} 之间的日期。`;
       return;
     }
   }

@@ -13,6 +13,7 @@
   <title>Book Bord - Harbin Kitchen</title>
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/app.css">
+  <script src="js/opening-hours.js"></script>
   <style>
     .booking-container {
       max-width: 600px;
@@ -285,19 +286,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <label>Tid <span class="required">*</span></label>
         <select id="booking-time" required>
           <option value="">Vælg tid</option>
-          <option value="11:30">11:30</option>
-          <option value="12:00">12:00</option>
-          <option value="12:30">12:30</option>
-          <option value="13:00">13:00</option>
-          <option value="17:00">17:00</option>
-          <option value="17:30">17:30</option>
-          <option value="18:00">18:00</option>
-          <option value="18:30">18:30</option>
-          <option value="19:00">19:00</option>
-          <option value="19:30">19:30</option>
-          <option value="20:00">20:00</option>
-          <option value="20:30">20:30</option>
-          <option value="21:00">21:00</option>
         </select>
       </div>
 
@@ -336,11 +324,56 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script>
-    // 设置最小日期为今天
+    // 设置日期范围：今天 ~ 30 天后
     const dateInput = document.getElementById('booking-date');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
-    dateInput.value = today;
+    const timeSelect = document.getElementById('booking-time');
+    const dateRange = getDateRange();
+    dateInput.setAttribute('min', dateRange.min);
+    dateInput.setAttribute('max', dateRange.max);
+    dateInput.value = dateRange.min;
+
+    // 根据所选日期生成可选时间槽
+    function refreshTimeSlots() {
+      const dateVal = dateInput.value;
+      if (!dateVal) return;
+      const hours = getOpeningHours(dateVal);
+      const slots = generateTimeSlots(dateVal, 30); // 客人需要时间阅读菜单，30 分钟 buffer
+
+      // 保存当前选中值
+      const currentVal = timeSelect.value;
+      timeSelect.innerHTML = '<option value="">Vælg tid</option>';
+
+      let availableCount = 0;
+      slots.forEach(slot => {
+        const opt = document.createElement('option');
+        opt.value = slot.value;
+        opt.textContent = slot.label;
+        if (slot.disabled) {
+          opt.disabled = true;
+        } else {
+          availableCount++;
+        }
+        timeSelect.appendChild(opt);
+      });
+
+      // 如果所有时间槽都不可用，提示用户
+      if (availableCount === 0) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = 'Ingen ledige tider i dag — vælg en anden dato';
+        opt.disabled = true;
+        opt.selected = true;
+        timeSelect.appendChild(opt);
+      }
+
+      // 恢复之前选中的值（如果仍可用）
+      if (currentVal) {
+        timeSelect.value = currentVal;
+      }
+    }
+
+    dateInput.addEventListener('change', refreshTimeSlots);
+    refreshTimeSlots();
 
     // 手机端：始终显示底部悬浮按钮
     const floatingSubmit = document.getElementById('floating-submit');
