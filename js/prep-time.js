@@ -3,12 +3,12 @@
    根据菜品复杂度动态计算预计制作时间
 
    公式: 预计时间 = 基础时间(10min) + 瓶颈菜品时间 + ceil(其余菜品数/2) x 4min
-   规则: 最低 20 分钟, 最高 50 分钟, 超过 35 分钟建议电话确认
+   规则: 最低 30 分钟, 最高 50 分钟, 超过 35 分钟建议电话确认
    ============================================================ */
 
 const PREP_BASE_TIME = 10;
 const PREP_INCREMENTAL_TIME = 4;
-const PREP_MIN_TIME = 20;
+const PREP_MIN_TIME = 30;
 const PREP_MAX_TIME = 50;
 const PREP_PHONE_CONFIRM_THRESHOLD = 35;
 
