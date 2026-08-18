@@ -373,7 +373,7 @@ const MENU_DATA = [
         "name_da": "Oksekød i stærk Szechuan-sauce",
         "name_zh": "水煮牛肉",
         "description_da": "Kogt oksekød med kinakål, overhældt med speciel Szechuan chilisauce",
-        "price": 188,
+        "price": 198,
         "image": "images/h_okse_5.jpg",
         "description_zh": "熟牛肉配大白菜，浇淋特制川味辣酱"
       },
