@@ -12,6 +12,7 @@ const MENU_DATA = [
         "name_zh": "前餐拼盘",
         "description_da": "2 personer, inkl. 4 mini forårsruller, 4 tempura rejer, 4 dybstegte kyllingedumplings, rejechips",
         "price": 148,
+        "image": "images/forretter_0.jpg",
         "description_zh": "2人份，包含4个迷你春卷、4个天妇罗虾、4个鸡肉炸饺、虾片"
       },
       {
@@ -173,7 +174,7 @@ const MENU_DATA = [
         "name_zh": "烧卖4个",
         "description_da": "Dampede dumplings med svinekød og svampe",
         "price": 58,
-        "image": "images/dum_2.png",
+        "image": "images/dum_2.jpg",
         "description_zh": "猪肉和蘑菇馅的蒸饺"
       },
       {
@@ -288,6 +289,7 @@ const MENU_DATA = [
         "name_zh": "甜酸鸡",
         "description_da": "Kylling, peberfrugt og ananas i sød-syrlig sauce",
         "price": 168,
+        "image": "images/h_kylling_3.jpg",
         "description_zh": "鸡肉、彩椒和菠萝搭配甜酸酱汁"
       },
       {
@@ -540,6 +542,7 @@ const MENU_DATA = [
         "name_zh": "湘西羊肉",
         "description_da": "Lam med selleri, koriander og tørret chili",
         "price": 198,
+        "image": "images/h_lam_2.jpg",
         "description_zh": "羊肉搭配芹菜、香菜和干辣椒"
       },
       {
@@ -577,6 +580,7 @@ const MENU_DATA = [
         "name_zh": "鱼香鸭",
         "description_da": "Stegt and med grøntsager i sød-syrlig Yuxiang-sauce",
         "price": 188,
+        "image": "images/h_and_2.jpg",
         "description_zh": "煎鸭肉搭配蔬菜，淋上酸甜微辣的鱼香酱汁"
       },
       {
@@ -624,7 +628,8 @@ const MENU_DATA = [
         "name_zh": "番茄大虾（有壳）",
         "description_da": "Tigerrejer med skal i sød-syrlig tomatsauce",
         "description_zh": "带壳大虾搭配酸甜番茄酱",
-        "price": 198
+        "price": 198,
+        "image": "images/h_rejer_3.jpg"
       },
       {
         "code": "H35",
@@ -848,6 +853,7 @@ const MENU_DATA = [
         "name_zh": "香菇扒菜胆",
         "description_da": "Wokstegt babypak choi med shiitakesvampe",
         "price": 148,
+        "image": "images/h_groent_13.jpg",
         "description_zh": "炒小白菜，搭配香菇"
       },
       {
@@ -857,7 +863,7 @@ const MENU_DATA = [
         "name_zh": "清炒油菜",
         "description_da": "Lynstegt babypak choi med hvidløg",
         "price": 98,
-        "image": "images/h_groent_14.png",
+        "image": "images/h_groent_14.jpg",
         "description_zh": "快炒小白菜，搭配大蒜"
       }
     ]
@@ -939,6 +945,7 @@ const MENU_DATA = [
         "name_zh": "大虾炒面/饭/乌冬/河粉",
         "description_da": "Rejer, æg og grøntsager",
         "price": 138,
+        "image": "images/h_nudler_3.jpg",
         "options": [
           {
             "id": "noodle",
@@ -970,6 +977,7 @@ const MENU_DATA = [
         "name_zh": "素炒面/饭/乌冬/河粉",
         "description_da": "Æg og ekstra sæsongrøntsager",
         "price": 128,
+        "image": "images/h_nudler_4.jpg",
         "options": [
           {
             "id": "noodle",
@@ -1081,7 +1089,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi Max",
         "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事极度",
         "price": 29,
-        "image": "images/drikke_2.png",
+        "image": "images/drikke_2.jpg",
         "options": [
           {
             "id": "cola",
@@ -1137,7 +1145,7 @@ const MENU_DATA = [
         "name_zh": "嘉士伯啤酒",
         "description_da": "Dansk øl",
         "price": 39,
-        "image": "images/drikke_5.webp",
+        "image": "images/drikke_5.jpg",
         "description_zh": "丹麦产啤酒"
       },
       {
@@ -1187,6 +1195,7 @@ const MENU_DATA = [
         "name_zh": "红酒 (瓶)",
         "description_da": "Rødvin, solgt pr. flaske",
         "price": 219,
+        "image": "images/drikke_10.jpg",
         "description_zh": "红葡萄酒，整瓶出售"
       },
       {
@@ -1206,6 +1215,7 @@ const MENU_DATA = [
         "name_zh": "白葡萄酒 (瓶)",
         "description_da": "Hvidvin, solgt pr. flaske",
         "price": 219,
+        "image": "images/drikke_12.jpg",
         "description_zh": "白葡萄酒，整瓶出售"
       },
       {
@@ -1215,6 +1225,7 @@ const MENU_DATA = [
         "name_zh": "气泡水",
         "description_da": "Danskvand 50cl",
         "price": 49,
+        "image": "images/drikke_13.jpg",
         "description_zh": "50cl装丹麦产气泡水"
       },
       {
@@ -1224,6 +1235,7 @@ const MENU_DATA = [
         "name_zh": "柠檬水",
         "description_da": "Citronvand 50cl",
         "price": 59,
+        "image": "images/drikke_14.jpg",
         "description_zh": "50cl装柠檬味饮料"
       },
       {
@@ -1234,7 +1246,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
         "description_zh": "请选择口味：苹果汁或橙汁",
         "price": 39,
-        "image": "images/drikke_3.jpg",
+        "image": "images/drikke_18.jpg",
         "options": [
           {
             "id": "aeble",
@@ -1256,7 +1268,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
         "description_zh": "请选择口味：苹果汁或橙汁",
         "price": 49,
-        "image": "images/drikke_3.jpg",
+        "image": "images/drikke_18.jpg",
         "options": [
           {
             "id": "aeble",
@@ -1278,7 +1290,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
         "description_zh": "请选择口味：苹果汁或橙汁",
         "price": 59,
-        "image": "images/drikke_3.jpg",
+        "image": "images/drikke_18.jpg",
         "options": [
           {
             "id": "aeble",
@@ -1312,7 +1324,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi Max",
         "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事极度",
         "price": 39,
-        "image": "images/drikke_2.png",
+        "image": "images/drikke_2.jpg",
         "options": [
           {
             "id": "cola",
@@ -1349,7 +1361,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi Max",
         "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事极度",
         "price": 49,
-        "image": "images/drikke_2.png",
+        "image": "images/drikke_2.jpg",
         "options": [
           {
             "id": "cola",
@@ -1386,7 +1398,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Coca-Cola, Coca-Cola Zero, Faxe Kondi, Fanta eller Pepsi Max",
         "description_zh": "请选择口味：可口可乐、零度可乐、Faxe Kondi、芬达或百事极度",
         "price": 59,
-        "image": "images/drikke_2.png",
+        "image": "images/drikke_2.jpg",
         "options": [
           {
             "id": "cola",
@@ -1431,7 +1443,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
         "description_zh": "请选择口味：苹果汁或橙汁",
         "price": 39,
-        "image": "images/drikke_3.jpg",
+        "image": "images/drikke_18.jpg",
         "options": [
           {
             "id": "aeble",
@@ -1453,7 +1465,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
         "description_zh": "请选择口味：苹果汁或橙汁",
         "price": 49,
-        "image": "images/drikke_3.jpg",
+        "image": "images/drikke_18.jpg",
         "options": [
           {
             "id": "aeble",
@@ -1475,7 +1487,7 @@ const MENU_DATA = [
         "description_da": "Vælg smag: Æblejuice eller Appelsinjuice",
         "description_zh": "请选择口味：苹果汁或橙汁",
         "price": 59,
-        "image": "images/drikke_3.jpg",
+        "image": "images/drikke_18.jpg",
         "options": [
           {
             "id": "aeble",
@@ -1497,7 +1509,7 @@ const MENU_DATA = [
         "description_da": "Fersken-smag",
         "description_zh": "桃子味",
         "price": 39,
-        "image": "images/drikke_3.jpg"
+        "image": "images/drikke_19.jpg"
       },
       {
         "code": "V106",
@@ -1507,7 +1519,7 @@ const MENU_DATA = [
         "description_da": "Fersken-smag",
         "description_zh": "桃子味",
         "price": 49,
-        "image": "images/drikke_3.jpg"
+        "image": "images/drikke_19.jpg"
       },
       {
         "code": "V107",
@@ -1517,7 +1529,7 @@ const MENU_DATA = [
         "description_da": "Fersken-smag",
         "description_zh": "桃子味",
         "price": 59,
-        "image": "images/drikke_3.jpg"
+        "image": "images/drikke_19.jpg"
       },
       {
         "code": "V85",
@@ -1525,7 +1537,7 @@ const MENU_DATA = [
         "name_da": "Limonade (mellem)",
         "name_zh": "柠檬水（中杯）",
         "price": 49,
-        "image": "images/drikke_3.jpg"
+        "image": "images/drikke_14.jpg"
       },
       {
         "code": "V108",
@@ -1533,7 +1545,7 @@ const MENU_DATA = [
         "name_da": "Limonade (stor)",
         "name_zh": "柠檬水（大杯）",
         "price": 59,
-        "image": "images/drikke_3.jpg"
+        "image": "images/drikke_14.jpg"
       },
       {
         "code": "V86",
@@ -1549,7 +1561,7 @@ const MENU_DATA = [
         "name_da": "Danskvand (lille)",
         "name_zh": "气泡水（小杯）",
         "price": 39,
-        "image": "images/drikke_4.webp"
+        "image": "images/drikke_13.jpg"
       },
       {
         "code": "V109",
@@ -1557,7 +1569,7 @@ const MENU_DATA = [
         "name_da": "Danskvand (mellem)",
         "name_zh": "气泡水（中杯）",
         "price": 49,
-        "image": "images/drikke_4.webp"
+        "image": "images/drikke_13.jpg"
       },
       {
         "code": "V110",
@@ -1565,7 +1577,7 @@ const MENU_DATA = [
         "name_da": "Danskvand (stor)",
         "name_zh": "气泡水（大杯）",
         "price": 59,
-        "image": "images/drikke_4.webp"
+        "image": "images/drikke_13.jpg"
       },
       {
         "code": "V88",
@@ -1643,7 +1655,7 @@ const MENU_DATA = [
         "name_da": "Tuborg Classic (33 cl)",
         "name_zh": "图堡经典啤酒",
         "price": 39,
-        "image": "images/drikke_5.webp"
+        "image": "images/drikke_20.jpg"
       },
       {
         "code": "V92",
@@ -1651,7 +1663,7 @@ const MENU_DATA = [
         "name_da": "Tuborg Grøn (33 cl)",
         "name_zh": "图堡绿标啤酒",
         "price": 39,
-        "image": "images/drikke_5.webp"
+        "image": "images/drikke_21.jpg"
       },
       {
         "code": "V93",
@@ -1659,7 +1671,7 @@ const MENU_DATA = [
         "name_da": "Carlsberg (33 cl)",
         "name_zh": "嘉士伯啤酒",
         "price": 39,
-        "image": "images/drikke_5.webp"
+        "image": "images/drikke_5.jpg"
       },
       {
         "code": "V94",
@@ -1667,7 +1679,7 @@ const MENU_DATA = [
         "name_da": "Carlsberg Alkoholfri (33 cl)",
         "name_zh": "嘉士伯无酒精啤酒",
         "price": 39,
-        "image": "images/drikke_5.webp"
+        "image": "images/drikke_22.jpg"
       },
       {
         "code": "V95",
@@ -1708,7 +1720,7 @@ const MENU_DATA = [
         "name_da": "Rødvin (flaske)",
         "name_zh": "红酒（瓶）",
         "price": 249,
-        "image": "images/drikke_9.webp"
+        "image": "images/drikke_10.jpg"
       },
       {
         "code": "V99",
@@ -1724,7 +1736,7 @@ const MENU_DATA = [
         "name_da": "Hvidvin (flaske)",
         "name_zh": "白葡萄酒（瓶）",
         "price": 249,
-        "image": "images/drikke_11.webp"
+        "image": "images/drikke_12.jpg"
       },
       {
         "code": "V100",
@@ -1732,7 +1744,7 @@ const MENU_DATA = [
         "name_da": "Kaffe",
         "name_zh": "咖啡",
         "price": 39,
-        "image": "images/drikke_3.jpg"
+        "image": "images/drikke_15.jpg"
       },
       {
         "code": "V101",
@@ -1740,7 +1752,7 @@ const MENU_DATA = [
         "name_da": "Te",
         "name_zh": "茶",
         "price": 39,
-        "image": "images/drikke_1.jpg"
+        "image": "images/drikke_16.jpg"
       },
       {
         "code": "V102",
@@ -1749,7 +1761,7 @@ const MENU_DATA = [
         "name_zh": "冰淇淋（3球）",
         "description_da": "Vanilje, chokolade og jordbær",
         "price": 49,
-        "image": "images/drikke_3.jpg"
+        "image": "images/drikke_17.jpg"
       }
     ]
   },
