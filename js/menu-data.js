@@ -11,7 +11,7 @@ const MENU_DATA = [
         "name_da": "Snackkurv (til 2 personer)",
         "name_zh": "前餐拼盘",
         "description_da": "2 personer, inkl. 4 mini forårsruller, 4 tempura rejer, 4 dybstegte kyllingedumplings, rejechips",
-        "price": 148,
+        "price": 138,
         "image": "images/forretter_0.jpg",
         "description_zh": "2人份，包含4个迷你春卷、4个天妇罗虾、4个鸡肉炸饺、虾片"
       },
@@ -98,7 +98,7 @@ const MENU_DATA = [
         "name_da": "Rejer Chips",
         "name_zh": "虾片",
         "description_da": "",
-        "price": 18,
+        "price": 25,
         "image": "images/forretter_10.jpg"
       }
     ]
@@ -216,16 +216,6 @@ const MENU_DATA = [
         "description_zh": "毛豆用特制中国酒烹制"
       },
       {
-        "code": "K2",
-        "id": "kold_2",
-        "name_da": "Harbin Mix Salat",
-        "name_zh": "东北家常凉菜",
-        "description_da": "Sæsonens grøntsager og strimlet svinekød i sauce",
-        "description_zh": "时令蔬菜和肉丝拌凉菜",
-        "price": 148,
-        "image": "images/kold_2.jpg"
-      },
-      {
         "code": "K3",
         "id": "kold_3",
         "name_da": "Agurk strimler med citron sauce",
@@ -286,7 +276,7 @@ const MENU_DATA = [
         "code": "H3",
         "id": "h_kylling_3",
         "name_da": "Kylling i sur sød sauce",
-        "name_zh": "甜酸鸡",
+        "name_zh": "酸甜鸡",
         "description_da": "Kylling, peberfrugt og ananas i sød-syrlig sauce",
         "price": 168,
         "image": "images/h_kylling_3.jpg",
@@ -295,7 +285,7 @@ const MENU_DATA = [
       {
         "code": "H4",
         "id": "h_kylling_4",
-        "name_da": "Kylling a la Harbin",
+        "name_da": "Lazzi kylling",
         "name_zh": "哈尔滨辣子鸡",
         "description_da": "Krydret og aromatisk, kyllingebryst med tørret chili",
         "price": 168,
@@ -343,11 +333,11 @@ const MENU_DATA = [
       {
         "code": "H8",
         "id": "h_okse_2",
-        "name_da": "Oksekød i sort peber sauce på jernfad",
-        "name_zh": "铁板黑椒牛肉",
-        "description_da": "Wokstegt oksekød, peberfrugt, løg i sort pebersauce, serveret på jernfad",
+        "name_da": "Oksekød i sort peber sauce",
+        "name_zh": "黑椒牛肉",
+        "description_da": "Wokstegt oksekød, peberfrugt, løg i sort pebersauce",
         "price": 188,
-        "description_zh": "炒牛肉、甜椒、洋葱，搭配黑椒酱，铁板盛装"
+        "description_zh": "炒牛肉、甜椒、洋葱，搭配黑椒酱"
       },
       {
         "code": "H9",
@@ -362,12 +352,12 @@ const MENU_DATA = [
       {
         "code": "H10",
         "id": "h_okse_4",
-        "name_da": "Oksekød i gylden suppe",
-        "name_zh": "金汤肥牛",
-        "description_da": "Oksekød i gylden bouillon med agurk, broccoli og enokisvamp",
+        "name_da": "Tofu med hakket oksekød i Szechuan-sauce",
+        "name_zh": "麻婆豆腐",
+        "description_da": "Blødt tofu med hakket oksekød i krydret Szechuan-sauce",
         "price": 208,
-        "image": "images/h_okse_4.jpg",
-        "description_zh": "牛肉裹在金汤底中，搭配黄瓜、西兰花、金针菇"
+        "image": "images/h_groent_6.jpg",
+        "description_zh": "软嫩豆腐搭配碎牛肉，香辣四川酱汁"
       },
       {
         "code": "H11",
@@ -408,16 +398,6 @@ const MENU_DATA = [
         "price": 198,
         "image": "images/h_okse_8.jpg",
         "description_zh": "红咖喱汤底配椰奶、西兰花、甜椒，搭配牛肉"
-      },
-      {
-        "code": "H46",
-        "id": "h_okse_9",
-        "name_da": "Mapo Tofu (med oksekød)",
-        "name_zh": "麻婆豆腐",
-        "description_da": "Tofu med hakket oksekød i Szechuan-sauce",
-        "price": 158,
-        "image": "images/h_groent_6.jpg",
-        "description_zh": "豆腐配碎牛肉，四川风味酱"
       }
     ]
   },
@@ -460,7 +440,7 @@ const MENU_DATA = [
       {
         "code": "H18",
         "id": "h_svine_4",
-        "name_da": "Svinekød i sur sød sauce",
+        "name_da": "Svinekød i Sur Sød Sauce",
         "name_zh": "菠萝咕咾肉",
         "description_da": "Friturestegt svinekød med ananas og grøn peberfrugt i sød-syrlig sauce",
         "price": 188,
@@ -483,7 +463,7 @@ const MENU_DATA = [
         "name_da": "Harbin-style dobbeltstegt svinekød",
         "name_zh": "哈香回锅肉",
         "description_da": "Wokstegt svinebryst med grøn peberfrugt og løg",
-        "price": 188,
+        "price": 178,
         "image": "images/h_svine_6.jpg",
         "description_zh": "炒猪肉胸肉搭配绿甜椒和洋葱"
       },
@@ -493,7 +473,7 @@ const MENU_DATA = [
         "name_da": "Sprødt fristurestegt svinekød",
         "name_zh": "溜肉段",
         "description_da": "Friturestegte svinekødsbidder med grøn peberfrugt",
-        "price": 178,
+        "price": 188,
         "image": "images/h_svine_7.jpg",
         "description_zh": "炸猪肉块搭配绿甜椒"
       },
@@ -692,31 +672,13 @@ const MENU_DATA = [
       {
         "code": "H40",
         "id": "h_fisk_5",
-        "name_da": "Sprødstegt fisk med sur-sød sauce (hel fisk med ben)",
+        "name_da": "Sprødstegt Fisk med Sur-Sød Sauce (hel fisk med ben)",
         "name_zh": "松鼠鱼（有骨）",
-        "description_da": "Hel friturestegt fisk med klassisk sød-syrlig sauce. Dagspris",
-        "description_zh": "整条炸鱼，搭配经典酸甜酱汁。时令价格",
-        "price": 0,
-        "price_text": {
-          "da": "Dagspris",
-          "zh": "时令价格"
-        },
-        "image": "images/h_fisk_5.jpg"
-      },
-      {
-        "code": "H55",
-        "id": "h_fisk_6",
-        "name_da": "Kinesisk Braiseret Fisk",
-        "name_zh": "红烧鱼（有骨）",
-        "description_da": "Hel fisk. Tilberedelse tager lang tid - forudbestilling anbefales",
-        "description_zh": "整鱼，制作时间较长，建议提前预定",
-        "price": 0,
-        "price_text": {
-          "da": "Dagspris",
-          "zh": "时令价格"
-        },
-        "lead_days": 1,
-        "image": "images/h_fisk_6.jpg"
+        "description_da": "Hel fisk. (Skal forudbestilles en dag i forveien!)",
+        "price": 298,
+        "image": "images/h_fisk_5.jpg",
+        "description_zh": "整条鱼，需提前一天预定！",
+        "lead_days": 1
       }
     ]
   },
@@ -726,16 +688,6 @@ const MENU_DATA = [
     "name_zh": "主菜 - 青菜",
     "discount": true,
     "items": [
-      {
-        "code": "H56",
-        "id": "h_groent_6",
-        "name_da": "Mapo Tofu (Vegetar)",
-        "name_zh": "麻婆豆腐（素食）",
-        "description_da": "Tofu i Szechuan-sauce uden kød. Vegetar",
-        "description_zh": "不含肉的四川风味豆腐，素食",
-        "price": 158,
-        "image": "images/h_groent_6.jpg"
-      },
       {
         "code": "H41",
         "id": "h_groent_1",
@@ -769,7 +721,7 @@ const MENU_DATA = [
       {
         "code": "H44",
         "id": "h_groent_4",
-        "name_da": "Di San Xian (Earth's Three Delights)",
+        "name_da": "Di San Xian",
         "name_zh": "地三鲜",
         "description_da": "Friturestegt aubergine, kartoffel og grøn peberfrugt",
         "price": 158,
@@ -779,12 +731,22 @@ const MENU_DATA = [
       {
         "code": "H45",
         "id": "h_groent_5",
-        "name_da": "Sichuan-braiseret aubergine med hvidløgssauce (Vegetar)",
-        "name_zh": "鱼香茄子",
-        "description_da": "Aubergine i hvidløgs-chilisauce",
+        "name_da": "Sichuan-braiseret aubergine med hvidløgssauce",
+        "name_zh": "鱼香茄子（肉丝）",
+        "description_da": "Aubergine og strimlet svinekød i hvidløgs-chilisauce",
         "price": 158,
         "image": "images/h_groent_5.jpg",
-        "description_zh": "茄子配蒜香酸辣酱"
+        "description_zh": "茄子配猪肉丝，蒜香酸辣酱"
+      },
+      {
+        "code": "H46",
+        "id": "h_okse_9",
+        "name_da": "Mapo Tofu (V)",
+        "name_zh": "麻婆豆腐（素食）",
+        "description_da": "Tofu i Szechuan-sauce uden kød. Vegetar",
+        "price": 158,
+        "image": "images/h_groent_6.jpg",
+        "description_zh": "不含肉的四川风味豆腐，素食"
       },
       {
         "code": "H47",
@@ -815,16 +777,6 @@ const MENU_DATA = [
         "price": 138,
         "image": "images/h_groent_9.jpg",
         "description_zh": "中火炒圆白菜，搭配大蒜、黑醋和干辣椒"
-      },
-      {
-        "code": "H50",
-        "id": "h_groent_10",
-        "name_da": "Kinakål i gylden suppe (Vegetar)",
-        "name_zh": "金汤奶白菜",
-        "description_da": "Babypak choi med sorte svampe i gylden bouillon",
-        "price": 158,
-        "image": "images/h_groent_10.jpg",
-        "description_zh": "奶白菜搭配黑木耳，淋金汤"
       },
       {
         "code": "H51",
@@ -1007,9 +959,9 @@ const MENU_DATA = [
         "id": "h_nudler_5",
         "name_da": "Hvid ris (1 skål)",
         "name_zh": "白米饭（一碗）",
-        "description_da": "Duftende jasminris",
+        "description_da": "Hver hovedret inkluderer en skål ris. Hvis du ønsker mere ris, bedes du bestille det.",
         "price": 10,
-        "description_zh": "香米饭"
+        "description_zh": "每份主菜包含一碗米饭。如需加米饭，请另行点单。"
       }
     ]
   },
@@ -1025,7 +977,7 @@ const MENU_DATA = [
         "name_da": "Chili olie",
         "name_zh": "油泼辣椒",
         "description_da": "Klassisk kinesisk chiliolie, velegnet til nudler og kolde retter",
-        "price": 25,
+        "price": 10,
         "image": "images/sauce_1.jpg",
         "description_zh": "经典中式油泼辣酱，适合搭配面食、凉菜等"
       },
@@ -1035,7 +987,7 @@ const MENU_DATA = [
         "name_da": "Sød og sur sauce",
         "name_zh": "酸甜酱",
         "description_da": "Klassisk sød-syrlig dipsauce, velegnet til friturestegte retter og snacks",
-        "price": 25,
+        "price": 10,
         "image": "images/sauce_2.jpg",
         "description_zh": "酸甜口经典蘸酱，适配炸物、小食等"
       },
@@ -1045,19 +997,19 @@ const MENU_DATA = [
         "name_da": "Dumpling dip",
         "name_zh": "饺子醋",
         "description_da": "Speciel eddike-dipsauce til dumplings",
-        "price": 15,
+        "price": 10,
         "image": "images/sauce_3.jpg",
         "description_zh": "饺子专用蘸醋，适合搭配各类饺子、蒸饺"
       },
       {
-        "code": "S60",
-        "id": "sauce_6",
-        "name_da": "Sriracha",
-        "name_zh": "泰式是拉差辣酱",
-        "description_da": "Klassisk thailandsk chilisauce, syrlig og stærk",
-        "price": 15,
-        "image": "images/sauce_6.jpg",
-        "description_zh": "泰式经典辣酱，酸辣鲜香"
+        "code": "S58",
+        "id": "sauce_4",
+        "name_da": "Chilimayo",
+        "name_zh": "辣味蛋黄酱",
+        "description_da": "Krydret mayonnaise-sauce, velegnet til friturestegte retter",
+        "description_zh": "辣味与蛋黄酱融合的酱料，适合搭配炸鸡、汉堡等",
+        "price": 10,
+        "image": "images/sauce_4.jpg"
       }
     ]
   },
@@ -1194,7 +1146,7 @@ const MENU_DATA = [
         "name_da": "Rødvin (flaske)",
         "name_zh": "红酒 (瓶)",
         "description_da": "Rødvin, solgt pr. flaske",
-        "price": 219,
+        "price": 249,
         "image": "images/drikke_10.jpg",
         "description_zh": "红葡萄酒，整瓶出售"
       },
@@ -1214,7 +1166,7 @@ const MENU_DATA = [
         "name_da": "Hvidvin (flaske)",
         "name_zh": "白葡萄酒 (瓶)",
         "description_da": "Hvidvin, solgt pr. flaske",
-        "price": 219,
+        "price": 249,
         "image": "images/drikke_12.jpg",
         "description_zh": "白葡萄酒，整瓶出售"
       },
@@ -1234,7 +1186,7 @@ const MENU_DATA = [
         "name_da": "Lemonade 50cl",
         "name_zh": "柠檬水",
         "description_da": "Citronvand 50cl",
-        "price": 59,
+        "price": 49,
         "image": "images/drikke_14.jpg",
         "description_zh": "50cl装柠檬味饮料"
       },
@@ -1303,6 +1255,16 @@ const MENU_DATA = [
             "name_zh": "橙汁"
           }
         ]
+      },
+      {
+        "code": "V76",
+        "id": "drikke_18",
+        "name_da": "Lemonade 75cl",
+        "name_zh": "柠檬水 75cl",
+        "description_da": "Citronvand 75cl",
+        "description_zh": "75cl装柠檬味饮料",
+        "price": 59,
+        "image": "images/drikke_14.jpg"
       }
     ]
   },
@@ -1550,8 +1512,8 @@ const MENU_DATA = [
       {
         "code": "V86",
         "id": "din_7",
-        "name_da": "Isvand (50 cl)",
-        "name_zh": "冰水（50cl）",
+        "name_da": "Isvand (Per person.)",
+        "name_zh": "冰水（每位）",
         "price": 29,
         "image": "images/drikke_3.jpg"
       },
@@ -1749,8 +1711,8 @@ const MENU_DATA = [
       {
         "code": "V101",
         "id": "din_24",
-        "name_da": "Te",
-        "name_zh": "茶",
+        "name_da": "Varm jasminte",
+        "name_zh": "热茉莉花茶",
         "price": 39,
         "image": "images/drikke_16.jpg"
       },
