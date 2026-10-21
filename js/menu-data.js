@@ -355,7 +355,7 @@ const MENU_DATA = [
         "name_da": "Tofu med hakket oksekød i Szechuan-sauce",
         "name_zh": "麻婆豆腐",
         "description_da": "Blødt tofu med hakket oksekød i krydret Szechuan-sauce",
-        "price": 208,
+        "price": 158,
         "image": "images/h_groent_6.jpg",
         "description_zh": "软嫩豆腐搭配碎牛肉，香辣四川酱汁"
       },
@@ -814,7 +814,7 @@ const MENU_DATA = [
         "name_da": "Lynstegt Pak Choi (Vegetar)",
         "name_zh": "清炒油菜",
         "description_da": "Lynstegt babypak choi med hvidløg",
-        "price": 98,
+        "price": 108,
         "image": "images/h_groent_14.jpg",
         "description_zh": "快炒小白菜，搭配大蒜"
       }
