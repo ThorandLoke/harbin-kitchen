@@ -337,6 +337,7 @@ const MENU_DATA = [
         "name_zh": "黑椒牛肉",
         "description_da": "Wokstegt oksekød, peberfrugt, løg i sort pebersauce",
         "price": 188,
+        "image": "images/h_okse_2.jpg",
         "description_zh": "炒牛肉、甜椒、洋葱，搭配黑椒酱"
       },
       {
