@@ -280,9 +280,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <option value="6">6 personer</option>
             <option value="7">7 personer</option>
             <option value="8">8 personer</option>
-            <option value="9">9+ personer</option>
-            <option value="10">10+ personer</option>
+            <option value="9">9 personer</option>
+            <option value="10">10 personer</option>
+            <option value="more">Flere end 10 — skriv antal</option>
           </select>
+        </div>
+
+        <div class="form-group" id="custom-guests-group" style="display:none;">
+          <label>Antal personer <span class="required">*</span></label>
+          <input type="number" id="booking-guests-custom" min="11" max="200" placeholder="f.eks. 15">
         </div>
 
         <div class="form-group">
@@ -336,6 +342,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // 设置日期范围：今天 ~ 30 天后
     const dateInput = document.getElementById('booking-date');
     const timeSelect = document.getElementById('booking-time');
+    const guestsSelect = document.getElementById('booking-guests');
+    const customGuestsGroup = document.getElementById('custom-guests-group');
+    const customGuestsInput = document.getElementById('booking-guests-custom');
+
+    // 团体人数：选「Flere end 10」时显示自定义输入框
+    guestsSelect.addEventListener('change', () => {
+      if (guestsSelect.value === 'more') {
+        customGuestsGroup.style.display = 'block';
+      } else {
+        customGuestsGroup.style.display = 'none';
+        customGuestsInput.value = '';
+      }
+    });
     const dateRange = getDateRange();
     dateInput.setAttribute('min', dateRange.min);
     dateInput.setAttribute('max', dateRange.max);
@@ -415,10 +434,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       floatingBtn.disabled = true;
       
       // 收集表单数据
+      const guestsVal = guestsSelect.value === 'more'
+        ? parseInt(customGuestsInput.value, 10)
+        : parseInt(guestsSelect.value, 10);
       const booking = {
         name: document.getElementById('booking-name').value.trim(),
         phone: document.getElementById('booking-phone').value.trim(),
-        guests: parseInt(document.getElementById('booking-guests').value),
+        guests: guestsVal,
         date: document.getElementById('booking-date').value,
         time: document.getElementById('booking-time').value,
         notes: document.getElementById('booking-notes').value.trim()
@@ -427,6 +449,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       // 验证
       if (!booking.name || !booking.phone || !booking.guests || !booking.date || !booking.time) {
         errorMsg.textContent = '❌ Udfyld alle påkrævede felter';
+        errorMsg.classList.add('show');
+        return;
+      }
+
+      // 验证人数范围（1-200）
+      if (booking.guests < 1 || booking.guests > 200) {
+        errorMsg.textContent = '❌ Indtast et gyldigt antal gæster (1-200)';
         errorMsg.classList.add('show');
         return;
       }
