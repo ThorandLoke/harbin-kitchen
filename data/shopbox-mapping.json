@@ -84,12 +84,6 @@
       "name_zh": "云吞汤",
       "price": 58
     },
-    "suppe_4": {
-      "shopbox_id": "11694251",
-      "name_da": "Majssuppe med kylling stykker",
-      "name_zh": "鸡蛋玉米羹",
-      "price": 58
-    },
     "dum_1": {
       "shopbox_id": "12103496",
       "name_da": "Char Siu Bao 3stk.",
@@ -464,27 +458,27 @@
     },
     "h_nudler_1": {
       "shopbox_id": "12103902",
-      "name_da": "Stegte nudler / ris / udon nudler / risnudler med oksekød",
-      "name_zh": "牛肉炒面/饭/乌冬/河粉",
+      "name_da": "Stegte ris",
+      "name_zh": "炒饭",
       "price": 138
     },
     "h_nudler_2": {
       "shopbox_id": "12103903",
-      "name_da": "Stegte nudler / ris / udon nudler / ris nudler med kylling",
-      "name_zh": "鸡肉炒面/饭/乌冬/河粉",
+      "name_da": "Stegte nudler",
+      "name_zh": "炒面",
       "price": 138
     },
     "h_nudler_3": {
       "shopbox_id": "12103904",
-      "name_da": "Stegte nudler / ris / udon nudler / ris nudler med rejer",
-      "name_zh": "大虾炒面/饭/乌冬/河粉",
+      "name_da": "Stegte udon nudler",
+      "name_zh": "炒乌冬面",
       "price": 138
     },
     "h_nudler_4": {
       "shopbox_id": "12103905",
-      "name_da": "Vegetar stegte nudler / ris / udon nudler / ris nudler",
-      "name_zh": "素炒面/饭/乌冬/河粉",
-      "price": 128
+      "name_da": "Stegte risnudler",
+      "name_zh": "炒河粉",
+      "price": 138
     },
     "sauce_1": {
       "shopbox_id": "11694296",

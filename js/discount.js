@@ -49,8 +49,23 @@ function calculatePrice(originalPrice, categoryId) {
 }
 
 /**
+ * Resolve the effective base price of a cart line, taking the selected
+ * option's price override into account (e.g. vegetar fried rice 128 kr).
+ * @param {object} item — menu item
+ * @param {string} selectedOption — selected option id (may be undefined)
+ * @returns {number}
+ */
+function getLineBasePrice(item, selectedOption) {
+  if (selectedOption && item && item.options) {
+    const opt = item.options.find(o => o.id === selectedOption);
+    if (opt && opt.price != null) return opt.price;
+  }
+  return item ? item.price : 0;
+}
+
+/**
  * Calculate cart totals
- * @param {Array} cartItems — [{item, categoryId, qty}]
+ * @param {Array} cartItems — [{item, categoryId, qty, selectedOption}]
  * @returns {{ subtotal: number, totalDiscount: number, total: number, discountItems: number }}
  */
 function calculateCartTotals(cartItems) {
@@ -58,9 +73,10 @@ function calculateCartTotals(cartItems) {
   let totalDiscount = 0;
   let discountItems = 0;
 
-  cartItems.forEach(({ item, categoryId, qty }) => {
-    const { finalPrice, discount, hasDiscount: discounted } = calculatePrice(item.price, categoryId);
-    subtotal += item.price * qty;
+  cartItems.forEach(({ item, categoryId, qty, selectedOption }) => {
+    const basePrice = getLineBasePrice(item, selectedOption);
+    const { finalPrice, discount, hasDiscount: discounted } = calculatePrice(basePrice, categoryId);
+    subtotal += basePrice * qty;
     totalDiscount += discount * qty;
     if (discounted) discountItems += qty;
   });
@@ -73,4 +89,4 @@ function calculateCartTotals(cartItems) {
   };
 }
 
-if (typeof module !== 'undefined') module.exports = { hasDiscount, calculatePrice, calculateCartTotals, DISCOUNT_RATE, NO_DISCOUNT_IDS, setOrderType, getOrderType };
+if (typeof module !== 'undefined') module.exports = { hasDiscount, calculatePrice, calculateCartTotals, getLineBasePrice, DISCOUNT_RATE, NO_DISCOUNT_IDS, setOrderType, getOrderType };

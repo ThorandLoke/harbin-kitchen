@@ -138,16 +138,6 @@ const MENU_DATA = [
         "price": 58,
         "image": "images/suppe_3.jpg",
         "description_zh": "馅料：猪肉"
-      },
-      {
-        "code": "S4",
-        "id": "suppe_4",
-        "name_da": "Majssuppe med kylling stykker",
-        "name_zh": "鸡蛋玉米羹",
-        "description_da": "Med majs og strimlet kylling",
-        "price": 58,
-        "image": "images/suppe_4.jpg",
-        "description_zh": "配料：玉米、鸡肉条"
       }
     ]
   },
@@ -830,130 +820,134 @@ const MENU_DATA = [
       {
         "code": "N55",
         "id": "h_nudler_1",
-        "name_da": "Stegte nudler / ris / udon nudler / risnudler med oksekød",
-        "name_zh": "牛肉炒面/饭/乌冬/河粉",
-        "description_da": "Oksekød, æg og grøntsager",
+        "name_da": "Stegte ris",
+        "name_zh": "炒饭",
+        "description_da": "Æg og grøntsager",
         "price": 138,
         "image": "images/h_nudler_1.jpg",
         "options": [
           {
-            "id": "noodle",
-            "name_da": "Nudler",
-            "name_zh": "面"
+            "id": "oksekod",
+            "name_da": "Oksekød",
+            "name_zh": "牛肉"
           },
           {
-            "id": "rice",
-            "name_da": "Ris",
-            "name_zh": "饭"
+            "id": "kylling",
+            "name_da": "Kylling",
+            "name_zh": "鸡肉"
           },
           {
-            "id": "udon",
-            "name_da": "Udon nudler",
-            "name_zh": "乌冬"
+            "id": "rejer",
+            "name_da": "Rejer",
+            "name_zh": "大虾"
           },
           {
-            "id": "hefen",
-            "name_da": "Risnudler",
-            "name_zh": "河粉"
+            "id": "vegetar",
+            "name_da": "Vegetar",
+            "name_zh": "素",
+            "price": 128
           }
         ],
-        "description_zh": "牛肉、鸡蛋、蔬菜"
+        "description_zh": "鸡蛋、蔬菜"
       },
       {
         "code": "N56",
         "id": "h_nudler_2",
-        "name_da": "Stegte nudler / ris / udon nudler / ris nudler med kylling",
-        "name_zh": "鸡肉炒面/饭/乌冬/河粉",
-        "description_da": "Kylling, æg og grøntsager",
+        "name_da": "Stegte nudler",
+        "name_zh": "炒面",
+        "description_da": "Æg og grøntsager",
         "price": 138,
         "image": "images/h_nudler_2.jpg",
         "options": [
           {
-            "id": "noodle",
-            "name_da": "Nudler",
-            "name_zh": "面"
+            "id": "oksekod",
+            "name_da": "Oksekød",
+            "name_zh": "牛肉"
           },
           {
-            "id": "rice",
-            "name_da": "Ris",
-            "name_zh": "饭"
+            "id": "kylling",
+            "name_da": "Kylling",
+            "name_zh": "鸡肉"
           },
           {
-            "id": "udon",
-            "name_da": "Udon nudler",
-            "name_zh": "乌冬"
+            "id": "rejer",
+            "name_da": "Rejer",
+            "name_zh": "大虾"
           },
           {
-            "id": "hefen",
-            "name_da": "Risnudler",
-            "name_zh": "河粉"
+            "id": "vegetar",
+            "name_da": "Vegetar",
+            "name_zh": "素",
+            "price": 128
           }
         ],
-        "description_zh": "鸡肉、鸡蛋、蔬菜"
+        "description_zh": "鸡蛋、蔬菜"
       },
       {
         "code": "N57",
         "id": "h_nudler_3",
-        "name_da": "Stegte nudler / ris / udon nudler / ris nudler med rejer",
-        "name_zh": "大虾炒面/饭/乌冬/河粉",
-        "description_da": "Rejer, æg og grøntsager",
+        "name_da": "Stegte udon nudler",
+        "name_zh": "炒乌冬面",
+        "description_da": "Æg og grøntsager",
         "price": 138,
         "image": "images/h_nudler_3.jpg",
         "options": [
           {
-            "id": "noodle",
-            "name_da": "Nudler",
-            "name_zh": "面"
+            "id": "oksekod",
+            "name_da": "Oksekød",
+            "name_zh": "牛肉"
           },
           {
-            "id": "rice",
-            "name_da": "Ris",
-            "name_zh": "饭"
+            "id": "kylling",
+            "name_da": "Kylling",
+            "name_zh": "鸡肉"
           },
           {
-            "id": "udon",
-            "name_da": "Udon nudler",
-            "name_zh": "乌冬"
+            "id": "rejer",
+            "name_da": "Rejer",
+            "name_zh": "大虾"
           },
           {
-            "id": "hefen",
-            "name_da": "Risnudler",
-            "name_zh": "河粉"
+            "id": "vegetar",
+            "name_da": "Vegetar",
+            "name_zh": "素",
+            "price": 128
           }
         ],
-        "description_zh": "大虾、鸡蛋、蔬菜"
+        "description_zh": "鸡蛋、蔬菜"
       },
       {
         "code": "N58",
         "id": "h_nudler_4",
-        "name_da": "Vegetar stegte nudler / ris / udon nudler / ris nudler",
-        "name_zh": "素炒面/饭/乌冬/河粉",
-        "description_da": "Æg og ekstra sæsongrøntsager",
-        "price": 128,
+        "name_da": "Stegte risnudler",
+        "name_zh": "炒河粉",
+        "description_da": "Æg og grøntsager",
+        "price": 138,
         "image": "images/h_nudler_4.jpg",
         "options": [
           {
-            "id": "noodle",
-            "name_da": "Nudler",
-            "name_zh": "面"
+            "id": "oksekod",
+            "name_da": "Oksekød",
+            "name_zh": "牛肉"
           },
           {
-            "id": "rice",
-            "name_da": "Ris",
-            "name_zh": "饭"
+            "id": "kylling",
+            "name_da": "Kylling",
+            "name_zh": "鸡肉"
           },
           {
-            "id": "udon",
-            "name_da": "Udon nudler",
-            "name_zh": "乌冬"
+            "id": "rejer",
+            "name_da": "Rejer",
+            "name_zh": "大虾"
           },
           {
-            "id": "hefen",
-            "name_da": "Risnudler",
-            "name_zh": "河粉"
+            "id": "vegetar",
+            "name_da": "Vegetar",
+            "name_zh": "素",
+            "price": 128
           }
         ],
-        "description_zh": "鸡蛋、额外时令蔬菜"
+        "description_zh": "鸡蛋、蔬菜"
       },
       {
         "code": "N59",

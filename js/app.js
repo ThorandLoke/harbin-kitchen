@@ -800,7 +800,8 @@ function goToWelcome() {
 // ═══════════════════════════════════════
 
 function renderCartItem(c, idx = -1) {
-  const { finalPrice, discounted } = calculatePrice(c.item.price, c.categoryId);
+  const basePrice = getLineBasePrice(c.item, c.selectedOption);
+  const { finalPrice, discounted } = calculatePrice(basePrice, c.categoryId);
   const name = currentLang === 'zh' ? c.item.name_zh : c.item.name_da;
   const nameAlt = currentLang === 'zh' ? c.item.name_da : c.item.name_zh;
   const lineTotal = finalPrice * c.qty;
@@ -842,8 +843,8 @@ function renderCartItem(c, idx = -1) {
           ${showPriceText
               ? `<span class="cart-item__price">${priceText}</span>`
               : (discounted
-                  ? `<span class="cart-item__price">${finalPrice} kr.</span><span class="cart-item__price-original">${c.item.price} kr.</span>`
-                  : `<span class="cart-item__price">${c.item.price} kr.</span>`)
+                  ? `<span class="cart-item__price">${finalPrice} kr.</span><span class="cart-item__price-original">${basePrice} kr.</span>`
+                  : `<span class="cart-item__price">${basePrice} kr.</span>`)
             }
         </div>
       </div>
@@ -1077,7 +1078,8 @@ async function submitOrder(e) {
       const opt = c.selectedOption && c.item && c.item.options 
         ? c.item.options.find(o => o.id === c.selectedOption) 
         : null;
-      const priceInfo = calculatePrice(c.item.price, c.categoryId);
+      const basePrice = getLineBasePrice(c.item, c.selectedOption);
+      const priceInfo = calculatePrice(basePrice, c.categoryId);
       const hasPriceText = c.item.price_text && (c.item.price === 0 || c.item.price === null || c.item.price === undefined);
       return {
         id: c.itemId,
